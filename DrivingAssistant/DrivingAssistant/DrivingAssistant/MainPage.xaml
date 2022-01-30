@@ -1,24 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:map="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:local="clr-namespace:DrivingAssistant"
              x:Class="DrivingAssistant.MainPage">
 
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
+    <AbsoluteLayout>
+        <!--griglia con mappa e segnalazione pericoli-->
+        <Grid BackgroundColor="white" Padding="0,0,0,0" AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*" />
+                <ColumnDefinition  Width="60*" />
+            </Grid.ColumnDefinitions>
 
+            <AbsoluteLayout BackgroundColor="#white" Grid.Column="0" Padding="0,0,0,0" >
+                <!--visualizzatore auto-->
+                <!--<Image Source="{local:ImageResource App1.images.tesla-top.jpg}" Rotation="90" AbsoluteLayout.LayoutBounds="0.8,1,0.8,0.7" AbsoluteLayout.LayoutFlags="All" 
+                   />-->
+            </AbsoluteLayout>
+
+            <AbsoluteLayout BackgroundColor="White" Grid.Column="1" Padding="0,0,0,0">
+                <StackLayout AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
+                    <map:Map></map:Map>
+                    <!--Visualizzazione della mappa-->
+                </StackLayout>
+                <Button WidthRequest="150" HeightRequest="50" BackgroundColor="white"
+                    AbsoluteLayout.LayoutBounds="5,10" CornerRadius="50" Text="Navigate" TextColor="#474747" TextTransform="None" FontSize="18" Clicked="BtnNavigateClick">
+                </Button>
+
+            </AbsoluteLayout>
+        </Grid>
+        <Frame AbsoluteLayout.LayoutBounds="1,0,1,0.8" AbsoluteLayout.LayoutFlags="All" BackgroundColor="white" CornerRadius="40" x:Name="navigateFrame">
+            <StackLayout>
+
+                <!--input partenza e destinazione-->
+                <Label>From</Label><Entry Placeholder="Start point"></Entry>
+                <Label>To</Label><Entry Placeholder="Destination point"></Entry>
+                <!--griglia pulsanti-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition  Width="50*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <!--pulsante annulla-->
+                    <Button WidthRequest="150" HeightRequest="50" BackgroundColor="#bd0202" Margin="20,10,20,10"
+                    AbsoluteLayout.LayoutBounds="5,10" CornerRadius="50" Text="Cancel" TextColor="white" TextTransform="None" FontSize="18" Grid.Column="0" Clicked="BtnCancelClick"/>
+                    <!--pulsante avvia-->
+                    <Button WidthRequest="150" HeightRequest="50" BackgroundColor="#00aeff" Margin="20,10,20,10"
+                    AbsoluteLayout.LayoutBounds="5,10" CornerRadius="50" Text="Start" TextColor="white" TextTransform="None" FontSize="18" Grid.Column="1" />
+                </Grid>
+            </StackLayout>
+        </Frame>
+    </AbsoluteLayout>
 </ContentPage>

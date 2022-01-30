@@ -22,6 +22,7 @@ namespace DrivingAssistant.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Xamarin.FormsMaps.Init();//-->per le mappe
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

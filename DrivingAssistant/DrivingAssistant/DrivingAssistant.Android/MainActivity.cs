@@ -13,7 +13,7 @@ namespace DrivingAssistant.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            Xamarin.FormsMaps.Init(this, savedInstanceState);//-->per le mappe
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
