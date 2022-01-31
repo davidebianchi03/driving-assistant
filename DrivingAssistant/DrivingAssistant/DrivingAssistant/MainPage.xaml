@@ -21,7 +21,7 @@
 
             <AbsoluteLayout BackgroundColor="White" Grid.Column="1" Padding="0,0,0,0">
                 <StackLayout AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
-                    <map:Map></map:Map>
+                    <map:Map x:Name="map"></map:Map>
                     <!--Visualizzazione della mappa-->
                 </StackLayout>
                 <Button WidthRequest="150" HeightRequest="50" BackgroundColor="white"
@@ -30,6 +30,7 @@
 
             </AbsoluteLayout>
         </Grid>
+        <!--menu per impostare destinazione-->
         <Frame AbsoluteLayout.LayoutBounds="1,0,1,0.8" AbsoluteLayout.LayoutFlags="All" BackgroundColor="white" CornerRadius="40" x:Name="navigateFrame">
             <StackLayout>
 
@@ -50,6 +51,12 @@
                     <Button WidthRequest="150" HeightRequest="50" BackgroundColor="#00aeff" Margin="20,10,20,10"
                     AbsoluteLayout.LayoutBounds="5,10" CornerRadius="50" Text="Start" TextColor="white" TextTransform="None" FontSize="18" Grid.Column="1" />
                 </Grid>
+            </StackLayout>
+        </Frame>
+        <!--messaggio visualizzato mentre si aspetta la connessione al gps-->
+        <Frame AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#3b3b3b" x:Name="waitForGPSFrame">
+            <StackLayout>
+                <Label TextColor="white" FontSize="18">Waiting to connect to GPS satellites</Label>
             </StackLayout>
         </Frame>
     </AbsoluteLayout>
