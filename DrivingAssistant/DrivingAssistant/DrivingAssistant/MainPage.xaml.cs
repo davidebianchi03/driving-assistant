@@ -18,17 +18,9 @@ namespace DrivingAssistant
             InitializeComponent();
             navigateFrame.IsVisible = false;//nascondo di default il frame per l'inserimento del punto di partenza e della destinazione
             waitForGPSFrame.IsVisible = true;
-            //aspetto che il telefono si connetta al gps
-            Task<Location> location = null;
-            while (location == null)
-            {
-                try
-                {
-                    location = Geolocation.GetLocationAsync();
-                }
-                catch (Exception ex) { }
-            }
-            waitForGPSFrame.IsVisible = false;
+
+
+            WaitForGPSConnection();
 
             //inizio ad aggiornare la posizione in tempo reale
             LivePosition();
@@ -61,8 +53,8 @@ namespace DrivingAssistant
                     //aggiorno il pin
                     pin.Position = new Position(latitute, longitude);
                     pin.Label = " ";
-                    pin.Icon
-                    
+                    //pin.Icon
+
 
                     //aggiorno il pin sulla mappa
                     Device.BeginInvokeOnMainThread(() =>
@@ -72,14 +64,38 @@ namespace DrivingAssistant
                         else
                             map.Pins[0] = pin;
 
-                            //aggiorno la porzione di mappa visualizzata
-                            map.MoveToRegion(MapSpan.FromCenterAndRadius(new
-                        Xamarin.Forms.Maps.Position(latitute, longitude),
-                        Distance.FromMiles(0.1)));
+                        //aggiorno la porzione di mappa visualizzata
+                        map.MoveToRegion(MapSpan.FromCenterAndRadius(new
+                    Xamarin.Forms.Maps.Position(latitute, longitude),
+                    Distance.FromMiles(0.1)));
                     });
                 }
                 await Task.Delay(500);//aggiorno la posizione ogni secondo
                 LivePosition();
+            });
+        }
+
+        private void WaitForGPSConnection()
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                //aspetto che il telefono si connetta al gps
+                var location = Geolocation.GetLocationAsync(); ;
+
+                try
+                {
+                    location = Geolocation.GetLocationAsync();
+                }
+                catch (Exception ex) { }
+                Console.WriteLine(location.Result);
+
+                if (location.Result == null)
+                    WaitForGPSConnection();
+                else
+                    waitForGPSFrame.IsVisible = false;
+
+                await Task.Delay(100);//aggiorno la posizione ogni secondo
+
             });
         }
     }

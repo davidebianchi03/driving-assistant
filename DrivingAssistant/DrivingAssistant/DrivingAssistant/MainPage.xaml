@@ -55,8 +55,11 @@
         </Frame>
         <!--messaggio visualizzato mentre si aspetta la connessione al gps-->
         <Frame AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#3b3b3b" x:Name="waitForGPSFrame">
-            <StackLayout>
-                <Label TextColor="white" FontSize="18">Waiting to connect to GPS satellites</Label>
+            <StackLayout Padding="0,0,0,0" Margin="0,0,0,0" VerticalOptions="Center">
+                <Image Source="{local:ImageResource DrivingAssistant.images.map.png}"
+                       WidthRequest="50"/>
+                <Label TextColor="white" FontSize="18"
+                       VerticalTextAlignment="Center" HorizontalTextAlignment="Center">Waiting to connect to GPS satellites</Label>
             </StackLayout>
         </Frame>
     </AbsoluteLayout>
