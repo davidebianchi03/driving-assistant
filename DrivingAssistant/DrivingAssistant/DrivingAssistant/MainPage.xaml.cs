@@ -17,7 +17,20 @@ namespace DrivingAssistant
         {
             InitializeComponent();
             navigateFrame.IsVisible = false;//nascondo di default il frame per l'inserimento del punto di partenza e della destinazione
+
+            //inizializzo la posizione del frame di navigazione fuori dallo schermo
+            Task.Factory.StartNew(async () =>
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await navigateFrame.TranslateTo(0, (-1) * navigateFrame.Height);
+                    navigateFrame.IsVisible = false;
+                });
+            });
+
+            //visualizzo il frame con il messaggio che indica che ci si sta connettendo ai satelliti GPS
             waitForGPSFrame.IsVisible = true;
+
 
             //aspetto fino a quando non ci si riesce a connettere ai satelliti GPS
             WaitForGPSConnection();
@@ -29,12 +42,27 @@ namespace DrivingAssistant
 
         private void BtnNavigateClick(object sender, EventArgs e)
         {
-            navigateFrame.IsVisible = true;
+            
+            Task.Factory.StartNew(async () =>
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    navigateFrame.IsVisible = true;
+                    await navigateFrame.TranslateTo(0, 0);
+                });
+            });
         }
 
         private void BtnCancelClick(object sender, EventArgs e)
         {
-            navigateFrame.IsVisible = false;
+            Task.Factory.StartNew(async () =>
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await navigateFrame.TranslateTo(0, (-1) * navigateFrame.Height);
+                    navigateFrame.IsVisible = false;
+                });
+            });
         }
 
         //metodo per visualizzare in tempo reale la posizione dell'utente sulla mappa

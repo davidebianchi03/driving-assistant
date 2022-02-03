@@ -21,7 +21,7 @@
 
             <AbsoluteLayout BackgroundColor="White" Grid.Column="1" Padding="0,0,0,0">
                 <StackLayout AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
-                    <local:CustomMap x:Name="map" ></local:CustomMap>
+                    <local:CustomMap x:Name="map" MapType="Street" ></local:CustomMap>
                     <!--Visualizzazione della mappa-->
                 </StackLayout>
                 <Button WidthRequest="150" HeightRequest="50" BackgroundColor="white"
@@ -36,7 +36,7 @@
 
                 <!--input partenza e destinazione-->
                 <Label>From</Label><Entry Placeholder="Start point"></Entry>
-                <Label>To</Label><Entry Placeholder="Destination point"></Entry>
+                <Label>To</Label><Entry Placeholder="Destination point" x:Name="txtDestinationPoint"></Entry>
                 <!--griglia pulsanti-->
                 <Grid>
                     <Grid.ColumnDefinitions>
