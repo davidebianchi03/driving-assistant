@@ -19,7 +19,7 @@ namespace DrivingAssistant
             navigateFrame.IsVisible = false;//nascondo di default il frame per l'inserimento del punto di partenza e della destinazione
             waitForGPSFrame.IsVisible = true;
 
-
+            //aspetto fino a quando non ci si riesce a connettere ai satelliti GPS
             WaitForGPSConnection();
 
             //inizio ad aggiornare la posizione in tempo reale
@@ -42,61 +42,59 @@ namespace DrivingAssistant
         {
             Task.Factory.StartNew(async () =>
             {
-                var pin = new Pin();
-
-                var location = Geolocation.GetLocationAsync();
-                if (location != null)
+                while (true)
                 {
-                    var latitute = location.Result.Latitude;
-                    var longitude = location.Result.Longitude;
-
-                    //aggiorno il pin
-                    pin.Position = new Position(latitute, longitude);
-                    pin.Label = " ";
-                    //pin.Icon
-
-
-                    //aggiorno il pin sulla mappa
-                    Device.BeginInvokeOnMainThread(() =>
+                    var pin = new Pin();
+                    
+                    var location = Geolocation.GetLocationAsync();
+                    if (location != null)
                     {
-                        if (map.Pins.Count == 0)
-                            map.Pins.Add(pin);
-                        else
-                            map.Pins[0] = pin;
+                        var latitute = location.Result.Latitude;
+                        var longitude = location.Result.Longitude;
 
-                        //aggiorno la porzione di mappa visualizzata
-                        map.MoveToRegion(MapSpan.FromCenterAndRadius(new
-                    Xamarin.Forms.Maps.Position(latitute, longitude),
-                    Distance.FromMiles(0.1)));
-                    });
+                        //aggiorno il pin
+                        pin.Position = new Position(latitute, longitude);
+                        pin.Label = " ";
+
+
+                        //aggiorno il pin sulla mappa
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            if (map.Pins.Count == 0)
+                                map.Pins.Add(pin);
+                            else
+                                map.Pins[0] = pin;
+
+                            //aggiorno la porzione di mappa visualizzata
+                            map.MoveToRegion(MapSpan.FromCenterAndRadius(new
+                            Xamarin.Forms.Maps.Position(latitute, longitude),
+                            Distance.FromMiles(0.02)));
+
+                        });
+                    }
+                    await Task.Delay(500);//aggiorno la posizione ogni 500 millisecondi
                 }
-                await Task.Delay(500);//aggiorno la posizione ogni secondo
-                LivePosition();
-            });
+            }, TaskCreationOptions.LongRunning);
         }
 
         private void WaitForGPSConnection()
         {
             Task.Factory.StartNew(async () =>
             {
-                //aspetto che il telefono si connetta al gps
-                var location = Geolocation.GetLocationAsync(); ;
-
-                try
+                bool runTask = true;
+                while (runTask)
                 {
-                    location = Geolocation.GetLocationAsync();
+                    var pin = new Pin();
+
+                    var location = Geolocation.GetLocationAsync();
+                    if (location != null)
+                    {
+                        runTask = false;
+                        waitForGPSFrame.IsVisible = false;
+                    }
+                    await Task.Delay(500);//aggiorno la posizione ogni 500 millisecondi
                 }
-                catch (Exception ex) { }
-                Console.WriteLine(location.Result);
-
-                if (location.Result == null)
-                    WaitForGPSConnection();
-                else
-                    waitForGPSFrame.IsVisible = false;
-
-                await Task.Delay(100);//aggiorno la posizione ogni secondo
-
-            });
+            }, TaskCreationOptions.LongRunning);
         }
     }
 }

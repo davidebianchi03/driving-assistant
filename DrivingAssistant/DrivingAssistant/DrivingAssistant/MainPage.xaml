@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:map="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
-             xmlns:local="clr-namespace:DrivingAssistant"
+             xmlns:local="clr-namespace:DrivingAssistant;assembly=DrivingAssistant"
              x:Class="DrivingAssistant.MainPage">
 
     <AbsoluteLayout>
@@ -15,13 +15,13 @@
 
             <AbsoluteLayout BackgroundColor="#white" Grid.Column="0" Padding="0,0,0,0" >
                 <!--visualizzatore auto-->
-                <!--<Image Source="{local:ImageResource App1.images.tesla-top.jpg}" Rotation="90" AbsoluteLayout.LayoutBounds="0.8,1,0.8,0.7" AbsoluteLayout.LayoutFlags="All" 
-                   />-->
+                <Image Source="{local:ImageResource DrivingAssistant.images.tesla-top.png}" Rotation ="0" AbsoluteLayout.LayoutBounds="0.8,0.8,0.8,0.7" AbsoluteLayout.LayoutFlags="All" 
+                   />
             </AbsoluteLayout>
 
             <AbsoluteLayout BackgroundColor="White" Grid.Column="1" Padding="0,0,0,0">
                 <StackLayout AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
-                    <map:Map x:Name="map"></map:Map>
+                    <local:CustomMap x:Name="map" ></local:CustomMap>
                     <!--Visualizzazione della mappa-->
                 </StackLayout>
                 <Button WidthRequest="150" HeightRequest="50" BackgroundColor="white"

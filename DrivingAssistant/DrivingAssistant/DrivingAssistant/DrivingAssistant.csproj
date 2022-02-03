@@ -12,10 +12,12 @@
 
   <ItemGroup>
     <None Remove="images\map.png" />
+    <None Remove="images\tesla-top.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="images\map.png" />
+    <EmbeddedResource Include="images\tesla-top.png" />
   </ItemGroup>
 
   <ItemGroup>
