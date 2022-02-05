@@ -4,13 +4,16 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -31,45 +34,43 @@ namespace testEmgu
         {
             InitializeComponent();
 
-            OpenFileDialog file = new OpenFileDialog();
-            //file.FileName = "‪E:\\Paci\\video.mp4";
-            //if (file.ShowDialog() == true)
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            //if (ofd.ShowDialog() == true)
             //{
-
-            //}
-
-            capture = new VideoCapture("E:\\Paci\\video.avi");
-
-
+            capture = new VideoCapture("D:\\Paci\\GitHub\\video1.mp4");
             capture.ImageGrabbed += Capture_ImageGrabbed;
             capture.Start();
+
+            //captureImage();
+            // }
         }
+
 
         private void Capture_ImageGrabbed(object sender, EventArgs e)
         {
             Image<Bgr, Byte> image = capture.QueryFrame().ToImage<Bgr, Byte>();
+            Image<Gray, Byte> grayScaleImage = image.Convert<Gray, Byte>();
+            Image<Gray, Byte> blurredImage = grayScaleImage.SmoothBlur(2, 5);
+            Image<Gray, Byte> cannyImage = blurredImage.Canny(50, 50);
+            Bitmap bitmap = cannyImage.ToBitmap();
 
+            Dispatcher.Invoke(() => { imgTemp.Source = Convert(bitmap); });
+
+            // imgTemp.Source = BitmapSourceConvert
+            Thread.Sleep(33);
+        }
+
+        public BitmapImage Convert(Bitmap src)
+        {
             MemoryStream ms = new MemoryStream();
-            ms.Write(image.ToJpegData(), 0, image.ToJpegData().Length);
-
-            BitmapImage outImage = new BitmapImage();
-            outImage.BeginInit();
-            outImage.StreamSource = ms;
-            outImage.EndInit();
-
-            outImage.Freeze();
-
-            //imgTemp.Source = outImage;
-            Bitmap map = image.ToJpegData();
-            imgTemp = (Image)image;
-
-            imgTemp.Source = new BitmapImage(image.ToBitmap());
-            //image.Save(ms, ImageFormat.Png);
-
-
-
-            //imgTemp.Source = image;
-            //throw new NotImplementedException();
+            ((System.Drawing.Bitmap)src).Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            ms.Seek(0, SeekOrigin.Begin);
+            image.StreamSource = ms;
+            image.EndInit();
+            return image;
         }
     }
 }
