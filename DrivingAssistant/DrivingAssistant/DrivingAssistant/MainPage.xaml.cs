@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Xamarin.Forms.Maps;
+using DrivingAssistant.directions;
 
 namespace DrivingAssistant
 {
@@ -42,7 +43,6 @@ namespace DrivingAssistant
 
         private void BtnNavigateClick(object sender, EventArgs e)
         {
-            
             Task.Factory.StartNew(async () =>
             {
                 Device.BeginInvokeOnMainThread(async () =>
@@ -51,6 +51,43 @@ namespace DrivingAssistant
                     await navigateFrame.TranslateTo(0, 0);
                 });
             });
+
+            Navigate();
+        }
+
+        private void Navigate()
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                //test navigatore
+                GpsCoordinates origin = new GpsCoordinates(45.757163, 9.237084);
+                GpsCoordinates destination = new GpsCoordinates(45.757782, 9.241877);
+
+                FindDirections directions = new FindDirections("5b3ce3597851110001cf6248c7034c7108e14cb5aa803407bc7023d4");
+                string jsonString = directions.GetDirections(origin, destination);
+
+                //carico la lista delle direzioni
+                Directions commands = Directions.LoadFromJSONString(jsonString);
+
+                
+                //disegno il percorso sulla mappa
+                Polyline polyline = new Polyline()
+                {
+                    StrokeColor = Color.FromRgb(30, 158, 250),
+                    StrokeWidth = 50
+                };
+
+                foreach(GpsCoordinates point in commands.linePoints)
+                {
+                    polyline.Geopath.Add(new Position(point.Latitude, point.Longitude));
+                }
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    map.MapElements.Add(polyline);
+                });
+
+            }, TaskCreationOptions.LongRunning);
         }
 
         private void BtnCancelClick(object sender, EventArgs e)
