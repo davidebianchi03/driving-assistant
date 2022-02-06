@@ -65,6 +65,13 @@ namespace DrivingAssistant.iOS
             }
             annotationView.CanShowCallout = true;
 
+            //imposto il nuovo angolo della mappa
+            MKMapCamera camera = new MKMapCamera();
+            camera.Pitch = 80;
+            camera.Altitude = 100;
+            camera.Heading = 90;
+            mapView.SetCamera(camera, false);
+
             return annotationView;
         }
 

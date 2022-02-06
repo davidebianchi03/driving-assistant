@@ -15,8 +15,15 @@
 
             <AbsoluteLayout BackgroundColor="#white" Grid.Column="0" Padding="0,0,0,0" >
                 <!--visualizzatore auto-->
-                <Image Source="{local:ImageResource DrivingAssistant.images.tesla-top.png}" Rotation ="0" AbsoluteLayout.LayoutBounds="0.8,0.8,0.8,0.7" AbsoluteLayout.LayoutFlags="All" 
+                <Image Source="{local:ImageResource DrivingAssistant.images.tesla-top.png}" Rotation ="0" AbsoluteLayout.LayoutBounds="0.5,0.6,0.5,0.5" AbsoluteLayout.LayoutFlags="All" 
                    />
+
+                <StackLayout AbsoluteLayout.LayoutBounds="0.525, 0.94, AutoSize, AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Spacing="0">
+                    <Label x:Name="speed"  AbsoluteLayout.LayoutFlags="PositionProportional"
+                 FontSize="25" TextColor="Black">0</Label>
+                    <Label Margin="-7,-7,0,0">km/h</Label>
+                </StackLayout>
+                
             </AbsoluteLayout>
 
             <AbsoluteLayout BackgroundColor="White" Grid.Column="1" Padding="0,0,0,0">
@@ -35,21 +42,22 @@
             <StackLayout>
 
                 <!--input partenza e destinazione-->
-                <Label>From</Label><Entry Placeholder="Start point"></Entry>
-                <Label>To</Label><Entry Placeholder="Destination point" x:Name="txtDestinationPoint"></Entry>
+                <Label Margin="0,10,0,0" FontSize="Title">Navigate</Label>
+                <Entry Placeholder="Destination" x:Name="txtDestinationPoint"/>
+
                 <!--griglia pulsanti-->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50*" />
                         <ColumnDefinition  Width="50*" />
                     </Grid.ColumnDefinitions>
-                    
+
                     <!--pulsante annulla-->
-                    <Button WidthRequest="150" HeightRequest="50" BackgroundColor="#bd0202" Margin="20,10,20,10"
+                    <Button WidthRequest="150" HeightRequest="50" BackgroundColor="#c9c9c9" Margin="20,10,20,10"
                     AbsoluteLayout.LayoutBounds="5,10" CornerRadius="50" Text="Cancel" TextColor="white" TextTransform="None" FontSize="18" Grid.Column="0" Clicked="BtnCancelClick"/>
                     <!--pulsante avvia-->
-                    <Button WidthRequest="150" HeightRequest="50" BackgroundColor="#00aeff" Margin="20,10,20,10"
-                    AbsoluteLayout.LayoutBounds="5,10" CornerRadius="50" Text="Start" TextColor="white" TextTransform="None" FontSize="18" Grid.Column="1" />
+                    <Button WidthRequest="150" HeightRequest="50" BackgroundColor="#037ffc" Margin="20,10,20,10"
+                    AbsoluteLayout.LayoutBounds="5,10" CornerRadius="50" Text="GO" TextColor="white" TextTransform="None" FontSize="18" Grid.Column="1" Clicked="BtnStartClick"/>
                 </Grid>
             </StackLayout>
         </Frame>

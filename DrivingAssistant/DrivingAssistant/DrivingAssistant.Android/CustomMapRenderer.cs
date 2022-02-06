@@ -39,8 +39,24 @@ namespace DrivingAssistant.Droid
 
         protected override void OnMapReady(GoogleMap map)
         {
-            base.OnMapReady(map);
+            //base.OnMapReady(map);
 
+            
+            //imposto l'angolo di visualizzazione della mappa
+            LatLng location = new LatLng(50.897778, 3.013333);
+
+            CameraPosition.Builder builder = CameraPosition.InvokeBuilder();
+            builder.Target(location);
+            builder.Zoom(5);
+            builder.Bearing(155);
+            builder.Tilt(90);
+
+            CameraPosition cameraPosition = builder.Build();
+
+            CameraUpdate cameraUpdate = CameraUpdateFactory.NewCameraPosition(cameraPosition);
+
+            map.MoveCamera(cameraUpdate);
+            
             NativeMap.InfoWindowClick += OnInfoWindowClick;
             NativeMap.SetInfoWindowAdapter(this);
         }
@@ -83,6 +99,7 @@ namespace DrivingAssistant.Droid
                     return pin;
                 }
             }
+
             return null;
         }
 

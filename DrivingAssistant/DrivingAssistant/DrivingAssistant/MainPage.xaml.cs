@@ -38,7 +38,6 @@ namespace DrivingAssistant
 
             //inizio ad aggiornare la posizione in tempo reale
             LivePosition();
-
         }
 
         private void BtnNavigateClick(object sender, EventArgs e)
@@ -52,15 +51,19 @@ namespace DrivingAssistant
                 });
             });
 
-            Navigate();
+
         }
 
-        private void Navigate()
+        private void BtnStartClick(object sender, EventArgs e)
         {
+            //imposto il navigatore e parto
             Task.Factory.StartNew(async () =>
             {
+                var location = Geolocation.GetLocationAsync();
+                var latitute = location.Result.Latitude;
+                var longitude = location.Result.Longitude;
                 //test navigatore
-                GpsCoordinates origin = new GpsCoordinates(45.757163, 9.237084);
+                GpsCoordinates origin = new GpsCoordinates(latitute, longitude);
                 GpsCoordinates destination = new GpsCoordinates(45.757782, 9.241877);
 
                 FindDirections directions = new FindDirections("5b3ce3597851110001cf6248c7034c7108e14cb5aa803407bc7023d4");
@@ -69,7 +72,7 @@ namespace DrivingAssistant
                 //carico la lista delle direzioni
                 Directions commands = Directions.LoadFromJSONString(jsonString);
 
-                
+
                 //disegno il percorso sulla mappa
                 Polyline polyline = new Polyline()
                 {
@@ -77,7 +80,7 @@ namespace DrivingAssistant
                     StrokeWidth = 50
                 };
 
-                foreach(GpsCoordinates point in commands.linePoints)
+                foreach (GpsCoordinates point in commands.linePoints)
                 {
                     polyline.Geopath.Add(new Position(point.Latitude, point.Longitude));
                 }
@@ -89,6 +92,7 @@ namespace DrivingAssistant
 
             }, TaskCreationOptions.LongRunning);
         }
+
 
         private void BtnCancelClick(object sender, EventArgs e)
         {
@@ -110,17 +114,24 @@ namespace DrivingAssistant
                 while (true)
                 {
                     var pin = new Pin();
-                    
+
                     var location = Geolocation.GetLocationAsync();
                     if (location != null)
                     {
                         var latitute = location.Result.Latitude;
                         var longitude = location.Result.Longitude;
+                        var speed = location.Result.Speed.HasValue ? location.Result.Speed.Value : 0;
+
+                        //calcolo il raggio della mappa visualizzata in base alla velocità
+                        double speedInKmH = speed;
+                        double mapRadius = 0.02;
+                        mapRadius = (0.5 * (speed * 3.6)) / 33;
+                        if (mapRadius < 0.02)
+                            mapRadius = 0.02;
 
                         //aggiorno il pin
                         pin.Position = new Position(latitute, longitude);
                         pin.Label = " ";
-
 
                         //aggiorno il pin sulla mappa
                         Device.BeginInvokeOnMainThread(async () =>
@@ -135,6 +146,11 @@ namespace DrivingAssistant
                             Xamarin.Forms.Maps.Position(latitute, longitude),
                             Distance.FromMiles(0.02)));
 
+                            //aggiorno la velocità visualizzata
+                            if (speed.ToString() != "")
+                                this.speed.Text = ((int?)speed * 3.6).ToString();
+                            else
+                                this.speed.Text = "0";
                         });
                     }
                     await Task.Delay(500);//aggiorno la posizione ogni 500 millisecondi
