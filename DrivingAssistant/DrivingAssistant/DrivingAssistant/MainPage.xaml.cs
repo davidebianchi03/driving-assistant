@@ -13,12 +13,14 @@ namespace DrivingAssistant
 {
     public partial class MainPage : ContentPage
     {
+        private GpsCoordinates lastAvailablePosition = null;
+        private Polyline polyline;//indicazioni stradali da seguire
 
         public MainPage()
         {
             InitializeComponent();
             navigateFrame.IsVisible = false;//nascondo di default il frame per l'inserimento del punto di partenza e della destinazione
-
+            tripInformations.IsVisible = false;
             //inizializzo la posizione del frame di navigazione fuori dallo schermo
             Task.Factory.StartNew(async () =>
             {
@@ -50,8 +52,6 @@ namespace DrivingAssistant
                     await navigateFrame.TranslateTo(0, 0);
                 });
             });
-
-
         }
 
         private void BtnStartClick(object sender, EventArgs e)
@@ -63,18 +63,32 @@ namespace DrivingAssistant
                 var latitute = location.Result.Latitude;
                 var longitude = location.Result.Longitude;
                 //test navigatore
-                GpsCoordinates origin = new GpsCoordinates(latitute, longitude);
-                GpsCoordinates destination = new GpsCoordinates(45.757782, 9.241877);
+                GpsCoordinates origin = lastAvailablePosition;
+
+                //parser dell'indirizzo in coordinate gps
+                var destinations = Geocoding.GetLocationsAsync(txtDestinationPoint.Text);
+                var destination = destinations.Result.FirstOrDefault();
+
+                GpsCoordinates destinationCoordinates = new GpsCoordinates(destination.Latitude, destination.Longitude);
 
                 FindDirections directions = new FindDirections("5b3ce3597851110001cf6248c7034c7108e14cb5aa803407bc7023d4");
-                string jsonString = directions.GetDirections(origin, destination);
+                string jsonString = directions.GetDirections(origin, destinationCoordinates);
 
                 //carico la lista delle direzioni
                 Directions commands = Directions.LoadFromJSONString(jsonString);
 
 
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    for(int i = 0;i< map.MapElements.Count; i++)
+                    {
+                        map.MapElements.RemoveAt(0);
+                    }
+
+                });
+
                 //disegno il percorso sulla mappa
-                Polyline polyline = new Polyline()
+                polyline = new Polyline()
                 {
                     StrokeColor = Color.FromRgb(30, 158, 250),
                     StrokeWidth = 50
@@ -88,8 +102,18 @@ namespace DrivingAssistant
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     map.MapElements.Add(polyline);
-                });
+                    //nascondo il riquadro di selezione della destinazione
+                    await navigateFrame.TranslateTo(0, (-1) * navigateFrame.Height);
+                    navigateFrame.IsVisible = false;
 
+                    //aggiorno e visualizzo le indicazioni sulle tempistiche
+                    distance.Text = ((int)(commands.Distance/1000)).ToString() + " km";
+                    DateTime now = DateTime.Now;
+                    now = now.AddSeconds(commands.Duration);
+                    arrivalTime.Text = now.Hour.ToString() + ":" + now.Minute.ToString();
+                    tripInformations.IsVisible = true;
+                    txtDestinationPoint.Text = "";
+                });
             }, TaskCreationOptions.LongRunning);
         }
 
@@ -102,6 +126,7 @@ namespace DrivingAssistant
                 {
                     await navigateFrame.TranslateTo(0, (-1) * navigateFrame.Height);
                     navigateFrame.IsVisible = false;
+                    txtDestinationPoint.Text = "";
                 });
             });
         }
@@ -121,7 +146,6 @@ namespace DrivingAssistant
                         var latitute = location.Result.Latitude;
                         var longitude = location.Result.Longitude;
                         var speed = location.Result.Speed.HasValue ? location.Result.Speed.Value : 0;
-
                         //calcolo il raggio della mappa visualizzata in base alla velocità
                         double speedInKmH = speed;
                         double mapRadius = 0.02;
@@ -152,6 +176,8 @@ namespace DrivingAssistant
                             else
                                 this.speed.Text = "0";
                         });
+
+                        lastAvailablePosition = new GpsCoordinates(location.Result.Latitude, location.Result.Longitude);
                     }
                     await Task.Delay(500);//aggiorno la posizione ogni 500 millisecondi
                 }
@@ -172,6 +198,7 @@ namespace DrivingAssistant
                     {
                         runTask = false;
                         waitForGPSFrame.IsVisible = false;
+                        lastAvailablePosition = new GpsCoordinates(location.Result.Latitude, location.Result.Longitude);
                     }
                     await Task.Delay(500);//aggiorno la posizione ogni 500 millisecondi
                 }

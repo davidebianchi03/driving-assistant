@@ -23,7 +23,7 @@
                  FontSize="25" TextColor="Black">0</Label>
                     <Label Margin="-7,-7,0,0">km/h</Label>
                 </StackLayout>
-                
+
             </AbsoluteLayout>
 
             <AbsoluteLayout BackgroundColor="White" Grid.Column="1" Padding="0,0,0,0">
@@ -34,15 +34,22 @@
                 <Button WidthRequest="150" HeightRequest="50" BackgroundColor="white"
                     AbsoluteLayout.LayoutBounds="5,10" CornerRadius="50" Text="Navigate" TextColor="#474747" TextTransform="None" FontSize="18" Clicked="BtnNavigateClick">
                 </Button>
-
+                <Frame BackgroundColor="White" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.9,0.95,0.7,0.18" CornerRadius="20" x:Name="tripInformations">
+                    <StackLayout>
+                        <Label  Margin="0,-15,0,0">Total distance</Label>
+                        <Label x:Name="distance" FontSize="25" TextColor="Black" Margin="0,-10,0,0">100000</Label>
+                        <Label  Margin="150,-55,0,0">Arrival time</Label>
+                        <Label x:Name="arrivalTime" FontSize="25" TextColor="Black" Margin="150,-10,0,0">00:00</Label>
+                    </StackLayout>
+                </Frame>
             </AbsoluteLayout>
         </Grid>
         <!--menu per impostare destinazione-->
-        <Frame AbsoluteLayout.LayoutBounds="1,0,1,0.8" AbsoluteLayout.LayoutFlags="All" BackgroundColor="white" CornerRadius="40" x:Name="navigateFrame">
+        <Frame AbsoluteLayout.LayoutBounds="1,0,0.6,0.7" AbsoluteLayout.LayoutFlags="All" BackgroundColor="white" CornerRadius="40" x:Name="navigateFrame">
             <StackLayout>
 
                 <!--input partenza e destinazione-->
-                <Label Margin="0,10,0,0" FontSize="Title">Navigate</Label>
+                <Label Margin="0,10,0,0" FontSize="Title" TextColor="Black">Navigate</Label>
                 <Entry Placeholder="Destination" x:Name="txtDestinationPoint"/>
 
                 <!--griglia pulsanti-->
@@ -70,5 +77,6 @@
                        VerticalTextAlignment="Center" HorizontalTextAlignment="Center">Waiting to connect to GPS satellites</Label>
             </StackLayout>
         </Frame>
+
     </AbsoluteLayout>
 </ContentPage>
