@@ -54,6 +54,7 @@ namespace DrivingAssistant
             });
         }
 
+        private bool navigationStartAnimation = false;
         private void BtnStartClick(object sender, EventArgs e)
         {
             //imposto il navigatore e parto
@@ -80,7 +81,7 @@ namespace DrivingAssistant
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    for(int i = 0;i< map.MapElements.Count; i++)
+                    for (int i = 0; i < map.MapElements.Count; i++)
                     {
                         map.MapElements.RemoveAt(0);
                     }
@@ -107,14 +108,113 @@ namespace DrivingAssistant
                     navigateFrame.IsVisible = false;
 
                     //aggiorno e visualizzo le indicazioni sulle tempistiche
-                    distance.Text = ((int)(commands.Distance/1000)).ToString() + " km";
+                    distance.Text = ((int)(commands.Distance / 1000)).ToString() + " km";
                     DateTime now = DateTime.Now;
                     now = now.AddSeconds(commands.Duration);
-                    arrivalTime.Text = now.Hour.ToString() + ":" + now.Minute.ToString();
+                    var minutes = now.Minute.ToString();
+
+                    if(minutes.Length < 2)
+                    {
+                        minutes = "0" + minutes;
+                    }
+
+                    arrivalTime.Text = now.Hour.ToString() + ":" + minutes;
                     tripInformations.IsVisible = true;
                     txtDestinationPoint.Text = "";
                 });
-            }, TaskCreationOptions.LongRunning);
+
+                //dico di fare l'animazione zoom out - zoom in
+                navigationStartAnimation = true;
+
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    //aggiorno la porzione di mappa visualizzata
+                    map.MoveToRegion(MapSpan.FromCenterAndRadius(new
+                    Xamarin.Forms.Maps.Position(latitute, longitude),
+                    Distance.FromMiles(50)));
+                });
+
+                
+
+                //inizio la navigazione vera e propria
+                for(int i = 0; i < commands.steps.Count; i++)
+                {
+                    Step dir = commands.steps[i];
+                    string command = dir.Instruction;
+                    //pronuncio l'indicazione subito dopo la successiva, a 50km, a 10km, a 1km, a 500m, a150m, durante la svolta
+
+                    //calcolo la distanza dalla prossima svolta
+                    GpsCoordinates nextTurnCoordinates = dir.Coordinates;
+
+                    bool s1 = false;
+                    bool s2 = false;
+                    bool s3 = false;
+                    bool s4 = false;
+                    bool s5 = false;
+
+                    double distance = Distance.BetweenPositions(new Position(latitute, longitude), new Position(nextTurnCoordinates.Latitude, nextTurnCoordinates.Longitude)).Meters / 1000.0;
+                    
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        //await TextToSpeech.SpeakAsync("In " + ((int)distance).ToString() + " kilometers " + dir.Instruction);
+                        await DisplayAlert("Alert", "Ciao", "OK");
+                    });
+
+                    while (true)
+                    {
+                        distance = Distance.BetweenPositions(new Position(latitute, longitude), new Position(nextTurnCoordinates.Latitude, nextTurnCoordinates.Longitude)).Meters / 1000.0;
+
+                        if (distance < 50 && distance > 10 && !s1)
+                        {
+                            //segnalazione 50 km
+                            await TextToSpeech.SpeakAsync("In 50 kilometers " + dir.Instruction);
+                            s1 = true;
+                        }
+
+                        if (distance < 50 && distance > 1 && !s2)
+                        {
+                            //segnalazione 10 km
+                            await TextToSpeech.SpeakAsync("In 10 kilometers " + dir.Instruction);
+                            s2 = true;
+                        }
+
+                        if (distance < 1 && distance > 0.5 && !s3)
+                        {
+                            //segnalazione 1 km
+                            await TextToSpeech.SpeakAsync("In 1 kilometer " + dir.Instruction);
+                            s3 = true;
+                        }
+
+                        if (distance < 0.5 && distance > 0.15 && !s4)
+                        {
+                            //segnalazione 500m
+                            await TextToSpeech.SpeakAsync("In 500 meters " + dir.Instruction);
+                            s4 = true;
+                        }
+
+                        if (distance < 0.15 && distance > 0.050 && !s5)
+                        {
+                            //segnalazione 150m
+                            await TextToSpeech.SpeakAsync("In 150 meters " + dir.Instruction);
+                            s5 = true;
+                        }
+
+                        if (distance < 0.050)
+                        {
+                            //segnalazione durante la svolta
+                            await TextToSpeech.SpeakAsync(dir.Instruction);
+                            break;
+                        }
+
+                        Console.WriteLine(distance.ToString());
+                        await Task.Delay(100);
+                    }
+
+                    
+                    await Task.Delay(500);
+                }
+            }, TaskCreationOptions.RunContinuationsAsynchronously);
         }
 
 
@@ -141,6 +241,14 @@ namespace DrivingAssistant
                     var pin = new Pin();
 
                     var location = Geolocation.GetLocationAsync();
+
+                    if (navigationStartAnimation)
+                    {
+
+                        navigationStartAnimation = false;
+                    }
+
+
                     if (location != null)
                     {
                         var latitute = location.Result.Latitude;
@@ -156,6 +264,12 @@ namespace DrivingAssistant
                         //aggiorno il pin
                         pin.Position = new Position(latitute, longitude);
                         pin.Label = " ";
+
+                        if (navigationStartAnimation)
+                        {
+                            navigationStartAnimation = false;
+                            await Task.Delay(2500);
+                        }
 
                         //aggiorno il pin sulla mappa
                         Device.BeginInvokeOnMainThread(async () =>

@@ -42,7 +42,13 @@ namespace DrivingAssistant.directions
                 double distance = step["distance"].Value<float>();
                 string instruction = step["instruction"].Value<string>();
                 float duration = step["duration"].Value<float>();
-                directions.steps.Add(new Step((float)distance, instruction, duration));
+                
+                JArray way_points = (JArray)step.SelectToken("way_points");
+                double longitude = way_points[0].Value<double>();
+                double latitude = way_points[1].Value<double>();
+                GpsCoordinates c = new GpsCoordinates(latitude, longitude);//coordinate della svolta
+
+                directions.steps.Add(new Step((float)distance, instruction, duration, c));
             }
 
             //carico la lista dei punti da utilizzare per tracciare la linea del percorso
