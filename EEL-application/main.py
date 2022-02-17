@@ -4,7 +4,7 @@ import json
 
 eel.init('web')
 
-gps = pygps('COM5')
+gps = pygps('COM10')
 gps.Start()
 
 #metodo richiamato da javascript per ottenere la posizione

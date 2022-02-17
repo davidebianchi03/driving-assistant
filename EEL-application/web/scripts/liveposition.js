@@ -3,29 +3,34 @@ var liveMarker = null;//marker che indica la posizione in tempo reale
 
 function getLocation() {
     // let position = JSON.parse(eel.GetPosition());
-    eel.GetPosition()(function(json){
+    eel.GetPosition()(function (json) {
         let position = JSON.parse(json);
-        console.log(position.latitude+ ","+position.longitude)
+        //console.log(position.latitude+ ","+position.longitude)
+        //imposto la nuova posizione visualizzata
+        liveMarker.setLngLat([position.longitude, position.latitude])
+        lastKnownPosition = new GpsCoordinates(position.latitude, position.longitude)
     });
 }
 
 //metodo da richiamare per aggiornare la posizione ogni 100 millisecondi
-function updatePosition(){
+function updatePosition() {
     //inizializzo il pin
 
     var div = document.createElement('div');
     div.className = 'livemarker';
 
     liveMarker = new mapboxgl.Marker(div)
-    .setLngLat([9.237446,45.757215])
-    .addTo(map);
+        .setLngLat([0, 0])
+        .addTo(map);
+    map.zoomTo(20, { duration: 3000 });
     //inizio a richiamare la funzione ogni 100ms
     setInterval(getLocation, 100);
 }
 
-function reposition(){
-    map.zoomTo(20, { duration: 3000 });
+function reposition() {
+    // map.zoomTo(20, { duration: 3000 });
     map.flyTo({
-        center: [lastKnownPosition.longitude, lastKnownPosition.latitude]
+        center: [lastKnownPosition.longitude, lastKnownPosition.latitude],
+        zoom: 20
     });
 }
