@@ -2,7 +2,7 @@ import time
 import sys
 from pygps import *
 
-gps = pygps(serialport_name='COM10')
+gps = pygps(serialport_name='COM5')
 gps.Start()
 
 while True:
