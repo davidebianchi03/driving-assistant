@@ -1,35 +1,56 @@
 import cv2
 import numpy as np 
+import matplotlib.pyplot as plt
 
-#cap = cv2.VideoCapture('video.avi')
-cap = cv2.VideoCapture(0)
+def cannyImage(image):
+    #trasforma l'immagine originale in una nuova immagine con meno dettagli da analizzare
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)   
+    blur = cv2.GaussianBlur(gray, (7,7), 0)
+    edges = cv2.Canny(blur, 50, 100)
+    return edges
 
+def regionOfInterest(image):
+    #ritaglia un triangolo nella parte inferiore dell'immagine
+    #per identificare solamente la carreggiata
+    height = image.shape[0]
+    width = image.shape[1]
+    #triangolo definito nella parte inferiore dell'immagine 
+    triangle = np.array([[(0, height - 1), (width - 1, height - 1), (width / 2 + 50, height/ 2  )]])
+    mask = np.zeros_like(image)
+    cv2.fillPoly(mask, np.int32(triangle), 255)
+    cut = cv2.bitwise_and(image, mask)
+    return cut
+
+def displayLines(image, lines):
+    lineImage = np.zeros_like(image)
+    if lines is not None:
+        for line in lines:
+           x1, y1, x2, y2 = line.reshape(4)
+           cv2.line(frame, (x1, y1), (x2, y2), (0, 255, 0), 10)
+    return lineImage
+
+
+cap = cv2.VideoCapture('video.mp4')
+#cap = cv2.VideoCapture(1)
 while(True):
     ret, frame = cap.read()
-
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  
+    #solo in caso di video, al termine viene rivisualizzato
+    #da togliere in futuro
+    if not ret:
+        cap = cv2.VideoCapture('video.mp4')
+        continue
     
-    blur = cv2.GaussianBlur(gray, (7,7), 0)
-    edges = cv2.Canny(blur, 100, 100)
+    canny_Image = cannyImage(frame)
+    roi = regionOfInterest(canny_Image)
 
-    img_hsv = cv2.cvtColor(blur, cv2.COLOR_RGB2HSV)
-    lower_yellow = np.array([20,100,100], dtype = 'uint8')
-    upper_yellow = np.array([30,255,255], dtype = 'uint8')
+    lines = cv2.HoughLinesP(roi, 2, np.pi / 180, 100, np.array([]), minLineLength = 40, maxLineGap = 5)
 
-    mask_yellow = cv2.inRange(img_hsv, lower_yellow, upper_yellow)
-    mask_white = cv2.inRange(gray, 200, 255)
-    mask_yw = cv2.bitwise_or(mask_white, mask_yellow)
-    mask_yw_image = cv2.bitwise_and(gray, mask_yw)
+    linesImage =  displayLines(roi, lines)
 
-
-
-    #cv2.imshow('frame', frame)
-    #cv2.imshow('gray', gray)
-    #cv2.imshow('blur', blur)
-    cv2.imshow('edges', edges)
-    cv2.imshow('linee', mask_yw_image)
-    
-
+    cv2.imshow('frame', frame)
+    cv2.imshow('canny', canny_Image)
+    #cv2.imshow('roi', roi)
+    cv2.imshow('lines', linesImage)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
