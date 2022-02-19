@@ -2,6 +2,7 @@ from concurrent.futures import thread
 import threading
 from unittest import result
 import serial#pyserial module
+import serial.tools.list_ports#modulo per ottenere la lista delle porte seriali disponibili
 import pynmea2#libreria per la conversione della posizione dal formato NMEA
 import io
 
@@ -27,6 +28,17 @@ class pygps:
     last_known_position = None
     #semaforo per il controllo dell'accesso alla lettura della seriale
     sem_serial = None
+
+    def SerialAutoDetect(self):
+        # Get list of available serial ports
+        ports = list(serial.tools.list_ports.comports())
+        gps_port = None
+        for port in ports:# Search arduino between available ports
+            #if "Arduino" in port.description:
+            #    gps_port = port.name
+            print(port.description)
+        
+        return gps_port
 
     def __init__(self, serialport_name):
         #inizializzo la porta seriale

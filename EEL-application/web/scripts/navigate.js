@@ -1,3 +1,7 @@
+$(document).ready(function () {
+    $(".instruction").hide();
+});
+
 function setdestination() {
     var origin = lastKnownPosition;
     var destination = new GpsCoordinates(45.758443, 9.237668);
@@ -21,13 +25,18 @@ function navigate(startPoint, destinationPoint) {
             let coordinate = new GpsCoordinates(point[1], point[0])
             pathCoordinates.push(coordinate);
         }
-        
-        drawLine(pathPoints);
 
+        var commands = data.features[0].properties.segments[0].steps;
+        navigation(commands);
+        drawLine(pathPoints);
+        $("#navigateframe").hide(250, "linear");
+        $(".instruction").show(1000);
     });
 }
 
-function drawLine(coordinates){
+var layer = null;
+
+function drawLine(coordinates) {
     map.addSource('route', {
         'type': 'geojson',
         'data': {
@@ -39,7 +48,8 @@ function drawLine(coordinates){
             }
         }
     });
-    map.addLayer({
+
+    layer = {
         'id': 'route',
         'type': 'line',
         'source': 'route',
@@ -49,7 +59,18 @@ function drawLine(coordinates){
         },
         'paint': {
             'line-color': '#00b3ff',
-            'line-width': 8
+            'line-width': 25,
+            'line-blur': 0.4
         }
-    });
+    };
+    map.addLayer(layer);
+}
+
+async function navigation(commands){
+    for(let i = 0; i< commands.length;i++){
+        const command = commands[i];
+        await eel.Speak(command.instruction);
+        document.getElementById("text").innerHTML = command.instruction;
+        await new Promise(r => setTimeout(r, 5000));
+    }
 }

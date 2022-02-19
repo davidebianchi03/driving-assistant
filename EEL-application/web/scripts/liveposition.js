@@ -31,6 +31,6 @@ function reposition() {
     // map.zoomTo(20, { duration: 3000 });
     map.flyTo({
         center: [lastKnownPosition.longitude, lastKnownPosition.latitude],
-        zoom: 20
+        zoom: 18
     });
 }

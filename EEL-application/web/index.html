@@ -8,6 +8,7 @@
     <title>Driving Assistant</title>
     <link rel="stylesheet" href="styles/index.css">
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel = "stylesheet" href = "styles/box-shadows.min.css"/>
     <link href= 'images/icon.png' rel = "shortcut icon"/>
 
     <script type="text/javascript" src="eel.js"></script>
@@ -39,17 +40,17 @@
         </div>
     </div>
 
-    <button class="navigateBtn" onclick="show()">
+    <button class="navigateBtn bShadow-4" onclick="show()">
         Navigate
     </button>
 
-    <div id="navigateframe">
+    <div id="navigateframe" class = "bShadow-4">
         <p class="setdestination">
             <label id="destinationlbl">Destination</label>
             <input id="destination" type="text" placeholder="Destination">
         </p>
 
-        <table id="tablebuttons">
+        <table id="tablebuttons" >
             <tr>
                 <td><input type="button" id="cancel" value="Cancel" onclick="hide()"></td>
                 <td><input type="button" id="navigate" value="Navigate" onclick="setdestination()"></td>
@@ -60,6 +61,11 @@
     <button class="repositiondiv" onclick="reposition()">
         <img src="images/compass.png" alt="compass">
     </button>
+
+    <div class = "instruction bShadow-4" id = "instruction">
+        <p id = "text">Text</p>
+        <p id = "distance">320m</p>
+    </div>
 
 </body>
 
