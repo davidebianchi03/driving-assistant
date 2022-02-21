@@ -69,8 +69,31 @@ function drawLine(coordinates) {
 async function navigation(commands){
     for(let i = 0; i< commands.length;i++){
         const command = commands[i];
+        const commandStartCoordIndex = command.way_points[0];//indice punto inizio della manovra all'interno della lista delle coordinate
+        const commandFinishCoordIndex = command.way_points[1];//indice punto fine della manovra all'interno della lista delle coordinate
         await eel.Speak(command.instruction);
         document.getElementById("text").innerHTML = command.instruction;
         await new Promise(r => setTimeout(r, 5000));
     }
+}
+
+
+//funzione per calcolare la distanza tra 2 punti in metri
+function getDistanceFromLatLon(firstPoint, lastPoint) {
+    var R = 6371; //Raggio della terra in KM
+    var dLat = deg2rad(lastPoint.latitude - firstPoint.latitude);  // deg2rad below
+    var dLon = deg2rad(lastPoint.longitude - firstPoint.longitude);
+    var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(firstPoint.latitude)) * Math.cos(deg2rad(lastPoint.latitude)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2)
+        ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distanza in km
+    return d / 1000;
+}
+
+//converione gradi in radianti
+function deg2rad(deg) {
+    return deg * (Math.PI / 180)
 }

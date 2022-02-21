@@ -1,6 +1,7 @@
 from concurrent.futures import thread
 import threading
 from unittest import result
+import serial.tools.list_ports
 import serial#pyserial module
 import pynmea2#libreria per la conversione della posizione dal formato NMEA
 import io
@@ -28,7 +29,18 @@ class pygps:
     #semaforo per il controllo dell'accesso alla lettura della seriale
     sem_serial = None
 
-    def __init__(self, serialport_name):
+    #auto-detect della porta seriale del gps
+    def detectSerialPort(self):
+        serial_list = list(serial.tools.list_ports.comports())
+        gps_port_name = None
+        for port in serial_list:
+            if port.manufacturer in 'FTDI':#da cambiare con il produttore dell'interfaccia seriale del gps
+                gps_port_name = port.name
+            #print(port.manufacturer, port.name)
+        return gps_port_name
+
+    def __init__(self):
+        serialport_name = self.detectSerialPort()
         #inizializzo la porta seriale
         self.serial_port = serial.Serial()
         self.serial_port.baudrate = self.BAUDRATE

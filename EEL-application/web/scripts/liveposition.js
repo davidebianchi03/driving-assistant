@@ -2,13 +2,15 @@ var lastKnownPosition = null;
 var liveMarker = null;//marker che indica la posizione in tempo reale
 
 function getLocation() {
-    // let position = JSON.parse(eel.GetPosition());
     eel.GetPosition()(function (json) {
         let position = JSON.parse(json);
-        //console.log(position.latitude+ ","+position.longitude)
         //imposto la nuova posizione visualizzata
         liveMarker.setLngLat([position.longitude, position.latitude])
-        lastKnownPosition = new GpsCoordinates(position.latitude, position.longitude)
+        //visualizzo velocità con cui si sta muovendo la macchina
+        document.getElementById("speedinkmh").innerHTML = parseInt(position.speed * 3.6) + " km/h";
+
+        //salvo la posizione
+        lastKnownPosition = new GpsCoordinates(position.latitude, position.longitude);
     });
 }
 

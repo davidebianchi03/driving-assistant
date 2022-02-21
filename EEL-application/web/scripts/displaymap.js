@@ -8,7 +8,7 @@ $(document).ready(function () {
     map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [9.237446,45.757215],
+        center: [0,0],
         zoom: 0.6,
         minZoom: 15,
         pitch: 60, // pitch in degrees
