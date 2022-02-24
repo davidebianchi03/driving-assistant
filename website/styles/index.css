@@ -95,8 +95,7 @@ html, body{
 }
 
 #destination:focus{
-    border: solid rgb(3, 113, 238) 2px;
-    
+    border: solid rgb(34, 129, 238) 1px;    
 }
 
 #navigate{
@@ -146,4 +145,34 @@ html, body{
 .setdestination{
     margin-top: 40px;
     margin-bottom: 30px;
+}
+
+#listadestinazioni{
+    margin-top: 40px;
+}
+
+.searchresults{
+    background: white;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-block : 2px;
+    border-bottom: solid gray 1px;
+    font-family:'Source Sans Pro', sans-serif;
+    user-select: none;
+}
+
+.searchresults:hover{
+    background-color: rgb(34, 129, 238);    
+    color: white;
+}
+
+.noresults{
+    font-family:'Source Sans Pro', sans-serif;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-block : 2px;
+    color: black;
+    font-size: 16px;
 }
