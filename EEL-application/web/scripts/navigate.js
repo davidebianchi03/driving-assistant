@@ -4,8 +4,10 @@ $(document).ready(function () {
 
 function setdestination() {
     var origin = lastKnownPosition;
-    var destination = new GpsCoordinates(45.758443, 9.237668);
-    navigate(origin, destination);
+    if (selectedPlace != null) {
+        navigate(origin, selectedPlace);
+        console.log(selectedPlace);
+    }
 }
 
 function navigate(startPoint, destinationPoint) {
