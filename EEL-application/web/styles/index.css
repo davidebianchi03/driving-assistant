@@ -2,7 +2,7 @@
 
 html, body{
     margin: 0;
-    
+    user-select: none;
 }
 
 .container{
@@ -175,11 +175,13 @@ html, body{
 }
 
 .instruction #distance{
+    position: absolute;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 18px;
     padding-left: 15px;
     padding-right: 15px;
-    float: right;
+    bottom: 5px;
+    right: 10px;
     color: black;
     margin-top: 0px;
 }
@@ -190,7 +192,6 @@ html, body{
     margin-left: 10px;
     margin-right: 10px;
     margin-block : 2px;
-    margin-top: 50px;
     border-bottom: solid gray 1px;
     font-family:'Source Sans Pro', sans-serif;
     user-select: none;
@@ -199,6 +200,10 @@ html, body{
 .searchresults:hover{
     background-color: rgb(34, 129, 238);    
     color: white;
+}
+
+#destinationlist{
+    margin-top: 50px;
 }
 
 .noresults{

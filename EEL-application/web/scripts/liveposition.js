@@ -1,6 +1,8 @@
 var lastKnownPosition = null;
 var liveMarker = null;//marker che indica la posizione in tempo reale
 
+$(document).ready()
+
 function getLocation() {
     eel.GetPosition()(function (json) {
         let position = JSON.parse(json);

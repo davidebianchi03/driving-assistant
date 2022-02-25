@@ -8,7 +8,7 @@ function searchPlace(){
     $.getJSON(url,function(data){
         // console.log(data);
         //console.log(data.length);
-        document.getElementById("listadestinazioni").innerHTML="";
+        document.getElementById("destinationlist").innerHTML="";
         placeList = data;
         for(let i=0;i<data.length;i++){
             var place=data[i];
@@ -17,7 +17,7 @@ function searchPlace(){
             p.classList.add("searchresults");
             p.appendChild(document.createTextNode(place.display_name));
             p.setAttribute("onclick", "buttonclicked("+i+")");
-            document.getElementById("listadestinazioni").appendChild(p);
+            document.getElementById("destinationlist").appendChild(p);
             
         }
 
@@ -25,7 +25,7 @@ function searchPlace(){
             var p=document.createElement("p");
             p.classList.add("noresults");
             p.appendChild(document.createTextNode("No results found"));
-            document.getElementById("listadestinazioni").appendChild(p);
+            document.getElementById("destinationlist").appendChild(p);
             selectedPlace = null;
         }
         else{

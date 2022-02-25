@@ -123,6 +123,10 @@ async function navigation(commands, coordinates) {
             //pronuncio le indicazioni sulla distanza
             //indicazione subito dopo l'ultima svolta
             if (!afterLast) {
+                if (!afterLast) {
+                    //pronuncio la frase subito dopo l'ultima svolta
+                    await eel.Speak(distanceStr + command.instruction);
+                }
                 //cerco di evitare ripetizioni di frasi
                 if (turningDistance > 45000 && turningDistance < 55000) {
                     after50Km = true;
@@ -184,44 +188,47 @@ async function navigation(commands, coordinates) {
                     after500m = true;
                     after150m = true;
                 }
-
-                if (!afterLast) {
-                    //pronuncio la frase subito dopo l'ultima svolta
-                    await eel.Speak(distanceStr + command.instruction);
-                }
                 afterLast = true;
             }
             //distanza 50 km
             if (turningDistance < 50000 && turningDistance > 20000 && !after50Km) {
                 await eel.Speak("In fifty kilometers " + command.instruction);
+                after50Km=true;
             }
             //distanza 20km
             if (turningDistance < 20000 && turningDistance > 10000 && !after20Km) {
                 await eel.Speak("In twenty kilometers " + command.instruction);
+                after20Km = true;
             }
             //distanza 10km
             if (turningDistance < 10000 && turningDistance > 5000 && !after10Km) {
                 await eel.Speak("In ten kilometers " + command.instruction);
+                after10Km = true;
             }
             //distanza 5km
             if (turningDistance < 5000 && turningDistance > 2000 && !after5Km) {
                 await eel.Speak("In five kilometers " + command.instruction);
+                after5Km = true;
             }
             //distanza 2km
             if (turningDistance < 2000 && turningDistance > 1000 && !after2Km) {
                 await eel.Speak("In two kilometers " + command.instruction);
+                after2Km = true;
             }
             //distanza 1km
             if (turningDistance < 1000 && turningDistance > 500 && !after1Km) {
                 await eel.Speak("In one kilometers " + command.instruction);
+                after1Km = true;
             }
             //distanza 500m
             if (turningDistance < 500 && turningDistance > 150 && !after500m) {
                 await eel.Speak("In five hundred meters " + command.instruction);
+                after500m = true;
             }
             //distanza 150m
             if (turningDistance < 150 && turningDistance > 20 && !after150m) {
                 await eel.Speak("In one hundred and fifty meters " + command.instruction);
+                after150m = true;
             }
             //ora
             if (turningDistance < 20) {
