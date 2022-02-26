@@ -71,9 +71,10 @@ function drawLine(coordinates) {
 async function navigation(commands, coordinates) {
     for (let i = 0; i < commands.length; i++) {
         const command = commands[i];
+        const instruction = commands[i+1].instruction;
         const commandStartCoordIndex = command.way_points[0];//indice punto inizio della manovra all'interno della lista delle coordinate
         const commandFinishCoordIndex = command.way_points[1];//indice punto fine della manovra all'interno della lista delle coordinate
-        document.getElementById("text").innerHTML = command.instruction;
+        document.getElementById("text").innerHTML = instruction;
         //indicazioni riguardanti il prossimo ostacolo
 
         //variabili utilizzate per tenere traccia delle indicazioni già date
@@ -113,11 +114,11 @@ async function navigation(commands, coordinates) {
             var distanceStr = "";//stringa usata per indicare la distanza
             if (turningDistance > 1000) {
                 document.getElementById("distance").innerHTML = (turningDistance / 1000).toFixed(2) + " Km";
-                distanceStr = "In " + turningDistance.toFixed(2) + " kilometers ";
+                distanceStr = "In " + turningDistance.toFixed(2) + " kilometers, ";
             }
             else {
                 document.getElementById("distance").innerHTML = parseInt(turningDistance) + " m";
-                distanceStr = "In " + parseInt(turningDistance) + " meters ";
+                distanceStr = "In " + parseInt(turningDistance) + " meters, ";
             }
 
             //pronuncio le indicazioni sulla distanza
@@ -125,7 +126,7 @@ async function navigation(commands, coordinates) {
             if (!afterLast) {
                 if (!afterLast) {
                     //pronuncio la frase subito dopo l'ultima svolta
-                    await eel.Speak(distanceStr + command.instruction);
+                    await eel.Speak(distanceStr + instruction);
                 }
                 //cerco di evitare ripetizioni di frasi
                 if (turningDistance > 45000 && turningDistance < 55000) {
@@ -192,47 +193,47 @@ async function navigation(commands, coordinates) {
             }
             //distanza 50 km
             if (turningDistance < 50000 && turningDistance > 20000 && !after50Km) {
-                await eel.Speak("In fifty kilometers " + command.instruction);
+                await eel.Speak("In fifty kilometers, " + instruction);
                 after50Km=true;
             }
             //distanza 20km
             if (turningDistance < 20000 && turningDistance > 10000 && !after20Km) {
-                await eel.Speak("In twenty kilometers " + command.instruction);
+                await eel.Speak("In twenty kilometers, " + instruction);
                 after20Km = true;
             }
             //distanza 10km
             if (turningDistance < 10000 && turningDistance > 5000 && !after10Km) {
-                await eel.Speak("In ten kilometers " + command.instruction);
+                await eel.Speak("In ten kilometers, " + instruction);
                 after10Km = true;
             }
             //distanza 5km
             if (turningDistance < 5000 && turningDistance > 2000 && !after5Km) {
-                await eel.Speak("In five kilometers " + command.instruction);
+                await eel.Speak("In five kilometers, " + instruction);
                 after5Km = true;
             }
             //distanza 2km
             if (turningDistance < 2000 && turningDistance > 1000 && !after2Km) {
-                await eel.Speak("In two kilometers " + command.instruction);
+                await eel.Speak("In two kilometers, " + instruction);
                 after2Km = true;
             }
             //distanza 1km
             if (turningDistance < 1000 && turningDistance > 500 && !after1Km) {
-                await eel.Speak("In one kilometers " + command.instruction);
+                await eel.Speak("In one kilometers, " + instruction);
                 after1Km = true;
             }
             //distanza 500m
             if (turningDistance < 500 && turningDistance > 150 && !after500m) {
-                await eel.Speak("In five hundred meters " + command.instruction);
+                await eel.Speak("In five hundred meters, " + instruction);
                 after500m = true;
             }
             //distanza 150m
             if (turningDistance < 150 && turningDistance > 20 && !after150m) {
-                await eel.Speak("In one hundred and fifty meters " + command.instruction);
+                await eel.Speak("In one hundred and fifty meters, " + instruction);
                 after150m = true;
             }
             //ora
             if (turningDistance < 20) {
-                await eel.Speak(command.instruction);
+                await eel.Speak(instruction);
                 bcurrentWayPoint = commandFinishCoordIndex;
             }
 

@@ -3,10 +3,11 @@ import eel
 from pygps import *
 from pyspeak import *
 import json
+from textblob import TextBlob
 
 eel.init('web')
 
-speechsynthetizer = pySpeak(language='en')
+speechsynthetizer = pySpeak(language='it')
 
 gps = pygps()
 gps.Start()
@@ -21,6 +22,10 @@ def GetPosition():
 #metodo richiamato da javascript per fare pronunciare una frase a python
 @eel.expose   
 def Speak(text):
-    speechsynthetizer.Speak(text)
+    #traduco il comando in italiano
+    blob = TextBlob(str(text))
+    text = blob.translate(from_lang='en', to='it')
+    #pronuncio la frase
+    speechsynthetizer.Speak(str(text))
 
 eel.start('index.html')
