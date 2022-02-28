@@ -7,13 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driving Assistant</title>
     <link rel="stylesheet" href="styles/index.css">
-    <link href='styles/mapbox-gl.css' rel='stylesheet' />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    <!-- <link href='styles/mapbox-gl.css' rel='stylesheet' /> -->
     <link rel="stylesheet" href="styles/box-shadows.min.css" />
     <link href='images/icon.png' rel="shortcut icon" />
 
     <script type="text/javascript" src="eel.js"></script>
     <script src="scripts/lib/jquery.min.js" type="text/javascript"></script>
-    <script src="scripts/lib/mapbox-gl.js" type="text/javascript"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
+    <!-- <script src="scripts/lib/mapbox-gl.js" type="text/javascript"></script> -->
     <script src="scripts/liveposition.js" type="text/javascript"></script>
     <script src="scripts/gpscoordinates.js" type="text/javascript"></script>
     <script src="scripts/displaymap.js" type="text/javascript"></script>
@@ -32,13 +34,19 @@
 
             </div>
 
-            <img src="images/tesla.png" id="car" alt="car">
+            <img src="images/cartop.png" id="car" alt="car">
             <p class="speed" id="speedinkmh">0 km/h</p>
         </div>
         <!-- Div contenente la mappa -->
         <div id="map">
 
         </div>
+    </div>
+
+    <!-- Div messaggio ricalcolo percorso -->
+    <div id="routeRecalculation">
+        <img src="images/recalculation.png" alt="recalculation">
+        <p>Ricalcolo percorso...</p>
     </div>
 
     <button class="navigateBtn bShadow-4" onclick="showNavigation()">
@@ -49,7 +57,7 @@
         <p class="setdestination">
             <label id="destinationlbl">Destination</label>
             <input id="destination" oninput="searchPlace()" type="search" placeholder="Destination">
-            <div id="destinationlist"></div>
+        <div id="destinationlist"></div>
         </p>
 
         <table id="tablebuttons">
@@ -69,11 +77,11 @@
         <p id="distance">320m</p>
     </div>
 
-    <div class = "alertbutton bShadow-4"  onclick="showAlerts()">
+    <div class="alertbutton bShadow-4" onclick="showAlerts()">
         !
     </div>
 
-    <button class = "alertslist bShadow-4">
+    <button class="alertslist bShadow-4">
         <img src="images/close.png" alt="Close image" class="close">
         <p></p>
     </button>

@@ -2,6 +2,7 @@ $(document).ready(function () {
     $(".instruction").hide();
 });
 
+
 function setdestination() {
     var origin = lastKnownPosition;
     if (selectedPlace != null) {
@@ -69,12 +70,20 @@ function drawLine(coordinates) {
 }
 
 async function navigation(commands, coordinates) {
+    HideRecalculation();
+
     for (let i = 0; i < commands.length; i++) {
         const command = commands[i];
-        const instruction = commands[i+1].instruction;
+        const instruction = commands[i + 1].instruction;
         const commandStartCoordIndex = command.way_points[0];//indice punto inizio della manovra all'interno della lista delle coordinate
         const commandFinishCoordIndex = command.way_points[1];//indice punto fine della manovra all'interno della lista delle coordinate
-        document.getElementById("text").innerHTML = instruction;
+
+        //visualizzo il comando tradotto
+        eel.Translate(instruction)(function (text) {
+            console.log(text);
+            document.getElementById("text").innerHTML = text;
+        });
+
         //indicazioni riguardanti il prossimo ostacolo
 
         //variabili utilizzate per tenere traccia delle indicazioni già date
@@ -97,6 +106,24 @@ async function navigation(commands, coordinates) {
             let waypoint_coordinates = new GpsCoordinates(coordinates[currentWayPoint][1], coordinates[currentWayPoint][0]);
             let distance = getDistanceFromLatLon(lastKnownPosition, waypoint_coordinates);
             //console.log("Way point = " +waypoint_coordinates.latitude + ", " + waypoint_coordinates.longitude + " Distance = " + distance);
+
+            //CERCO DI CAPIRE SE L'UTENTE CAMBIA STRADA
+            //distanza tra le mie coordinate e la retta passante per 2 waypoint
+            let distanceFromLine = getDistanceFromLine(new GpsCoordinates(coordinates[currentWayPoint - 1][1], coordinates[currentWayPoint - 1][0]), waypoint_coordinates, lastKnownPosition);
+            if (distanceFromLine > 30) {///-->distanza da regolare
+                //se l'utente cambia strada
+                ShowRecalculation();//visualizzo il messaggio di ricalcolo del percorso
+                if (map.getLayer('route')) {
+                    map.removeLayer('route');
+                }
+                if (map.getSource('route')) {
+                    map.removeSource('route');//cancello la visualizzazione della riga attuale
+                }
+                console.log("ricalcolo");
+                await new Promise(r => setTimeout(r, 2500));
+                navigate(lastKnownPosition, selectedPlace);
+                return;//interrompo la navigazione
+            }
 
             //se la distanza è inferiore a 10 metri considero il waypoint superato
             if (distance < 10) {
@@ -194,7 +221,7 @@ async function navigation(commands, coordinates) {
             //distanza 50 km
             if (turningDistance < 50000 && turningDistance > 20000 && !after50Km) {
                 await eel.Speak("In fifty kilometers, " + instruction);
-                after50Km=true;
+                after50Km = true;
             }
             //distanza 20km
             if (turningDistance < 20000 && turningDistance > 10000 && !after20Km) {
@@ -261,4 +288,18 @@ function getDistanceFromLatLon(firstPoint, lastPoint) {
 //converione gradi in radianti
 function deg2rad(deg) {
     return deg * (Math.PI / 180)
+}
+
+//funzione per calcolare distanza punto dalla retta passante per 2 punti
+function getDistanceFromLine(firstPoint, lastPoint, currentPoint) {
+    //calcolo la lunghezza dei lati del triangolo
+    let d1 = getDistanceFromLatLon(firstPoint, lastPoint);
+    let d2 = getDistanceFromLatLon(lastPoint, currentPoint);
+    let d3 = getDistanceFromLatLon(currentPoint, firstPoint);
+
+    //calcolo il semiperimetro
+    let p = (d1 + d2 + d3) / 2;
+    let surface = Math.sqrt(p * (p - d1) * (p - d2) * (p - d3));
+    let distance = (2 * surface) / d1;
+    return distance;
 }

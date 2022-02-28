@@ -3,6 +3,8 @@ var alertsDisplayed = false;
 $(document).ready(function () {
     $("#navigateframe").hide();
     $(".alertslist").hide();
+    $("#routeRecalculation").hide();
+    
     alertsDisplayed = false;
 
     $(".close").click(function(){
@@ -12,10 +14,15 @@ $(document).ready(function () {
     $(".carinfo").click(function(){
         hideAlerts();
     });
-
-
 });
 
+function ShowRecalculation(){
+    $("#routeRecalculation").show();
+}
+
+function HideRecalculation(){
+    $("#routeRecalculation").hide();
+}
 
 function hideNavigation() {
     $("#navigateframe").hide(250, "linear");
