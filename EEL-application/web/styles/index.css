@@ -68,11 +68,6 @@ html, body {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
-#car {
-    transform: rotate(90deg);
-    width: 60%;
-}
-
 #navigateframe {
     position: absolute;
     top: 0px;
