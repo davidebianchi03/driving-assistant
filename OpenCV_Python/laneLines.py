@@ -66,7 +66,7 @@ class laneLine:
             cv2.imshow('roi', roi)
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+                break
 
     cap.release()
     cv2.destroyAllWindows() 
