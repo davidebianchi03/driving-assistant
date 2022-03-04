@@ -1,5 +1,4 @@
-
-.carcontainer{
+.carcontainer {
     display: block;
     position: relative;
 }
@@ -10,220 +9,195 @@
     padding: 40% 0px;
 }
 
-#car-dangers-container{
+#car-dangers-container {
     width: 60%;
     margin: auto;
 }
 
-.left-line{
+.left-line {
     position: absolute;
     left: 15%;
     height: 100%;
     width: 75px;
-    top:0%;
-    background:linear-gradient(to left, rgb(241, 241, 241), rgb(187, 247, 255) 50%,  rgb(241, 241, 241) 75%);
+    top: 0%;
+    background: linear-gradient(to left, rgb(241, 241, 241), rgb(187, 247, 255) 50%, rgb(241, 241, 241) 75%);
+    border-radius: 50px;
 }
 
-.right-line{
+.right-line {
     position: absolute;
     right: 15%;
     height: 100%;
     width: 75px;
-    top:0%;
-    background:linear-gradient(to left, rgb(241, 241, 241), rgb(187, 247, 255) 50%,  rgb(241, 241, 241) 75%);
+    top: 0%;
+    background: linear-gradient(to left, rgb(241, 241, 241), rgb(187, 247, 255) 50%, rgb(241, 241, 241) 75%);
+    border-radius: 50px;
+}
+
+/* Se lo schermo è troppo stretto nascondo le linee della strada per evitare di coprire la macchina */
+@media screen and (max-width: 1000px) {
+    .left-line {
+        display: none;
+    }
+
+    .right-line {
+        display: none;
+    }
 }
 
 /* Righe distanza posteriori */
 
-#back-left-1{
+#back-left-1 {
     width: 12%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     transform: rotate(45deg);
     position: absolute;
     bottom: 10%;
     left: 29%;
 }
 
-#back-center-1{
+#back-center-1 {
     width: 20%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     position: absolute;
     bottom: 5%;
     left: 40%;
 }
 
-#back-right-1{
-    width:  12%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
+#back-right-1 {
+    width: 12%;
     transform: rotate(-45deg);
     position: absolute;
     bottom: 10%;
-    right: 29%;
+    right: 28%;
 }
 
-#back-left-2{
+#back-left-2 {
     width: 9%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     transform: rotate(45deg);
     position: absolute;
     bottom: 11.5%;
     left: 32%;
 }
 
-#back-center-2{
+#back-center-2 {
     width: 16%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     position: absolute;
     bottom: 7%;
     left: 42%;
 }
 
-#back-right-2{
-    width:  9%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
+#back-right-2 {
+    width: 9%;
     transform: rotate(-45deg);
     position: absolute;
     bottom: 11.5%;
-    right: 32%;
+    right: 31%;
 }
 
-#back-left-3{
+#back-left-3 {
     width: 7%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     transform: rotate(45deg);
     position: absolute;
     bottom: 12.5%;
     left: 35%;
 }
 
-#back-center-3{
+#back-center-3 {
     width: 12%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     position: absolute;
     bottom: 9%;
     left: 44%;
 }
 
-#back-right-3{
-    width:  7%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
+#back-right-3 {
+    width: 7%;
     transform: rotate(-45deg);
     position: absolute;
     bottom: 12.5%;
-    right: 35%;
+    right: 34%;
 }
 
 /* Righe distanza anteriori */
-#front-left-1{
+#front-left-1 {
     width: 12%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     transform: rotate(-45deg);
     position: absolute;
     top: 10%;
     left: 29%;
 }
 
-#front-center-1{
+#front-center-1 {
     width: 20%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     position: absolute;
     top: 5%;
     left: 40%;
 }
 
-#front-right-1{
-    width:  12%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
+#front-right-1 {
+    width: 12%;
     transform: rotate(45deg);
     position: absolute;
     top: 10%;
-    right: 29%;
+    right: 28%;
 }
 
-#front-left-2{
+#front-left-2 {
     width: 9%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     transform: rotate(-45deg);
     position: absolute;
     top: 11.5%;
     left: 32%;
 }
 
-#front-center-2{
+#front-center-2 {
     width: 16%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     position: absolute;
     top: 7%;
     left: 42%;
 }
 
-#front-right-2{
-    width:  9%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
+#front-right-2 {
+    width: 9%;
     transform: rotate(45deg);
     position: absolute;
     top: 11.5%;
-    right: 32%;
+    right: 31%;
 }
 
-#front-left-3{
+#front-left-3 {
     width: 7%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     transform: rotate(-45deg);
     position: absolute;
     top: 12.5%;
     left: 35%;
 }
 
-#front-center-3{
+#front-center-3 {
     width: 12%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
     position: absolute;
     top: 9%;
     left: 44%;
 }
 
-#front-right-3{
-    width:  7%;
-    height: 7px;
-    background-color: rgb(255, 102, 0);
-    border-radius: 4px;
+#front-right-3 {
+    width: 7%;
     transform: rotate(45deg);
     position: absolute;
     top: 12.5%;
-    right: 35%;
+    right: 34%;
+}
+
+.distance-alert-bottom {
+    border: solid 4px;
+    border-color: transparent transparent rgb(255, 102, 0) transparent;
+    border-radius: 6px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.distance-alert-top {
+    border: solid 4px;
+    border-color: rgb(255, 102, 0) transparent transparent transparent;
+    border-radius: 6px;
+    height: 7px;
+    border-radius: 50%;
 }
