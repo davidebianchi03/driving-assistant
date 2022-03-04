@@ -1,14 +1,14 @@
 
 .carcontainer{
-    display: inherit;
-    width: 100%;
-    margin: solid magenta 1px;
+    display: block;
+    position: relative;
+    border: solid magenta 1px;
 }
 
 #car {
     transform: rotate(90deg);
     width: 100%;
-    padding: 25% 0px;
+    padding: 40% 0px;
 }
 
 #car-dangers-container{
@@ -35,33 +35,97 @@
 }
 
 #back-left-1{
-    width: 4%;
+    width: 12%;
     height: 7px;
     background-color: rgb(255, 102, 0);
     border-radius: 4px;
     transform: rotate(45deg);
     position: absolute;
-    margin-bottom: 10%;
-    margin-left: 4%;
+    bottom: 10%;
+    left: 29%;
 }
 
 #back-center-1{
-    width: 7%;
+    width: 20%;
     height: 7px;
     background-color: rgb(255, 102, 0);
     border-radius: 4px;
     position: absolute;
-    margin-bottom: 0px;
-    margin-left: 8.5%;
+    bottom: 5%;
+    left: 40%;
 }
 
 #back-right-1{
-    width: 4%;
+    width:  12%;
     height: 7px;
     background-color: rgb(255, 102, 0);
     border-radius: 4px;
     transform: rotate(-45deg);
     position: absolute;
-    margin-bottom: 10%;
-    margin-left: 16%;
+    bottom: 10%;
+    right: 29%;
+}
+
+#back-left-2{
+    width: 9%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    transform: rotate(45deg);
+    position: absolute;
+    bottom: 11.5%;
+    left: 32%;
+}
+
+#back-center-2{
+    width: 16%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    position: absolute;
+    bottom: 7%;
+    left: 42%;
+}
+
+#back-right-2{
+    width:  9%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    transform: rotate(-45deg);
+    position: absolute;
+    bottom: 11.5%;
+    right: 32%;
+}
+
+#back-left-3{
+    width: 7%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    transform: rotate(45deg);
+    position: absolute;
+    bottom: 12.5%;
+    left: 35%;
+}
+
+#back-center-3{
+    width: 12%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    position: absolute;
+    bottom: 9%;
+    left: 44%;
+}
+
+#back-right-3{
+    width:  7%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    transform: rotate(-45deg);
+    position: absolute;
+    bottom: 12.5%;
+    right: 35%;
 }
