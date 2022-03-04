@@ -3,6 +3,7 @@ var liveMarker = null;//marker che indica la posizione in tempo reale
 
 function getLocation() {
     eel.GetPosition()(function (json) {
+        
         let position = JSON.parse(json);
         //imposto la nuova posizione visualizzata
         liveMarker.setLngLat([position.longitude, position.latitude])
@@ -17,7 +18,6 @@ function getLocation() {
 //metodo da richiamare per aggiornare la posizione ogni 100 millisecondi
 function updatePosition() {
     //inizializzo il pin
-
     var div = document.createElement('div');
     div.className = 'livemarker';
 
@@ -26,17 +26,25 @@ function updatePosition() {
         .addTo(map);
     map.zoomTo(20, { duration: 1000 });
     map.flyTo({
-        center: [lastKnownPosition.longitude, lastKnownPosition.latitude],
+        center: [0, 0],
         zoom: 18
     });
     //inizio a richiamare la funzione ogni 100ms
     setInterval(getLocation, 100);
 }
 
-function reposition() {
-    //StartFollowMe();
-    map.flyTo({
-        center: [lastKnownPosition.longitude, lastKnownPosition.latitude],
-        zoom: 18
-    });
+async function reposition() {
+    const {lng, lat} = map.getCenter();
+
+    if(getDistanceFromLatLon(lastKnownPosition, new GpsCoordinates(lat, lng))>1000){
+        await map.flyTo({
+            center: [lastKnownPosition.longitude, lastKnownPosition.latitude],
+            zoom: 18
+        });
+    }
+    else{
+        StartFollowMe();
+    }
+    
 }
+

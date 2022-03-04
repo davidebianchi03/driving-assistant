@@ -1,5 +1,6 @@
 
 var map = null;
+var moving = false;//variabile che indica se ci si sta già muovendo sulla mappa
 
 //visualizzo la mappa
 $(document).ready(function () {
@@ -15,8 +16,6 @@ $(document).ready(function () {
     });
     updatePosition();//inizio ad aggiornare la posizione in tempo reale dell'utente sulla mappa
     new Promise(r => setTimeout(r, 2500));
-    FollowMe();
-    new Promise(r => setTimeout(r, 2500));
 });
 
 var followMe = false;//variabile che indica se il follow me è attivo
@@ -25,18 +24,21 @@ var justFollowMe = false;
 function StartFollowMe() {
     followMe = true;
     if (!justFollowMe) {
-        new Promise(r => setTimeout(r, 5000));
         setInterval(FollowMe, 1000);//richiamo la funzione ogni 100 millisecondi
     }
 }
 
 function FollowMe() {
-    if (followMe) {
+    const { lng, lat } = map.getCenter();
+
+    if (followMe && getDistanceFromLatLon(lastKnownPosition, new GpsCoordinates(lat, lng)) < 100) {
         //centro la mappa sull'ultima posizione visualizzata
         map.flyTo({
             center: [lastKnownPosition.longitude, lastKnownPosition.latitude]
         });
-        console.log("follow me");
+    }
+    else if(getDistanceFromLatLon(lastKnownPosition, new GpsCoordinates(lat, lng)) > 100){
+        followMe = false;
     }
 }
 
