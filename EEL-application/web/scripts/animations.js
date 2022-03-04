@@ -4,7 +4,7 @@ $(document).ready(function () {
     $("#navigateframe").hide();
     $(".alertslist").hide();
     $("#routeRecalculation").hide();
-    
+    waitAndDisplay();
     alertsDisplayed = false;
 
     $(".close").click(function(){
@@ -15,6 +15,11 @@ $(document).ready(function () {
         hideAlerts();
     });
 });
+
+async function waitAndDisplay(){
+    await new Promise(r => setTimeout(r, 2500));
+    $(".loading").hide();
+}
 
 function ShowRecalculation(){
     $("#routeRecalculation").show();

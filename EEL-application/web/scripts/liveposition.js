@@ -1,8 +1,6 @@
 var lastKnownPosition = null;
 var liveMarker = null;//marker che indica la posizione in tempo reale
 
-$(document).ready()
-
 function getLocation() {
     eel.GetPosition()(function (json) {
         let position = JSON.parse(json);
@@ -26,13 +24,17 @@ function updatePosition() {
     liveMarker = new mapboxgl.Marker(div)
         .setLngLat([0, 0])
         .addTo(map);
-    map.zoomTo(20, { duration: 3000 });
+    map.zoomTo(20, { duration: 1000 });
+    map.flyTo({
+        center: [lastKnownPosition.longitude, lastKnownPosition.latitude],
+        zoom: 18
+    });
     //inizio a richiamare la funzione ogni 100ms
     setInterval(getLocation, 100);
 }
 
 function reposition() {
-    // map.zoomTo(20, { duration: 3000 });
+    //StartFollowMe();
     map.flyTo({
         center: [lastKnownPosition.longitude, lastKnownPosition.latitude],
         zoom: 18
