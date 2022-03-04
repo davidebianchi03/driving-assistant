@@ -41,6 +41,24 @@ html, body {
     width: 150px;
 }
 
+.stopNavigationBtn{
+    background-color: rgb(204, 8, 8);
+    color: white;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-family: 'Source Sans Pro', sans-serif;
+    width: 150px;
+    z-index: 5;
+}
+
 .livemarker {
     background-image: url('/images/pointer.png');
     width: 75px;

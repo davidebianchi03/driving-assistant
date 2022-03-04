@@ -4,6 +4,8 @@ $(document).ready(function () {
     $("#navigateframe").hide();
     $(".alertslist").hide();
     $("#routeRecalculation").hide();
+    $(".stopNavigationBtn").hide();
+
     waitAndDisplay();
     alertsDisplayed = false;
 

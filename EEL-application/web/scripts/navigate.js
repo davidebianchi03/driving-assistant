@@ -2,16 +2,34 @@ $(document).ready(function () {
     $(".instruction").hide();
 });
 
+var isNavigate = false;//variabile che indica se si sta navigando
 
 function setdestination() {
     var origin = lastKnownPosition;
     if (selectedPlace != null) {
         navigate(origin, selectedPlace);
         console.log(selectedPlace);
+        isNavigate = true;
+    }
+}
+
+function stopNavigation() {
+    isNavigate = false;
+    HideRecalculation();
+    $(".instruction").hide(1000);
+    $(".stopNavigationBtn").hide();
+    $(".navigateBtn").show();
+    if (map.getLayer('route')) {
+        map.removeLayer('route');
+    }
+    if (map.getSource('route')) {
+        map.removeSource('route');//cancello la visualizzazione della riga attuale
     }
 }
 
 function navigate(startPoint, destinationPoint) {
+    $(".stopNavigationBtn").show();
+    $(".navigateBtn").hide();
     let path = "http://api.openrouteservice.org/v2/directions/driving-car?api_key=" + "5b3ce3597851110001cf6248c7034c7108e14cb5aa803407bc7023d4" + "&start=" +
         startPoint.longitude +
         "," + startPoint.latitude +
@@ -70,9 +88,13 @@ function drawLine(coordinates) {
 }
 
 async function navigation(commands, coordinates) {
+
     HideRecalculation();
 
     for (let i = 0; i < commands.length; i++) {
+        if (!isNavigate) {
+            return;
+        }
         const command = commands[i];
         const instruction = commands[i + 1].instruction;
         const commandStartCoordIndex = command.way_points[0];//indice punto inizio della manovra all'interno della lista delle coordinate
@@ -80,7 +102,6 @@ async function navigation(commands, coordinates) {
 
         //visualizzo il comando tradotto
         eel.Translate(instruction)(function (text) {
-            console.log(text);
             document.getElementById("text").innerHTML = text;
         });
 
@@ -98,9 +119,15 @@ async function navigation(commands, coordinates) {
         let after150m = false;//indicazione ai 150
         let now = false;//ora
 
+        if (!isNavigate) {
+            return;
+        }
 
         var currentWayPoint = commandStartCoordIndex + 1;
         while (currentWayPoint < commandFinishCoordIndex) {
+            if (!isNavigate) {
+                return;
+            }
             /* calcola la distanza dalla svolta utilizzando i waypoints */
             //  calcolo la distanza tra il waypoint e la mia posizione attuale
             let waypoint_coordinates = new GpsCoordinates(coordinates[currentWayPoint][1], coordinates[currentWayPoint][0]);
@@ -111,6 +138,9 @@ async function navigation(commands, coordinates) {
             //distanza tra le mie coordinate e la retta passante per 2 waypoint
             let distanceFromLine = getDistanceFromLine(new GpsCoordinates(coordinates[currentWayPoint - 1][1], coordinates[currentWayPoint - 1][0]), waypoint_coordinates, lastKnownPosition);
             if (distanceFromLine > 30) {///-->distanza da regolare
+                if (!isNavigate) {
+                    return;
+                }
                 //se l'utente cambia strada
                 ShowRecalculation();//visualizzo il messaggio di ricalcolo del percorso
                 if (map.getLayer('route')) {
@@ -119,7 +149,6 @@ async function navigation(commands, coordinates) {
                 if (map.getSource('route')) {
                     map.removeSource('route');//cancello la visualizzazione della riga attuale
                 }
-                console.log("ricalcolo");
                 await new Promise(r => setTimeout(r, 2500));
                 navigate(lastKnownPosition, selectedPlace);
                 return;//interrompo la navigazione
@@ -134,6 +163,9 @@ async function navigation(commands, coordinates) {
             //calcolo la distanza dalla svolta
             for (let i = currentWayPoint; i < commandFinishCoordIndex - 1; i++) {
                 turningDistance += getDistanceFromLatLon(new GpsCoordinates(coordinates[i][1], coordinates[i][0]), new GpsCoordinates(coordinates[i + 1][1], coordinates[i + 1][0]));
+                if (!isNavigate) {
+                    return;
+                }
             }
 
             //console.log("Turning distance = " + turningDistance);
