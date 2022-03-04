@@ -2,7 +2,6 @@
 .carcontainer{
     display: block;
     position: relative;
-    border: solid magenta 1px;
 }
 
 #car {
@@ -18,21 +17,23 @@
 
 .left-line{
     position: absolute;
-    left: 7%;
-    height: 600px;
+    left: 15%;
+    height: 100%;
     width: 75px;
-    top:25%;
-    background:linear-gradient(to left,#eee, rgb(150, 237, 248) 50%, #eee 75%);
+    top:0%;
+    background:linear-gradient(to left, rgb(241, 241, 241), rgb(187, 247, 255) 50%,  rgb(241, 241, 241) 75%);
 }
 
 .right-line{
     position: absolute;
-    left: 28%;
-    height: 600px;
+    right: 15%;
+    height: 100%;
     width: 75px;
-    top:25%;
-    background:linear-gradient(to left,#eee, rgb(150, 237, 248) 50%, #eee 75%);
+    top:0%;
+    background:linear-gradient(to left, rgb(241, 241, 241), rgb(187, 247, 255) 50%,  rgb(241, 241, 241) 75%);
 }
+
+/* Righe distanza posteriori */
 
 #back-left-1{
     width: 12%;
@@ -127,5 +128,102 @@
     transform: rotate(-45deg);
     position: absolute;
     bottom: 12.5%;
+    right: 35%;
+}
+
+/* Righe distanza anteriori */
+#front-left-1{
+    width: 12%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 10%;
+    left: 29%;
+}
+
+#front-center-1{
+    width: 20%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    position: absolute;
+    top: 5%;
+    left: 40%;
+}
+
+#front-right-1{
+    width:  12%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 10%;
+    right: 29%;
+}
+
+#front-left-2{
+    width: 9%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 11.5%;
+    left: 32%;
+}
+
+#front-center-2{
+    width: 16%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    position: absolute;
+    top: 7%;
+    left: 42%;
+}
+
+#front-right-2{
+    width:  9%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 11.5%;
+    right: 32%;
+}
+
+#front-left-3{
+    width: 7%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 12.5%;
+    left: 35%;
+}
+
+#front-center-3{
+    width: 12%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    position: absolute;
+    top: 9%;
+    left: 44%;
+}
+
+#front-right-3{
+    width:  7%;
+    height: 7px;
+    background-color: rgb(255, 102, 0);
+    border-radius: 4px;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 12.5%;
     right: 35%;
 }

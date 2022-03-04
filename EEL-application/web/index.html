@@ -24,7 +24,7 @@
     <script src="scripts/searchplace.js" type="text/javascript"></script>
     <script src="scripts/navigate.js" type="text/javascript"></script>
     <script src="scripts/animations.js" type="text/javascript"></script>
-    
+
 </head>
 
 <body oncontextmenu="return false;">
@@ -44,25 +44,40 @@
             </div>
 
             <div class="carcontainer">
-                <div id = "car-dangers-container">
+                <div id="car-dangers-container">
                     <img src="images/cartop.png" id="car" alt="car">
+                    <!-- Righe distanza ostacoli posteriori -->
                     <div id="back-left-1"></div>
-                    <div id = "back-center-1"></div>
-                    <div id = "back-right-1"></div>
+                    <div id="back-center-1"></div>
+                    <div id="back-right-1"></div>
                     <div id="back-left-2"></div>
-                    <div id = "back-center-2"></div>
-                    <div id = "back-right-2"></div>
+                    <div id="back-center-2"></div>
+                    <div id="back-right-2"></div>
                     <div id="back-left-3"></div>
-                    <div id = "back-center-3"></div>
-                    <div id = "back-right-3"></div>
+                    <div id="back-center-3"></div>
+                    <div id="back-right-3"></div>
+
+                    <!-- Righe distanza ostacoli anteriori -->
+                    <div id="front-left-1"></div>
+                    <div id="front-center-1"></div>
+                    <div id="front-right-1"></div>
+                    <div id="front-left-2"></div>
+                    <div id="front-center-2"></div>
+                    <div id="front-right-2"></div>
+                    <div id="front-left-3"></div>
+                    <div id="front-center-3"></div>
+                    <div id="front-right-3"></div>
+
+                    <!-- Linea di sinistra-->
+                    <div class="left-line"></div>
+
+                    <!-- Linea di destra -->
+                    <div class="right-line"></div>
+
                 </div>
-                <!-- Linea di sinistra-->
-                <!-- <div class="left-line"></div> -->
 
-                <!-- Linea di destra -->
-                <!-- <div class="right-line"></div> -->
 
-                
+
             </div>
             <p class="speed" id="speedinkmh">0 km/h</p>
         </div>
