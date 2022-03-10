@@ -1,6 +1,5 @@
 #include <ArduinoJson.h>
 
-
 #define pinEchoBL 2
 #define pinTriggerBL 3
 #define pinEchoBM 4
@@ -29,8 +28,8 @@
   front-left
 */
 
-int pinsTrigger[] = {3, 5, 7, 9, 11, 13};
-int pinsEcho[] = {2, 4, 6, 8, 10, 12};
+int pinsTrigger[] = {pinTriggerBL, pinTriggerBM, pinTriggerBR, pinTriggerFR, pinTriggerFM, pinTriggerFL};
+int pinsEcho[] = {pinEchoBL, pinEchoBM, pinEchoBR, pinEchoFR, pinEchoFM, pinEchoFL};
 
 void setup()
 {
@@ -39,29 +38,20 @@ void setup()
     pinMode(pinsEcho[i], INPUT);
   }
 
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 
 void loop()
-{ /*
-    double[] distances = {}
-    for (int i = 0; i < S_NUM; i++) {
-     double distance = calcDistance(pinsTrigger[i], pinsEcho[i]);
-     Serial.print(String(i) + " --");
-     //Serial.println(distance);
-     Serial.println(toJSON(
+{
+  double distances[S_NUM];
 
-    }
-    calcDistance(pinTriggerFL, pinEchoFL);*/
-  double distances[6];
-
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < S_NUM; i++) {
     distances[i] = calcDistance(pinsTrigger[i], pinsEcho[i]);
-    delay(10);
+    delay(50);
   }
   String jsonString = toJSON(distances[0], distances[1], distances[2], distances[3], distances[4], distances[5]);
-
+  Serial.println(jsonString);
 }
 
 double calcDistance(int pinTrigger, int pinEcho) {
@@ -75,8 +65,7 @@ double calcDistance(int pinTrigger, int pinEcho) {
   return distance;
 }
 
-
-String toJSON(double bl, double bm, double, br, double fr, double fm, double fl) {
+String toJSON(double bl, double bm, double br, double fr, double fm, double fl) {
   StaticJsonDocument<200> doc;
   doc["fl"] = fl;
   doc["fm"] = fm;
