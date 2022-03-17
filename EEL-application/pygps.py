@@ -40,23 +40,26 @@ class pygps:
         return gps_port_name
 
     def __init__(self):
-        serialport_name = self.detectSerialPort()
-        #inizializzo la porta seriale
-        self.serial_port = serial.Serial()
-        self.serial_port.baudrate = self.BAUDRATE
-        self.serial_port.port = serialport_name#!!!!devo riuscire a prendere la porta in automatico
-        self.serial_port.timeout = 0.5
-        self.serial_port.open()
-        #inizializzo il sio
-        self.sio = io.TextIOWrapper(io.BufferedRWPair(self.serial_port, self.serial_port))
-        #inizializzo il thread
-        self.listening_thread = threading.Thread(target= self.__ThreadMethod)
-        self.listening_thread_running = False
-        self.last_known_position = None
-        #inizializzo il semaforo per l'accesso alla variabile dell'utlima posizione
-        self.sem = threading.Semaphore(1)
-        #inizializzo il semaforo per il controllo dell'accesso alla lettura della seriale
-        self.sem_serial = threading.Semaphore(1)
+        try:
+            serialport_name = self.detectSerialPort()
+            #inizializzo la porta seriale
+            self.serial_port = serial.Serial()
+            self.serial_port.baudrate = self.BAUDRATE
+            self.serial_port.port = serialport_name#!!!!devo riuscire a prendere la porta in automatico
+            self.serial_port.timeout = 0.5
+            self.serial_port.open()
+            #inizializzo il sio
+            self.sio = io.TextIOWrapper(io.BufferedRWPair(self.serial_port, self.serial_port))
+            #inizializzo il thread
+            self.listening_thread = threading.Thread(target= self.__ThreadMethod)
+            self.listening_thread_running = False
+            self.last_known_position = None
+            #inizializzo il semaforo per l'accesso alla variabile dell'utlima posizione
+            self.sem = threading.Semaphore(1)
+            #inizializzo il semaforo per il controllo dell'accesso alla lettura della seriale
+            self.sem_serial = threading.Semaphore(1)
+        except:
+            assert(False,'GPS non connesso')
 
     #Metodo per ottenere le coordinate
     def GetPosition(self):

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@300&family=Source+Sans+Pro&display=swap');
-
-html, body {
+html,
+body {
     margin: 0;
     user-select: none;
 }
@@ -41,7 +41,7 @@ html, body {
     width: 150px;
 }
 
-.stopNavigationBtn{
+.stopNavigationBtn {
     background-color: rgb(204, 8, 8);
     color: white;
     border: none;
@@ -266,7 +266,7 @@ html, body {
     padding: 15px;
 }
 
-#routeRecalculation {
+.error-div {
     background-color: rgba(0, 0, 0, 0.74);
     height: 100%;
     width: 60%;
@@ -276,7 +276,7 @@ html, body {
     z-index: 1;
 }
 
-#routeRecalculation p {
+.error-div p {
     color: white;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 25px;
@@ -284,7 +284,7 @@ html, body {
     text-align: center;
 }
 
-#routeRecalculation img {
+.error-div img {
     width: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -292,17 +292,17 @@ html, body {
     margin-top: 40%;
 }
 
-.loading{
+.loading {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 3;
-    background-color: rgb(20,72,228);
+    background-color: rgb(20, 72, 228);
 }
 
-.loading img{
+.loading img {
     width: 20%;
     position: relative;
     display: block;
@@ -310,7 +310,7 @@ html, body {
     margin-top: 20%;
 }
 
-.loading p{
+.loading p {
     color: white;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 25px;

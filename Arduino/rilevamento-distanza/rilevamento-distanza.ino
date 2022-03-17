@@ -44,14 +44,18 @@ void setup()
 
 void loop()
 {
-  double distances[S_NUM];
+  if (Serial.available() > 0) {
+    Serial.read();
+    double distances[S_NUM];
 
-  for (int i = 0; i < S_NUM; i++) {
-    distances[i] = calcDistance(pinsTrigger[i], pinsEcho[i]);
-    delay(50);
+    for (int i = 0; i < S_NUM; i++) {
+      distances[i] = calcDistance(pinsTrigger[i], pinsEcho[i]);
+      delay(50);
+    }
+    String jsonString = toJSON(distances[0], distances[1], distances[2], distances[3], distances[4], distances[5]);
+    Serial.println(jsonString);
   }
-  String jsonString = toJSON(distances[0], distances[1], distances[2], distances[3], distances[4], distances[5]);
-  Serial.println(jsonString);
+  delay(10);
 }
 
 double calcDistance(int pinTrigger, int pinEcho) {
