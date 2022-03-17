@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 17, 2022 alle 13:51
--- Versione del server: 10.4.6-MariaDB
--- Versione PHP: 7.3.8
+-- Creato il: Mar 17, 2022 alle 21:09
+-- Versione del server: 10.4.21-MariaDB
+-- Versione PHP: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -39,6 +38,13 @@ CREATE TABLE `segnalazioni` (
   `Completato` bit(1) NOT NULL DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dump dei dati per la tabella `segnalazioni`
+--
+
+INSERT INTO `segnalazioni` (`ID`, `UserIdentifier`, `Titolo`, `Descrizione`, `Latitudine`, `Longitudine`, `Accettato`, `Completato`) VALUES
+(1, 1, 'Incidente', '-', 45.78771719128974, 9.245537619950573, b'0', b'0');
+
 -- --------------------------------------------------------
 
 --
@@ -57,7 +63,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`UserID`, `Nome`, `Cognome`, `DataAcquisto`) VALUES
-(1, 'Davide', 'Bianchi', '2022-03-17');
+(1, 'Davide', 'Bianchi', '2022-03-17'),
+(2, 'Emanuele', 'Paci', '2022-03-16');
 
 -- --------------------------------------------------------
 
@@ -105,13 +112,13 @@ ALTER TABLE `veicoli`
 -- AUTO_INCREMENT per la tabella `segnalazioni`
 --
 ALTER TABLE `segnalazioni`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `veicoli`

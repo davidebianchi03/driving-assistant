@@ -1,3 +1,3 @@
 <?php
-echo "ciao";
+echo '<h1>Bad Request</h1>';
 ?>
