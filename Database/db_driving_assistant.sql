@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 17, 2022 alle 12:52
+-- Creato il: Mar 17, 2022 alle 13:51
 -- Versione del server: 10.4.6-MariaDB
 -- Versione PHP: 7.3.8
 
@@ -51,6 +51,13 @@ CREATE TABLE `users` (
   `Cognome` varchar(255) NOT NULL,
   `DataAcquisto` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `users`
+--
+
+INSERT INTO `users` (`UserID`, `Nome`, `Cognome`, `DataAcquisto`) VALUES
+(1, 'Davide', 'Bianchi', '2022-03-17');
 
 -- --------------------------------------------------------
 
@@ -104,7 +111,7 @@ ALTER TABLE `segnalazioni`
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `veicoli`
