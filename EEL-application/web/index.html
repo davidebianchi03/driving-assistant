@@ -89,15 +89,26 @@
     </div>
 
     <!-- Div messaggio ricalcolo percorso -->
-    <div id="routeRecalculation" class="error-div">
+    <div id="routeRecalculation" class="error-div-map">
         <img src="images/recalculation.png" alt="recalculation">
         <p>Ricalcolo percorso...</p>
     </div>
 
-    <div id="gpsNotConnected" class="error-div">
+    <!-- Div messaggio GPS non collegato -->
+    <div id="gpsNotConnected" class="error-div-map">
         <img src="images/no_gps.png" alt="gps not connected">
         <p>GPS non disponibile...</p>
+        <p class = 'description'>Controllare il collegamento del modulo GPS</p>
     </div>
+
+    <!-- Div messaggio arduino non collegato -->
+    <div id="arduinoNotConnected" class="error-div-car">
+        <img src="images/arduino.png" alt="gps not connected">
+        <p>Sensori distanza non disponibili...</p>
+        <p class = 'description'>Controllare il collegamento di Arduino</p>
+    </div>
+
+
 
     <button class="navigateBtn bShadow-4" onclick="showNavigation()">
         Naviga

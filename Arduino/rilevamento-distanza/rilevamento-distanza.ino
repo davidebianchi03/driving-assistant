@@ -76,6 +76,7 @@ String toJSON(double bl, double bm, double br, double fr, double fm, double fl) 
   doc["bl"] = bl;
   doc["bm"] = bm;
   doc["br"] = br;
+  doc["connected"] = true;
 
   String jsonData;
   serializeJson(doc, jsonData);

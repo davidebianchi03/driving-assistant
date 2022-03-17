@@ -8,18 +8,28 @@ from textblob import TextBlob
 
 gps_connected = False
 gps = None
-distance = pydistance()
+
+distance_connected = False
+distance = None
 
 eel.init('web')
 
 speechsynthetizer = pySpeak(language='it')
 
+#inizializzazione del modulo gps(se connesso)
 try:
     gps = pygps()
     gps.Start()
     gps_connected = True
 except:
     gps_connected = False
+
+#inizializzazione di arduino per il rilevamento degli ostacoli (se connesso)
+try:
+    distance = pydistance()
+    distance_connected = True
+except:
+    distance_connected = False
 
 #metodo richiamato da javascript per ottenere la posizione
 @eel.expose    
@@ -67,7 +77,18 @@ def Translate(text):
 @eel.expose
 def GetDistances():
     global distance
-    return distance.ReadDistance()
-
+    global distance_connected
+    if distance_connected == True:
+        return distance.ReadDistance()
+    else:
+        try:
+            distance = pydistance()
+            distance_connected = True
+        except:
+            distance_connected = False
+        response = dict()
+        response["connected"] = False
+        jsonString = json.dumps(response)
+        return jsonString
 
 eel.start('index.html')
