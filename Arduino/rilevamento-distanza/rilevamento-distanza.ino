@@ -50,12 +50,11 @@ void loop()
 
     for (int i = 0; i < S_NUM; i++) {
       distances[i] = calcDistance(pinsTrigger[i], pinsEcho[i]);
-      delay(50);
+//      delay(5);
     }
     String jsonString = toJSON(distances[0], distances[1], distances[2], distances[3], distances[4], distances[5]);
     Serial.println(jsonString);
   }
-  delay(10);
 }
 
 double calcDistance(int pinTrigger, int pinEcho) {
@@ -65,7 +64,7 @@ double calcDistance(int pinTrigger, int pinEcho) {
   digitalWrite(pinTrigger, LOW);
 
   long durata = pulseIn(pinEcho, HIGH);
-  double distance = durata / 58.31;
+  double distance = durata / 29 / 2;
   return distance;
 }
 

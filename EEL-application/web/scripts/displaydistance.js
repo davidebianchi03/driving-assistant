@@ -24,17 +24,22 @@ $(document).ready(function() {
     $("#front-center-3").hide();
     $("#front-right-3").hide();
 
-    setInterval(UpdateDistance, 1000);
+    setInterval(UpdateDistance, 100);
 });
 
+//aggiornamenti delle distanze visualizzate
 function UpdateDistance() {
     eel.GetDistances()(function(json) {
+        console.log(json);
         var obj = JSON.parse(json);
         //distanze soglie rilevate da sensori ad ultrasuoni
-        var s1 = 500;
-        var s2 = 1500;
-        var s3 = 2500;
+        var s1 = 25;
+        var s2 = 50;
+        var s3 = 100;
+
         //{"fl":13.06808,"fm":163.2825,"fr":165.7692,"bl":27.90259,"bm":68.30732,"br":35.82576}
+
+        //sensori anteriori
         if (obj.fl < s3 && obj.fl > s2) {
             SetFrontLeftLevel(1);
         } else if (obj.fl < s2 && obj.fl > s1) {
@@ -53,6 +58,47 @@ function UpdateDistance() {
             SetFrontCenterLevel(3);
         } else if (obj.fm > s3) {
             SetFrontCenterLevel(0);
+        }
+
+        if (obj.fr < s3 && obj.fr > s2) {
+            SetFrontRightLevel(1);
+        } else if (obj.fr < s2 && obj.fr > s1) {
+            SetFrontRightLevel(2);
+        } else if (obj.fr < s1) {
+            SetFrontRightLevel(3);
+        } else if (obj.fr > s3) {
+            SetFrontRightLevel(0);
+        }
+
+        //sensori posteriori
+        if (obj.bl < s3 && obj.bl > s2) {
+            SetBackLeftLevel(1);
+        } else if (obj.bl < s2 && obj.bl > s1) {
+            SetBackLeftLevel(2);
+        } else if (obj.bl < s1) {
+            SetBackLeftLevel(3);
+        } else if (obj.bl > s3) {
+            SetBackLeftLevel(0);
+        }
+
+        if (obj.bm < s3 && obj.bm > s2) {
+            SetBackCenterLevel(1);
+        } else if (obj.bm < s2 && obj.bm > s1) {
+            SetBackCenterLevel(2);
+        } else if (obj.bm < s1) {
+            SetBackCenterLevel(3);
+        } else if (obj.bm > s3) {
+            SetBackCenterLevel(0);
+        }
+
+        if (obj.br < s3 && obj.br > s2) {
+            SetBackRightLevel(1);
+        } else if (obj.br < s2 && obj.br > s1) {
+            SetBackRightLevel(2);
+        } else if (obj.br < s1) {
+            SetBackRightLevel(3);
+        } else if (obj.br > s3) {
+            SetBackRightLevel(0);
         }
 
     });
