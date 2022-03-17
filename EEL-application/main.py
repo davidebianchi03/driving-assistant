@@ -37,10 +37,16 @@ def GetPosition():
     global gps_connected
     global gps
     if  gps_connected:
-        survey = gps.GetLastKnownPosition()
-        survey["gps_connected"] = True
-        jsonString = json.dumps(survey)
-        return jsonString
+        try:
+            survey = gps.GetLastKnownPosition()
+            survey["gps_connected"] = True
+            jsonString = json.dumps(survey)
+            return jsonString
+        except:
+            gps_connected = False
+            response = dict()
+            response["gps_connected"] = False
+            jsonString = json.dumps(response)
     else:
         try:
             gps = pygps()
@@ -79,7 +85,14 @@ def GetDistances():
     global distance
     global distance_connected
     if distance_connected == True:
-        return distance.ReadDistance()
+        try:
+            return distance.ReadDistance()
+        except:
+            distance_connected = False
+            response = dict()
+            response["connected"] = False
+            jsonString = json.dumps(response)
+            return jsonString
     else:
         try:
             distance = pydistance()
