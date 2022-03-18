@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 18, 2022 alle 16:19
+-- Creato il: Mar 18, 2022 alle 19:07
 -- Versione del server: 10.4.21-MariaDB
 -- Versione PHP: 8.0.12
 
@@ -24,13 +24,13 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `acquisto`
+-- Struttura della tabella `acquisti`
 --
 
-CREATE TABLE `acquisto` (
-  `IDAcquisto` int(11) NOT NULL,
-  `IDuser` int(11) NOT NULL,
-  `DataAcquisto` date NOT NULL
+CREATE TABLE `acquisti` (
+  `PurchaseID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `PurchaseDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -46,21 +46,20 @@ CREATE TABLE `segnalazioni` (
   `Descrizione` text DEFAULT NULL,
   `Latitudine` double NOT NULL,
   `Longitudine` double NOT NULL,
+  `Date Time` datetime DEFAULT current_timestamp(),
   `Accettato` bit(1) NOT NULL DEFAULT b'0',
-  `Completato` bit(1) NOT NULL DEFAULT b'0'
+  `Date Time Accepted` datetime DEFAULT NULL,
+  `Completato` bit(1) NOT NULL DEFAULT b'0',
+  `Date Time Completed` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `segnalazioni`
 --
 
-INSERT INTO `segnalazioni` (`ID`, `UserIdentifier`, `Titolo`, `Descrizione`, `Latitudine`, `Longitudine`, `Accettato`, `Completato`) VALUES
-(1, 1, 'Incidente', '-', 45.78771719128974, 9.245537619950573, b'0', b'0'),
-(2, 1, 'incidente', 'due auto hanno fatto er botto', 20.5, 5.6, b'0', b'0'),
-(3, 2, 'Auto in panne', 'Lungo il bordo della strada', 45.77128836795, 9.140336800063801, b'0', b'0'),
-(4, 2, 'Motociclista a terra', 'Moto in fiamme', 45.77128836795, 9.140336800063801, b'0', b'0'),
-(5, 1, 'asd', 'dfsa', 45.77128836795, 9.140336800063801, b'0', b'0'),
-(6, 1, 'asd', 'dfsa', 45.77128836795, 9.140336800063801, b'0', b'0');
+INSERT INTO `segnalazioni` (`ID`, `UserIdentifier`, `Titolo`, `Descrizione`, `Latitudine`, `Longitudine`, `Date Time`, `Accettato`, `Date Time Accepted`, `Completato`, `Date Time Completed`) VALUES
+(1, 1, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'eeh volevi', 0, 0, '2022-03-18 19:01:35', b'0', NULL, b'0', NULL),
+(2, 1, 'Incidente', 'desc', 0, 0, '2022-03-18 19:05:31', b'0', NULL, b'0', NULL);
 
 -- --------------------------------------------------------
 
@@ -82,7 +81,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`UserID`, `Nome`, `Cognome`, `Password`, `UserLevel`) VALUES
 (1, 'Davide', 'Bianchi', '', 0),
-(2, 'Emanuele', 'Paci', '', 0);
+(2, 'Emanuele', 'Paci', '', 0),
+(3, 'Gabriele', 'Ginisi', 'prova', 1),
+(4, 'Giovanni', 'Breviario', '$2y$10$94xsNrfEfBSsA3bnI20SB.dzW6iP086.Ke8q494qw0g3CDFrdWpNC', 0);
 
 -- --------------------------------------------------------
 
@@ -103,11 +104,11 @@ CREATE TABLE `veicoli` (
 --
 
 --
--- Indici per le tabelle `acquisto`
+-- Indici per le tabelle `acquisti`
 --
-ALTER TABLE `acquisto`
-  ADD PRIMARY KEY (`IDAcquisto`),
-  ADD KEY `IDuser` (`IDuser`);
+ALTER TABLE `acquisti`
+  ADD PRIMARY KEY (`PurchaseID`),
+  ADD KEY `IDuser` (`UserID`);
 
 --
 -- Indici per le tabelle `segnalazioni`
@@ -134,22 +135,22 @@ ALTER TABLE `veicoli`
 --
 
 --
--- AUTO_INCREMENT per la tabella `acquisto`
+-- AUTO_INCREMENT per la tabella `acquisti`
 --
-ALTER TABLE `acquisto`
-  MODIFY `IDAcquisto` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `acquisti`
+  MODIFY `PurchaseID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `segnalazioni`
 --
 ALTER TABLE `segnalazioni`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `veicoli`
@@ -162,10 +163,10 @@ ALTER TABLE `veicoli`
 --
 
 --
--- Limiti per la tabella `acquisto`
+-- Limiti per la tabella `acquisti`
 --
-ALTER TABLE `acquisto`
-  ADD CONSTRAINT `acquisto_ibfk_1` FOREIGN KEY (`IDuser`) REFERENCES `users` (`UserID`);
+ALTER TABLE `acquisti`
+  ADD CONSTRAINT `acquisti_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
 
 --
 -- Limiti per la tabella `segnalazioni`
