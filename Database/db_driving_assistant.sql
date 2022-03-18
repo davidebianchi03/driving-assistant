@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 18, 2022 alle 10:11
--- Versione del server: 10.4.6-MariaDB
--- Versione PHP: 7.3.8
+-- Creato il: Mar 18, 2022 alle 16:19
+-- Versione del server: 10.4.21-MariaDB
+-- Versione PHP: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_driving_assistant`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `acquisto`
+--
+
+CREATE TABLE `acquisto` (
+  `IDAcquisto` int(11) NOT NULL,
+  `IDuser` int(11) NOT NULL,
+  `DataAcquisto` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -61,16 +72,17 @@ CREATE TABLE `users` (
   `UserID` int(11) NOT NULL,
   `Nome` varchar(255) NOT NULL,
   `Cognome` varchar(255) NOT NULL,
-  `DataAcquisto` date NOT NULL
+  `Password` varchar(255) NOT NULL,
+  `UserLevel` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `users`
 --
 
-INSERT INTO `users` (`UserID`, `Nome`, `Cognome`, `DataAcquisto`) VALUES
-(1, 'Davide', 'Bianchi', '2022-03-17'),
-(2, 'Emanuele', 'Paci', '2022-03-16');
+INSERT INTO `users` (`UserID`, `Nome`, `Cognome`, `Password`, `UserLevel`) VALUES
+(1, 'Davide', 'Bianchi', '', 0),
+(2, 'Emanuele', 'Paci', '', 0);
 
 -- --------------------------------------------------------
 
@@ -89,6 +101,13 @@ CREATE TABLE `veicoli` (
 --
 -- Indici per le tabelle scaricate
 --
+
+--
+-- Indici per le tabelle `acquisto`
+--
+ALTER TABLE `acquisto`
+  ADD PRIMARY KEY (`IDAcquisto`),
+  ADD KEY `IDuser` (`IDuser`);
 
 --
 -- Indici per le tabelle `segnalazioni`
@@ -115,6 +134,12 @@ ALTER TABLE `veicoli`
 --
 
 --
+-- AUTO_INCREMENT per la tabella `acquisto`
+--
+ALTER TABLE `acquisto`
+  MODIFY `IDAcquisto` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT per la tabella `segnalazioni`
 --
 ALTER TABLE `segnalazioni`
@@ -135,6 +160,12 @@ ALTER TABLE `veicoli`
 --
 -- Limiti per le tabelle scaricate
 --
+
+--
+-- Limiti per la tabella `acquisto`
+--
+ALTER TABLE `acquisto`
+  ADD CONSTRAINT `acquisto_ibfk_1` FOREIGN KEY (`IDuser`) REFERENCES `users` (`UserID`);
 
 --
 -- Limiti per la tabella `segnalazioni`
