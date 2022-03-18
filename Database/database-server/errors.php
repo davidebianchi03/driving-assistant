@@ -35,6 +35,14 @@ function NotFound_404()
     sendJSONResponse($myObj);
 }
 
+function InternalServerError_500()
+{
+    $myObj = new stdClass();
+    $myObj->code = 500;
+    $myObj->message = "Unexpected error";
+    sendJSONResponse($myObj);
+}
+
 function sendJSONResponse($obj)
 {
     header('Content-Type: application/json; charset=utf-8');
