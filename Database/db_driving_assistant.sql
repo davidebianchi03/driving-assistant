@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 18, 2022 alle 19:07
+-- Creato il: Mar 18, 2022 alle 20:01
 -- Versione del server: 10.4.21-MariaDB
 -- Versione PHP: 8.0.12
 
@@ -30,8 +30,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `acquisti` (
   `PurchaseID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
-  `PurchaseDate` date NOT NULL
+  `PurchaseDate` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `acquisti`
+--
+
+INSERT INTO `acquisti` (`PurchaseID`, `UserID`, `PurchaseDate`) VALUES
+(1, 1, '2022-03-18');
 
 -- --------------------------------------------------------
 
@@ -92,12 +99,19 @@ INSERT INTO `users` (`UserID`, `Nome`, `Cognome`, `Password`, `UserLevel`) VALUE
 --
 
 CREATE TABLE `veicoli` (
-  `IDVeicolo` int(11) NOT NULL,
+  `VehicleID` int(11) NOT NULL,
   `Marca` varchar(255) NOT NULL,
   `Modello` varchar(255) NOT NULL,
   `Targa` varchar(7) NOT NULL,
-  `IDProprietario` int(11) NOT NULL
+  `UserID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `veicoli`
+--
+
+INSERT INTO `veicoli` (`VehicleID`, `Marca`, `Modello`, `Targa`, `UserID`) VALUES
+(1, 'FIAT', 'Panda', 'FA000AA', 1);
 
 --
 -- Indici per le tabelle scaricate
@@ -127,8 +141,8 @@ ALTER TABLE `users`
 -- Indici per le tabelle `veicoli`
 --
 ALTER TABLE `veicoli`
-  ADD PRIMARY KEY (`IDVeicolo`,`Targa`),
-  ADD KEY `IDProprietario` (`IDProprietario`);
+  ADD PRIMARY KEY (`VehicleID`,`Targa`),
+  ADD KEY `IDProprietario` (`UserID`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
@@ -138,7 +152,7 @@ ALTER TABLE `veicoli`
 -- AUTO_INCREMENT per la tabella `acquisti`
 --
 ALTER TABLE `acquisti`
-  MODIFY `PurchaseID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PurchaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `segnalazioni`
@@ -156,7 +170,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT per la tabella `veicoli`
 --
 ALTER TABLE `veicoli`
-  MODIFY `IDVeicolo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `VehicleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Limiti per le tabelle scaricate
@@ -178,7 +192,7 @@ ALTER TABLE `segnalazioni`
 -- Limiti per la tabella `veicoli`
 --
 ALTER TABLE `veicoli`
-  ADD CONSTRAINT `veicoli_ibfk_1` FOREIGN KEY (`IDProprietario`) REFERENCES `users` (`UserID`);
+  ADD CONSTRAINT `veicoli_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
