@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 17, 2022 alle 21:09
--- Versione del server: 10.4.21-MariaDB
--- Versione PHP: 8.0.12
+-- Creato il: Mar 18, 2022 alle 10:11
+-- Versione del server: 10.4.6-MariaDB
+-- Versione PHP: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -43,7 +44,12 @@ CREATE TABLE `segnalazioni` (
 --
 
 INSERT INTO `segnalazioni` (`ID`, `UserIdentifier`, `Titolo`, `Descrizione`, `Latitudine`, `Longitudine`, `Accettato`, `Completato`) VALUES
-(1, 1, 'Incidente', '-', 45.78771719128974, 9.245537619950573, b'0', b'0');
+(1, 1, 'Incidente', '-', 45.78771719128974, 9.245537619950573, b'0', b'0'),
+(2, 1, 'incidente', 'due auto hanno fatto er botto', 20.5, 5.6, b'0', b'0'),
+(3, 2, 'Auto in panne', 'Lungo il bordo della strada', 45.77128836795, 9.140336800063801, b'0', b'0'),
+(4, 2, 'Motociclista a terra', 'Moto in fiamme', 45.77128836795, 9.140336800063801, b'0', b'0'),
+(5, 1, 'asd', 'dfsa', 45.77128836795, 9.140336800063801, b'0', b'0'),
+(6, 1, 'asd', 'dfsa', 45.77128836795, 9.140336800063801, b'0', b'0');
 
 -- --------------------------------------------------------
 
@@ -112,7 +118,7 @@ ALTER TABLE `veicoli`
 -- AUTO_INCREMENT per la tabella `segnalazioni`
 --
 ALTER TABLE `segnalazioni`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT per la tabella `users`

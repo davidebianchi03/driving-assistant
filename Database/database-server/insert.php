@@ -1,6 +1,5 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    //echo '{"error":"bad request method"}';
     echo '<h1>Bad Request</h1>  ';
 }
 
@@ -53,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO segnalazioni (UserIdentifier, Titolo, Descrizione, Latitudine, Longitudine) VALUES (?, ?, ?, ?, ?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
-            echo "prova";
             mysqli_stmt_bind_param($stmt, "sssss", $param_userID, $param_titolo, $param_descrizione, $param_lat, $param_lon);
 
             $param_userID = $userID;
@@ -62,9 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_lat = $lat;
             $param_lon = $lon;
 
-            echo $param_userID;
-            if (mysqli_stmt_execute($stmt)) {
-                header("location: index.php");
+            if (mysqli_stmt_execute($stmt)) {   
                 exit();
             } else {
                 echo "Something went wrong";
