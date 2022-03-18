@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $password = trim($data['password']);
 
 
-                    $sql = "INSERT INTO segnalazioni (UserIdentifier, Nome, Cognome, Pass) VALUES (?, ?, ?, ?)";
+                    $sql = "INSERT INTO users (UserIdentifier, Nome, Cognome, Pass) VALUES (?, ?, ?, ?)";
 
                     if ($stmt = mysqli_prepare($link, $sql)) {
                         mysqli_stmt_bind_param($stmt, "sssss", $param_userID, $param_nome, $param_cognome, $param_password);
