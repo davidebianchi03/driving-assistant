@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
 
-    require_once 'config.php';
+    //require_once 'config.php';
     if (isset($data["action"])) {
         switch ($data["action"]) {
             case "insert-segnalazione":
@@ -17,57 +17,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $lat = trim($data['lat']);
                     $lon = trim($data['lon']);
 
-
                     $sql = "INSERT INTO segnalazioni (UserIdentifier, Titolo, Descrizione, Latitudine, Longitudine) VALUES (?, ?, ?, ?, ?)";
-
-                    if ($stmt = mysqli_prepare($link, $sql)) {
-                        mysqli_stmt_bind_param($stmt, "sssss", $param_userID, $param_title, $param_description, $param_lat, $param_lon);
-
-                        $param_userID = $userID;
-                        $param_title = $title;
-                        $param_description = $description;
-                        $param_lat = $lat;
-                        $param_lon = $lon;
-
-                        if (mysqli_stmt_execute($stmt)) {
-                            exit();
-                        } else {
-                            InternalServerError_500();
-                        }
-                        mysqli_stmt_close($stmt);
-                    }
-                    mysqli_close($link);
+                    insertIntoDataBase($sql, 'sssss', $userID, $title, $description, $lat, $lon);
                 } else {
                     BadRequest_400();
                 }
                 break;
             case "insert-user":
-                $userID =  $nome =  $cognome = $password = "";
-                if (isset($data['user_id']) && isset($data['nome']) && isset($data['cognome']) && isset($data['password'])) {
-                    $userID = trim($data['user_id']);
+                $nome =  $cognome = $password = $userLevel = "";
+                if (isset($data['nome']) && isset($data['cognome']) && isset($data['password']) && isset($data['user_level'])) {
                     $nome = trim($data['nome']);
                     $cognome = trim($data['cognome']);
                     $password = trim($data['password']);
+                    $userLevel = trim($data['user_level']);
 
+                    $sql = "INSERT INTO users (Nome, Cognome, `Password`, userLevel) VALUES (?, ?, ?, ?)";
+                    insertIntoDataBase($sql, "ssss", $param_nome, $param_cognome, $param_password, $param_userLevel);
+                } else {
+                    BadRequest_400();
+                }
+                break;
+            case "insert-purchase":
+                $userID = "";
+                if (isset($data['user_id'])) {
+                    $user_id = trim($data['user_id']);
 
-                    $sql = "INSERT INTO users (UserIdentifier, Nome, Cognome, Pass) VALUES (?, ?, ?, ?)";
+                    $sql = "INSERT INTO acquisti (UserID) VALUES (?)";
+                    insertIntoDataBase($sql, 's', $user_id);
+                } else {
+                    BadRequest_400();
+                }
+                break;
+            case "insert-vehicle":
+                $userID = $marca = $modello = $targa = "";
+                if (isset($data['user_id']) && isset($data['marca']) && isset($data['modello']) && isset($data['targa'])) {
+                    $user_id = trim($data['user_id']);
+                    $marca = trim($data['marca']);
+                    $modello = trim($data['modello']);
+                    $targa = trim($data['targa']);
 
-                    if ($stmt = mysqli_prepare($link, $sql)) {
-                        mysqli_stmt_bind_param($stmt, "sssss", $param_userID, $param_nome, $param_cognome, $param_password);
-
-                        $param_userID = $userID;
-                        $param_nome = $nome;
-                        $param_cognome = $cognome;
-                        $param_password = $password;
-
-                        if (mysqli_stmt_execute($stmt)) {
-                            exit();
-                        } else {
-                            InternalServerError_500();
-                        }
-                        mysqli_stmt_close($stmt);
-                    }
-                    mysqli_close($link);
+                    $sql = "INSERT INTO veicoli (UserID, Marca, Modello, Targa) VALUES (?, ?, ?, ?)";
+                    insertIntoDataBase($sql, 'ssss', $user_id, $marca, $modello, $targa);
                 } else {
                     BadRequest_400();
                 }
@@ -75,5 +65,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         BadRequest_400();
+    }
+}
+
+function insertIntoDataBase($sql, $types, ...$params)
+{
+    if (strlen($types) == count($params)) {
+        require_once 'config.php';
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, $types, ...$params);
+            if (mysqli_stmt_execute($stmt)) {
+                exit();
+            } else {
+                InternalServerError_500();
+            }
+            mysqli_stmt_close($stmt);
+        }
+        mysqli_close($link);
+    } else {
+        InternalServerError_500();
     }
 }
