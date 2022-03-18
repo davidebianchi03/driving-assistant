@@ -1,3 +1,3 @@
 <?php
-echo '<h1>Bad Request</h1>';
+include('errors.php');
 ?>
