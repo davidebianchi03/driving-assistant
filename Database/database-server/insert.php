@@ -42,7 +42,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 break;
             case "insert-user":
+                $userID =  $nome =  $cognome = $password = "";
+                if (isset($data['user_id']) && isset($data['nome']) && isset($data['cognome']) && isset($data['password'])) {
+                    $userID = trim($data['user_id']);
+                    $nome = trim($data['nome']);
+                    $cognome = trim($data['cognome']);
+                    $password = trim($data['password']);
 
+
+                    $sql = "INSERT INTO segnalazioni (UserIdentifier, Nome, Cognome, Pass) VALUES (?, ?, ?, ?)";
+
+                    if ($stmt = mysqli_prepare($link, $sql)) {
+                        mysqli_stmt_bind_param($stmt, "sssss", $param_userID, $param_nome, $param_cognome, $param_password);
+
+                        $param_userID = $userID;
+                        $param_nome = $nome;
+                        $param_cognome = $cognome;
+                        $param_password = $password;
+
+                        if (mysqli_stmt_execute($stmt)) {
+                            exit();
+                        } else {
+                            InternalServerError_500();
+                        }
+                        mysqli_stmt_close($stmt);
+                    }
+                    mysqli_close($link);
+                } else {
+                    BadRequest_400();
+                }
                 break;
         }
     } else {
