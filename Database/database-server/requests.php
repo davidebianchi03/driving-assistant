@@ -5,7 +5,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
 
-    //require_once 'config.php';
+    require_once('config.php');
+    include('manage-db.php');
     if (isset($data["action"])) {
         switch ($data["action"]) {
             case "insert-segnalazione":
@@ -18,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $lon = trim($data['lon']);
 
                     $sql = "INSERT INTO segnalazioni (UserIdentifier, Titolo, Descrizione, Latitudine, Longitudine) VALUES (?, ?, ?, ?, ?)";
-                    insertIntoDataBase($sql, 'sssss', $userID, $title, $description, $lat, $lon);
+                    insertIntoDataBase($link, $sql, 'sssss', $userID, $title, $description, $lat, $lon);
                 } else {
                     BadRequest_400();
                 }
@@ -32,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $userLevel = trim($data['user_level']);
 
                     $sql = "INSERT INTO users (Nome, Cognome, `Password`, userLevel) VALUES (?, ?, ?, ?)";
-                    insertIntoDataBase($sql, "ssss", $param_nome, $param_cognome, $param_password, $param_userLevel);
+                    insertIntoDataBase($link, $sql, "ssss", $param_nome, $param_cognome, $param_password, $param_userLevel);
                 } else {
                     BadRequest_400();
                 }
@@ -62,28 +63,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     BadRequest_400();
                 }
                 break;
+            case "search-user":
+                if (userExists($link, 1)) {
+                    getUserInfo($link, 1);
+                } else {
+                    NotFound_404();
+                }
+                break;
         }
     } else {
         BadRequest_400();
-    }
-}
-
-function insertIntoDataBase($sql, $types, ...$params)
-{
-    if (strlen($types) == count($params)) {
-        require_once 'config.php';
-
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, $types, ...$params);
-            if (mysqli_stmt_execute($stmt)) {
-                exit();
-            } else {
-                InternalServerError_500();
-            }
-            mysqli_stmt_close($stmt);
-        }
-        mysqli_close($link);
-    } else {
-        InternalServerError_500();
     }
 }
