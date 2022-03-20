@@ -1,0 +1,10 @@
+.container {
+    min-height: 100vh;
+}
+
+.coming-soon{
+    font-family: 'Fredoka', sans-serif;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 25vh;
+}

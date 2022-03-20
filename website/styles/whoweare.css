@@ -1,7 +1,7 @@
 .container {
     font-family: 'Fredoka', sans-serif;
     padding: 10px;
-    min-height: 100vh;
+    background-color: white;
 }
 
 .title {
