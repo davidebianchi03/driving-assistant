@@ -161,7 +161,7 @@ html, body {
     top: 70px;
     background-color: white;
     z-index: 5;
-    width: 200px;
+    width: 100%;
     display: none;    
     border: solid gray 1px;
 }
@@ -169,10 +169,13 @@ html, body {
 .page-list-dropdown{
     list-style: none;
     font-family: 'Fredoka', sans-serif;
+    padding: 0;
 }
 
 .page-list-dropdown li{
-    padding: 10px;
+    padding: 10px 0px;
+    width: 100%;
+    text-align: center;
 }
 
 .page-list-dropdown li .list-item{

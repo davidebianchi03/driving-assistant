@@ -31,6 +31,7 @@
                 <li><a href="whoweare.php" class="list-item">Chi siamo</a></li>
                 <li><a href="servizi.php" class="list-item">Servizi</a></li>
                 <li><a href="" class="list-item">Team</a></li>
+                <li><a href="login.php" class="link-button">Visualizza la mappa</a></li>
             </ul>
         </div>
 
@@ -39,7 +40,7 @@
             <li><a href="whoweare.php" class="list-item">Chi siamo</a></li>
             <li><a href="servizi.php" class="list-item">Servizi</a></li>
             <li><a href="" class="list-item">Team</a></li>
-            <li><a href="" class="link-button">Visualizza la mappa</a></li>
+            <li><a href="login.php" class="link-button">Visualizza la mappa</a></li>
         </ul>
     </div>
 
@@ -48,7 +49,7 @@
     <div class="middle-image container">
         <div class="render">
             <p class="link-button-middle-image">
-                <a href=""> Visualizza la mappa</a>
+                <a href="login.php"> Visualizza la mappa</a>
             </p>
         </div>
 

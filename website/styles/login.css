@@ -1,0 +1,60 @@
+.container{
+    background: url('../img/render.jpg');
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.blur{
+    height: 100vh;
+    width: 100vw;
+    background-color: #ffffff10;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.form-container{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+} 
+
+.login-form{
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-color: rgb(255, 255, 255);
+    margin: auto;
+    width: 300px;
+    padding: 50px;
+    display: inherit;
+    height: 300px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.login-form .input{
+    margin-left: -10px;
+    margin-top: 35px;
+    position:relative;
+    display: flexbox;
+    width: 290px;
+}
+
+.login-form .input input{
+    width: 100%;
+}
+
+.login-form .title{
+    font-family: 'Fredoka', sans-serif;
+    font-size: 25px;
+    margin-top: -15px;
+}
+
+.register{
+    color: rgb(0, 68, 255);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 18px;
+}
