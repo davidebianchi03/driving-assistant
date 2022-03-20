@@ -1,3 +1,3 @@
 <?php
-include('errors.php');
+require_once('errors.php');
 ?>

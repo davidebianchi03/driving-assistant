@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 18, 2022 alle 20:01
+-- Creato il: Mar 20, 2022 alle 21:13
 -- Versione del server: 10.4.21-MariaDB
 -- Versione PHP: 8.0.12
 
@@ -30,15 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `acquisti` (
   `PurchaseID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
-  `PurchaseDate` date NOT NULL DEFAULT current_timestamp()
+  `PurchaseDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dump dei dati per la tabella `acquisti`
---
-
-INSERT INTO `acquisti` (`PurchaseID`, `UserID`, `PurchaseDate`) VALUES
-(1, 1, '2022-03-18');
 
 -- --------------------------------------------------------
 
@@ -48,25 +41,17 @@ INSERT INTO `acquisti` (`PurchaseID`, `UserID`, `PurchaseDate`) VALUES
 
 CREATE TABLE `segnalazioni` (
   `ID` int(11) NOT NULL,
-  `UserIdentifier` int(11) NOT NULL,
-  `Titolo` varchar(100) NOT NULL,
-  `Descrizione` text DEFAULT NULL,
-  `Latitudine` double NOT NULL,
-  `Longitudine` double NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `Title` varchar(100) NOT NULL,
+  `Description` text DEFAULT NULL,
+  `Lat` double NOT NULL,
+  `Lon` double NOT NULL,
   `Date Time` datetime DEFAULT current_timestamp(),
-  `Accettato` bit(1) NOT NULL DEFAULT b'0',
+  `Accepted` bit(1) NOT NULL DEFAULT b'0',
   `Date Time Accepted` datetime DEFAULT NULL,
-  `Completato` bit(1) NOT NULL DEFAULT b'0',
+  `Completed` bit(1) NOT NULL DEFAULT b'0',
   `Date Time Completed` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `segnalazioni`
---
-
-INSERT INTO `segnalazioni` (`ID`, `UserIdentifier`, `Titolo`, `Descrizione`, `Latitudine`, `Longitudine`, `Date Time`, `Accettato`, `Date Time Accepted`, `Completato`, `Date Time Completed`) VALUES
-(1, 1, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'eeh volevi', 0, 0, '2022-03-18 19:01:35', b'0', NULL, b'0', NULL),
-(2, 1, 'Incidente', 'desc', 0, 0, '2022-03-18 19:05:31', b'0', NULL, b'0', NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -76,21 +61,20 @@ INSERT INTO `segnalazioni` (`ID`, `UserIdentifier`, `Titolo`, `Descrizione`, `La
 
 CREATE TABLE `users` (
   `UserID` int(11) NOT NULL,
-  `Nome` varchar(255) NOT NULL,
-  `Cognome` varchar(255) NOT NULL,
+  `FirstName` varchar(255) NOT NULL,
+  `LastName` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
-  `UserLevel` tinyint(4) NOT NULL DEFAULT 0
+  `Username` varchar(255) NOT NULL,
+  `UserLevel` tinyint(4) NOT NULL DEFAULT 0,
+  `AccessToken` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `users`
 --
 
-INSERT INTO `users` (`UserID`, `Nome`, `Cognome`, `Password`, `UserLevel`) VALUES
-(1, 'Davide', 'Bianchi', '', 0),
-(2, 'Emanuele', 'Paci', '', 0),
-(3, 'Gabriele', 'Ginisi', 'prova', 1),
-(4, 'Giovanni', 'Breviario', '$2y$10$94xsNrfEfBSsA3bnI20SB.dzW6iP086.Ke8q494qw0g3CDFrdWpNC', 0);
+INSERT INTO `users` (`UserID`, `FirstName`, `LastName`, `Password`, `Username`, `UserLevel`, `AccessToken`) VALUES
+(1, 'Emanuele', 'Paci', '$2y$10$KEDs3X3ZoDXHSD/ooqFnNeFjLcsM3bNS5Wj.o/BAkMJPjavaI.og6', 'LelePaci', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -104,14 +88,7 @@ CREATE TABLE `veicoli` (
   `Modello` varchar(255) NOT NULL,
   `Targa` varchar(7) NOT NULL,
   `UserID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `veicoli`
---
-
-INSERT INTO `veicoli` (`VehicleID`, `Marca`, `Modello`, `Targa`, `UserID`) VALUES
-(1, 'FIAT', 'Panda', 'FA000AA', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indici per le tabelle scaricate
@@ -122,27 +99,28 @@ INSERT INTO `veicoli` (`VehicleID`, `Marca`, `Modello`, `Targa`, `UserID`) VALUE
 --
 ALTER TABLE `acquisti`
   ADD PRIMARY KEY (`PurchaseID`),
-  ADD KEY `IDuser` (`UserID`);
+  ADD KEY `UserID` (`UserID`);
 
 --
 -- Indici per le tabelle `segnalazioni`
 --
 ALTER TABLE `segnalazioni`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `UserIdentifier` (`UserIdentifier`);
+  ADD KEY `UserID` (`UserID`);
 
 --
 -- Indici per le tabelle `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`UserID`);
+  ADD PRIMARY KEY (`UserID`),
+  ADD UNIQUE KEY `Username` (`Username`);
 
 --
 -- Indici per le tabelle `veicoli`
 --
 ALTER TABLE `veicoli`
-  ADD PRIMARY KEY (`VehicleID`,`Targa`),
-  ADD KEY `IDProprietario` (`UserID`);
+  ADD PRIMARY KEY (`VehicleID`),
+  ADD KEY `veicoli_ibfk_1` (`UserID`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
@@ -152,25 +130,25 @@ ALTER TABLE `veicoli`
 -- AUTO_INCREMENT per la tabella `acquisti`
 --
 ALTER TABLE `acquisti`
-  MODIFY `PurchaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PurchaseID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `segnalazioni`
 --
 ALTER TABLE `segnalazioni`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `veicoli`
 --
 ALTER TABLE `veicoli`
-  MODIFY `VehicleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `VehicleID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Limiti per le tabelle scaricate
@@ -180,19 +158,19 @@ ALTER TABLE `veicoli`
 -- Limiti per la tabella `acquisti`
 --
 ALTER TABLE `acquisti`
-  ADD CONSTRAINT `acquisti_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
+  ADD CONSTRAINT `acquisti_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `segnalazioni`
 --
 ALTER TABLE `segnalazioni`
-  ADD CONSTRAINT `segnalazioni_ibfk_1` FOREIGN KEY (`UserIdentifier`) REFERENCES `users` (`UserID`);
+  ADD CONSTRAINT `segnalazioni_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `veicoli`
 --
 ALTER TABLE `veicoli`
-  ADD CONSTRAINT `veicoli_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
+  ADD CONSTRAINT `veicoli_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
