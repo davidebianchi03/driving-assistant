@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $lat = trim($data['lat']);
                     $lon = trim($data['lon']);
 
-                    $sql = "INSERT INTO segnalazioni (UserIdentifier, Titolo, Descrizione, Latitudine, Longitudine) VALUES (?, ?, ?, ?, ?)";
+                    $sql = "INSERT INTO segnalazioni (UserID, Title, `Description`, Lat, Lon) VALUES (?, ?, ?, ?, ?)";
                     insertIntoDataBase($link, $sql, 'sssss', $userID, $title, $description, $lat, $lon);
                 } else {
                     BadRequest_400();
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $password = trim($data['password']);
                     $userLevel = trim($data['user_level']);
 
-                    $sql = "INSERT INTO users (Nome, Cognome, `Password`, userLevel) VALUES (?, ?, ?, ?)";
+                    $sql = "INSERT INTO users (FirstName, LastName, `Password`, userLevel) VALUES (?, ?, ?, ?)";
                     insertIntoDataBase($link, $sql, "ssss", $param_nome, $param_cognome, $param_password, $param_userLevel);
                 } else {
                     BadRequest_400();
