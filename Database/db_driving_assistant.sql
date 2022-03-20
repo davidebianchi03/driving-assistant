@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 20, 2022 alle 20:22
+-- Creato il: Mar 20, 2022 alle 21:13
 -- Versione del server: 10.4.21-MariaDB
 -- Versione PHP: 8.0.12
 
@@ -61,13 +61,20 @@ CREATE TABLE `segnalazioni` (
 
 CREATE TABLE `users` (
   `UserID` int(11) NOT NULL,
-  `Nome` varchar(255) NOT NULL,
-  `Cognome` varchar(255) NOT NULL,
+  `FirstName` varchar(255) NOT NULL,
+  `LastName` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `Username` varchar(255) NOT NULL,
   `UserLevel` tinyint(4) NOT NULL DEFAULT 0,
   `AccessToken` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `users`
+--
+
+INSERT INTO `users` (`UserID`, `FirstName`, `LastName`, `Password`, `Username`, `UserLevel`, `AccessToken`) VALUES
+(1, 'Emanuele', 'Paci', '$2y$10$KEDs3X3ZoDXHSD/ooqFnNeFjLcsM3bNS5Wj.o/BAkMJPjavaI.og6', 'LelePaci', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -105,7 +112,8 @@ ALTER TABLE `segnalazioni`
 -- Indici per le tabelle `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`UserID`);
+  ADD PRIMARY KEY (`UserID`),
+  ADD UNIQUE KEY `Username` (`Username`);
 
 --
 -- Indici per le tabelle `veicoli`
@@ -134,7 +142,7 @@ ALTER TABLE `segnalazioni`
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `veicoli`

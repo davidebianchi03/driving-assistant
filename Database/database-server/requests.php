@@ -24,16 +24,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     BadRequest_400();
                 }
                 break;
-            case "insert-user":
-                $nome =  $cognome = $password = $userLevel = "";
-                if (isset($data['nome']) && isset($data['cognome']) && isset($data['password']) && isset($data['user_level'])) {
-                    $nome = trim($data['nome']);
-                    $cognome = trim($data['cognome']);
+            case "register-user":
+                $firstName =  $lastName = $password = $username = "";
+                if (isset($data['first_name']) && isset($data['last_name']) && isset($data['password']) && isset($data['username'])) {
+                    $firstName = trim($data['first_name']);
+                    $lastName = trim($data['last_name']);
                     $password = trim($data['password']);
-                    $userLevel = trim($data['user_level']);
+                    $hashPassword = password_hash($password, PASSWORD_BCRYPT);
+                    $username = trim($data['username']);
 
-                    $sql = "INSERT INTO users (FirstName, LastName, `Password`, userLevel) VALUES (?, ?, ?, ?)";
-                    insertIntoDataBase($link, $sql, "ssss", $param_nome, $param_cognome, $param_password, $param_userLevel);
+                    $sql = "INSERT INTO users (FirstName, LastName, `Password`, Username) VALUES (?, ?, ?, ?)";
+                    print_r($data);
+                    echo '<br>' . $sql;
+                    //insertIntoDataBase($link, $sql, "ssss", $firstName, $lastName, $hashPassword, $username);
                 } else {
                     BadRequest_400();
                 }
