@@ -27,17 +27,17 @@
 
         <div class="dropdown-content">
             <ul class="page-list-dropdown">
-                <li><a href="index.html" class="current-page">Home</a></li>
-                <li><a href="whoweare.html" class="list-item">Chi siamo</a></li>
-                <li><a href="servizi.html" class="list-item">Servizi</a></li>
+                <li><a href="index.php" class="current-page">Home</a></li>
+                <li><a href="whoweare.php" class="list-item">Chi siamo</a></li>
+                <li><a href="servizi.php" class="list-item">Servizi</a></li>
                 <li><a href="" class="list-item">Team</a></li>
             </ul>
         </div>
 
         <ul class="page-list">
-            <li><a href="index.html" class="current-page">Home</a></li>
-            <li><a href="whoweare.html" class="list-item">Chi siamo</a></li>
-            <li><a href="servizi.html" class="list-item">Servizi</a></li>
+            <li><a href="index.php" class="current-page">Home</a></li>
+            <li><a href="whoweare.php" class="list-item">Chi siamo</a></li>
+            <li><a href="servizi.php" class="list-item">Servizi</a></li>
             <li><a href="" class="list-item">Team</a></li>
             <li><a href="" class="link-button">Visualizza la mappa</a></li>
         </ul>
@@ -53,12 +53,29 @@
         </div>
 
         <div class="bottom">
-            <p class="contacts">Contatti</p>
-            <ul>
-                <li>Email: <a href="mailto:drivingassistant2022@gmail.com">drivingassistant2022@gmail.com</a></li>
-            </ul>
-            <p class="copy">&copy; Driving Assistant 2022</p>
-        </div>
+        <p class="contacts">Contatti</p>
+        <ul>
+            <li>Email: <a href="mailto:drivingassistant2022@gmail.com">drivingassistant2022@gmail.com</a></li>
+        </ul>
+        <br>
+        <form action="Email/send_email.php" method="POST" class = "contact-form">
+            <input type="hidden" value="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" name="location">
+            <p class="input">
+                <label for="sender_email">La tua email</label>
+                <input type="email" name="sender_email" required>
+            </p>
+
+            <p class="input">
+                <label for="message">Il tuo messaggio</label>
+                <textarea name="message" required minlength="1"></textarea>
+            </p>
+
+            <input type="submit" value="Invia" class="submit-btn">
+        </form>
+
+        <p class="copy">&copy; Driving Assistant 2022</p>
+
+    </div>
 </body>
 
 </html>

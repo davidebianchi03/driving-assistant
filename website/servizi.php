@@ -11,8 +11,7 @@
     <link rel="shortcut icon" href="img/icon.png">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="js/animations.js"></script>
 </head>
 
@@ -27,24 +26,24 @@
 
         <div class="dropdown-content">
             <ul class="page-list-dropdown">
-                <li><a href="index.html" class="list-item">Home</a></li>
-                <li><a href="whoweare.html" class="current-page">Chi siamo</a></li>
-                <li><a href="servizi.html" class="list-item">Servizi</a></li>
+                <li><a href="index.php" class="list-item">Home</a></li>
+                <li><a href="whoweare.php" class="current-page">Chi siamo</a></li>
+                <li><a href="servizi.php" class="list-item">Servizi</a></li>
                 <li><a href="" class="list-item">Team</a></li>
             </ul>
         </div>
 
         <ul class="page-list">
-            <li><a href="index.html" class="list-item">Home</a></li>
-            <li><a href="whoweare.html" class="list-item">Chi siamo</a></li>
-            <li><a href="servizi.html" class="current-page">Servizi</a></li>
+            <li><a href="index.php" class="list-item">Home</a></li>
+            <li><a href="whoweare.php" class="list-item">Chi siamo</a></li>
+            <li><a href="servizi.php" class="current-page">Servizi</a></li>
             <li><a href="" class="list-item">Team</a></li>
             <li><a href="" class="link-button">Visualizza la mappa</a></li>
         </ul>
     </div>
 
     <div class="container">
-        <p class = "coming-soon">Coming soon...</p>
+        <p class="coming-soon">Coming soon...</p>
     </div>
 
     <div class="bottom">
@@ -52,7 +51,24 @@
         <ul>
             <li>Email: <a href="mailto:drivingassistant2022@gmail.com">drivingassistant2022@gmail.com</a></li>
         </ul>
+        <br>
+        <form action="Email/send_email.php" method="POST" class="contact-form">
+            <input type="hidden" value="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" name="location">
+            <p class="input">
+                <label for="sender_email">La tua email</label>
+                <input type="email" name="sender_email" required>
+            </p>
+
+            <p class="input">
+                <label for="message">Il tuo messaggio</label>
+                <textarea name="message" required minlength="1"></textarea>
+            </p>
+
+            <input type="submit" value="Invia" class="submit-btn">
+        </form>
+
         <p class="copy">&copy; Driving Assistant 2022</p>
+
     </div>
 </body>
 
