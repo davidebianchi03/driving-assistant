@@ -11,7 +11,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.middle-image').click(function () {
+    $('.container').click(function () {
         if (dropdown_showed == true) {
             $('.dropdown-content').css("display", "none");
             dropdown_showed = false;
@@ -26,7 +26,7 @@ $(document).ready(function () {
     });
 
     $(window).resize(function () {
-        if ($(window).width() > 750 && dropdown_showed == true) {
+        if ($(window).width() > 850 && dropdown_showed == true) {
             $('.dropdown-content').css("display", "none");
             dropdown_showed = false;
         }

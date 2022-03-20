@@ -1,0 +1,110 @@
+.container {
+    font-family: 'Fredoka', sans-serif;
+    padding: 10px;
+    min-height: 100vh;
+}
+
+.title {
+    font-size: 40px;
+    border-bottom: solid rgb(189, 189, 189) 1px;
+    margin-top: 15px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.mission {
+    margin-top: -15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mission .text {
+    width: 90%;
+}
+
+.mission img {
+    width: 50%;
+}
+
+.subtitle-mission {
+    font-size: 30px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.mission-description {
+    margin-top: -10px;
+    margin-left: 10px;
+    font-size: 21px;
+    font-style: italic;
+}
+
+.whatwedo {
+    margin-right: 0px;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.whatwedo img {
+    width: 50%;
+    float: left;
+    height: 50%;
+    margin-top: 50px;
+    order: 1;
+    padding-bottom:25vh;
+}
+
+.whatwedo .text {
+    float: right;
+    margin-right: 0px;
+    margin-left: auto;
+    order: 2;
+    padding-bottom:25vh;
+}
+
+.subtitle-whatwedo {
+    font-size: 30px;
+    margin-top: -15px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.whatwedo-description {
+    margin-left: 10px;
+    margin-top: -10px;
+    font-size: 21px;
+    margin-right: 10px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+@media screen and (max-width:750px) {
+    .whatwedo {
+        width: 100%;
+        display: block;
+    }
+
+    .whatwedo img {
+        width: 100%;
+        margin-top: 10px;
+        padding-bottom:40vh;
+    }
+
+    .whatwedo .text{
+        padding-bottom:0vh;
+    }
+
+    .mission {
+        width: 100%;
+        display: table;
+        bottom: 250px;
+    }
+
+    .mission img {
+        width: 100%;
+    }
+}
