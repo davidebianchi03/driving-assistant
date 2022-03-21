@@ -1,3 +1,58 @@
+<?php
+$basePath = "http://drivingassistant.altervista.org/";
+session_start();
+if (
+    isset($_POST["username"]) && !empty($_POST["username"]) &&
+    isset($_POST["email"]) && !empty($_POST["email"]) &&
+    isset($_POST["password"]) && !empty($_POST["password"]) &&
+    isset($_POST["confirm-password"]) && !empty($_POST["confirm-password"]) &&
+    isset($_POST["name"]) && !empty($_POST["name"]) &&
+    isset($_POST["surname"]) && !empty($_POST["surname"])
+) {
+    require_once 'DBconfig.php';
+    $sql = 'INSERT INTO users(FirstName, LastName, Password, Username, Email) VALUES (?,?,?,?,?)';
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+        mysqli_stmt_bind_param($stmt, 'sssss', $_POST["name"], $_POST["surname"], $password, $_POST["username"], $_POST["email"]);
+        if (mysqli_stmt_execute($stmt)) {
+            //autentico la sessione
+            $sql = 'SELECT * FROM users WHERE Username = ?';
+            mysqli_stmt_close($stmt);
+            if ($stmt = mysqli_prepare($link, $sql)) {
+                mysqli_stmt_bind_param($stmt, 's', $_POST["username"]);
+                if (mysqli_stmt_execute($stmt)) {
+                    $result = mysqli_stmt_get_result($stmt);
+                    echo mysqli_num_rows($result);
+                    if (mysqli_num_rows($result) == 1) {
+                        $row = mysqli_fetch_array($result);
+                        $_SESSION['session_id'] = $row['UserID'];
+                        //invio la email
+                        require './Email/send_confirm_email.php';
+
+                        $emailText = "Conferma l'iscrizione al portale di Driving Assistant premendo sul seguente link:<br>" .
+                            "<a href = '" . $basePath . "waitmailconfirm.php?userid=" . $row['UserID'] . "'>" . $basePath . "waitmailconfirm.php?userid=" . $row['UserID'] . "</a>";
+
+                        SendConfirmEmail($_POST["email"], $emailText);
+                        
+                        //reindirizzo l'utente
+                        header('location:waitmailconfirm.php');
+                        exit();
+                    }
+                }
+            }
+        } else {
+            echo "<script>alert('Errore nell'esecuzione della query, probabilmente il tuo username già esiste')</script>";
+        }
+    } else {
+        echo "<script>alert('Errore nella preparazione dello statement')</script>";
+    }
+    mysqli_stmt_close($stmt);
+} else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    echo "<script>alert('Non tutti i campi sono stati compilati correttamente')</script>";
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,15 +72,23 @@
     <div class="container">
         <div class="blur">
             <div class="form-container">
-                <form id = "register-form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="register-form">
+                <form id="register-form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="register-form">
                     <p class="title">Registrati</p>
                     <p class="input">
+                        <label for="name">Nome</label>
+                        <input type="text" name="name" id="name">
+                    </p>
+                    <p class="input">
+                        <label for="username">Cognome</label>
+                        <input type="text" name="surname" id="surname">
+                    </p>
+                    <p class="input">
                         <label for="username">Username</label>
-                        <input type="text" name="username" id = "username">
+                        <input type="text" name="username" id="username">
                     </p>
                     <p class="input">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id = "email">
+                        <input type="email" name="email" id="email">
                     </p>
                     <p class="input">
                         <label for="password">Password</label>
@@ -36,7 +99,7 @@
                         <input type="password" name="confirm-password" id="checkpassword" oninput="CheckPassword()">
                     <p class="pass-err">Le password non corrispondono</p>
                     </p>
-                    <input type="button" onclick = "Sumbit()" value="Registrati" class="submit-btn register-btn">
+                    <input type="button" onclick="Sumbit()" value="Registrati" class="submit-btn register-btn">
                 </form>
             </div>
         </div>

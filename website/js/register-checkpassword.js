@@ -20,8 +20,10 @@ function Sumbit() {
     var email = document.getElementById("email").value;
     var pass = document.getElementById("password").value;
     var passConfirm = document.getElementById("checkpassword").value;
+    var name = document.getElementById("name").value;
+    var surname = document.getElementById("surname").value;
 
-    if (pass == passConfirm && pass != "" && passConfirm != "" && validateEmail(email) && CheckPassword() && pass.length >= 8 && pass.length <= 255) {
+    if (pass == passConfirm && pass != "" && passConfirm != "" && validateEmail(email) && CheckPassword() && pass.length >= 8 && pass.length <= 255 && name != "" && surname != "") {
         //controllo se lo username è valido
         var username = document.getElementById("username").value;
         if (username != "" && username.length >= 6 && username.length <= 255) {
