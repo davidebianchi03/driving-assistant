@@ -114,3 +114,8 @@
 .register-btn{
     margin-top: 25px;
 }
+
+.error{
+    font-family: 'Fredoka', sans-serif;
+    color: red;
+}
