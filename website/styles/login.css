@@ -101,6 +101,16 @@
     display: none;
 }
 
+.user-err{
+    font-family: 'Fredoka', sans-serif;
+    color: red;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    margin-top: -5px;
+    display: none;
+}
+
 .register-btn{
     margin-top: 25px;
 }
