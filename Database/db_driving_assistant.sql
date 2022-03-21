@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 20, 2022 alle 21:13
+-- Creato il: Mar 21, 2022 alle 14:50
 -- Versione del server: 10.4.21-MariaDB
 -- Versione PHP: 8.0.12
 
@@ -43,14 +43,14 @@ CREATE TABLE `segnalazioni` (
   `ID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
   `Title` varchar(100) NOT NULL,
-  `Description` text DEFAULT NULL,
+  `Description` text NOT NULL DEFAULT '(users)',
   `Lat` double NOT NULL,
   `Lon` double NOT NULL,
   `Date Time` datetime DEFAULT current_timestamp(),
   `Accepted` bit(1) NOT NULL DEFAULT b'0',
-  `Date Time Accepted` datetime DEFAULT NULL,
+  `Date Time Accepted` datetime DEFAULT current_timestamp(),
   `Completed` bit(1) NOT NULL DEFAULT b'0',
-  `Date Time Completed` datetime DEFAULT NULL
+  `Date Time Completed` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -65,6 +65,8 @@ CREATE TABLE `users` (
   `LastName` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `Username` varchar(255) NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  `VerifyEmail` bit(1) NOT NULL DEFAULT b'0',
   `UserLevel` tinyint(4) NOT NULL DEFAULT 0,
   `AccessToken` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -73,8 +75,8 @@ CREATE TABLE `users` (
 -- Dump dei dati per la tabella `users`
 --
 
-INSERT INTO `users` (`UserID`, `FirstName`, `LastName`, `Password`, `Username`, `UserLevel`, `AccessToken`) VALUES
-(1, 'Emanuele', 'Paci', '$2y$10$KEDs3X3ZoDXHSD/ooqFnNeFjLcsM3bNS5Wj.o/BAkMJPjavaI.og6', 'LelePaci', 0, NULL);
+INSERT INTO `users` (`UserID`, `FirstName`, `LastName`, `Password`, `Username`, `Email`, `VerifyEmail`, `UserLevel`, `AccessToken`) VALUES
+(1, 'Emanuele', 'Paci', '$2y$10$KEDs3X3ZoDXHSD/ooqFnNeFjLcsM3bNS5Wj.o/BAkMJPjavaI.og6', 'LelePaci', 'paciemanuele.2@gmail.com', b'0', 0, NULL);
 
 -- --------------------------------------------------------
 
