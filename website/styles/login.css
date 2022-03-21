@@ -58,3 +58,49 @@
     font-family: 'Fredoka', sans-serif;
     font-size: 18px;
 }
+
+/* Form registrazione */
+.register-form{
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-color: rgb(255, 255, 255);
+    margin: auto;
+    width: 300px;
+    padding: 50px;
+    display: inherit;
+    height: 400px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.register-form .input{
+    margin-left: -10px;
+    margin-top: 35px;
+    position:relative;
+    display: flexbox;
+    width: 290px;
+}
+
+.register-form .input input{
+    width: 100%;
+}
+
+.register-form .title{
+    font-family: 'Fredoka', sans-serif;
+    font-size: 25px;
+    margin-top: -15px;
+}
+
+.pass-err{
+    font-family: 'Fredoka', sans-serif;
+    color: red;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    margin-top: -5px;
+    display: none;
+}
+
+.register-btn{
+    margin-top: 25px;
+}

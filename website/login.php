@@ -26,7 +26,7 @@
                         <input type="password" name="password">
                     </p>
                     <input type="submit" value="Login" class="submit-btn">
-                    <p><a href="" class = "register">Registrati</a></p>
+                    <p><a href="register.php" class = "register">Registrati</a></p>
                 </form>
             </div>
         </div>
