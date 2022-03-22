@@ -17,9 +17,6 @@ if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
                     //mail non verificata
                     header('location:waitmailconfirm.php');
                     exit();
-                } else {
-                    header('location:map.php');
-                    exit();
                 }
             } else {
                 echo "Utente non autenticato";
@@ -45,4 +42,26 @@ if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
     exit();
 }
 ?>
-?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driving assistant</title>
+    <link rel="shortcut icon" href="img/icon.png">
+    <link rel="stylesheet" href="styles/reservedarea.css">
+    <script src="js/verification-page.js"></script>
+</head>
+
+<body>
+    <div class="nav">
+        <img src="img/icon.png" alt="" id="icon">
+        <a href="logout.php" id="logout">Logout</a>
+    </div>
+
+</body>
+
+</html>

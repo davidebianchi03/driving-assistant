@@ -40,7 +40,8 @@
                     ) {
                         $sql = "SELECT * FROM users WHERE Username = ?";
                         if ($stmt = mysqli_prepare($link, $sql)) {
-                            mysqli_stmt_bind_param($stmt, 's', $_POST['username']);
+                            $username = mysqli_real_escape_string($link,$_POST['username']);
+                            mysqli_stmt_bind_param($stmt, 's', $username);
                             if (mysqli_stmt_execute($stmt)) {
                                 $result = mysqli_stmt_get_result($stmt);
                                 if (mysqli_num_rows($result) == 1) {

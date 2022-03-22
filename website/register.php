@@ -12,8 +12,14 @@ if (
     require_once 'DBconfig.php';
     $sql = 'INSERT INTO users(FirstName, LastName, Password, Username, Email) VALUES (?,?,?,?,?)';
     if ($stmt = mysqli_prepare($link, $sql)) {
-        $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-        mysqli_stmt_bind_param($stmt, 'sssss', $_POST["name"], $_POST["surname"], $password, $_POST["username"], $_POST["email"]);
+        $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
+
+        $name = mysqli_real_escape_string($link, $_POST["name"]);
+        $surname = mysqli_real_escape_string($link, $_POST["surname"]);
+        $username = mysqli_real_escape_string($link, $_POST["username"]);
+        $email = mysqli_real_escape_string($link, $_POST["email"]);
+
+        mysqli_stmt_bind_param($stmt, 'sssss', $name, $surname, $password, $username, $email);
         if (mysqli_stmt_execute($stmt)) {
             //autentico la sessione
             $sql = 'SELECT * FROM users WHERE Username = ?';
@@ -22,7 +28,7 @@ if (
                 mysqli_stmt_bind_param($stmt, 's', $_POST["username"]);
                 if (mysqli_stmt_execute($stmt)) {
                     $result = mysqli_stmt_get_result($stmt);
-                    echo mysqli_num_rows($result);
+                    // echo mysqli_num_rows($result);
                     if (mysqli_num_rows($result) == 1) {
                         $row = mysqli_fetch_array($result);
                         $_SESSION['session_id'] = $row['UserID'];
@@ -33,7 +39,7 @@ if (
                             "<a href = '" . $basePath . "waitmailconfirm.php?userid=" . $row['UserID'] . "'>" . $basePath . "waitmailconfirm.php?userid=" . $row['UserID'] . "</a>";
 
                         SendConfirmEmail($_POST["email"], $emailText);
-                        
+
                         //reindirizzo l'utente
                         header('location:waitmailconfirm.php');
                         exit();
