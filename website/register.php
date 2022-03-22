@@ -1,5 +1,5 @@
 <?php
-$basePath = "http://drivingassistant.altervista.org/";
+$basePath = "https://drivingassistant.altervista.org/";
 session_start();
 if (
     isset($_POST["username"]) && !empty($_POST["username"]) &&

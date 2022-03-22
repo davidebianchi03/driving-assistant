@@ -20,7 +20,7 @@ function SendConfirmEmail($recipient, $text = '')
     $mail->Password   = PASSWORD;
     $mail->IsHTML(true);
     $mail->AddAddress($recipient, "recipient-name");
-    $mail->SetFrom(EMAIL, "from-name");
+    $mail->SetFrom(EMAIL, "Driving assistant");
     $mail->Subject = "Conferma registrazione Driving Assistant";
     $content = $text;
     $mail->MsgHTML($content);
@@ -32,4 +32,3 @@ function SendConfirmEmail($recipient, $text = '')
     }
 }
 ?>
-
