@@ -345,7 +345,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 3;
+    z-index:7;
     background-color: rgb(20, 72, 228);
 }
 
@@ -366,4 +366,73 @@ body {
     margin: auto;
     text-align: center;
     margin-top: 50px;
+}
+
+.settings-btn{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 2;
+    background-color: white;
+    padding: 3px 5px;
+    border-radius: 7px;
+}
+
+.settings{
+    background-color: white;
+    position: absolute;
+    top: 50px;
+    bottom: 50px;
+    left: 50px;
+    right: 50px;
+    z-index: 5;
+    border-radius: 20px;
+}
+
+.settings-container{
+    position: absolute;
+    z-index: 4;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.74);
+}
+
+.settings h2{
+    font-family: 'Source Sans Pro', sans-serif;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 40px;
+    border-bottom: solid gray 1px;
+}
+
+#close-settings{
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    width: 20px;
+    padding: 10px;
+}
+
+.settings-input{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    margin-left: 40px;
+}
+
+.settings-input input{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 18px;
+    border: solid gray 1px;
+    outline: none;
+    padding: 7px 15px;
+    border-radius: 10px;
+    margin-left: 10px;
+    width: 70%;
+}
+
+.settings-input input:focus{
+    padding: 6px 14px;
+    border: solid rgb(20, 72, 228) 2px;
 }

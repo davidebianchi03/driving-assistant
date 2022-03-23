@@ -9,25 +9,47 @@ $(document).ready(function () {
     waitAndDisplay();
     alertsDisplayed = false;
 
-    $(".close").click(function(){
+    $(".close").click(function () {
         hideAlerts();
     });
 
-    $(".carinfo").click(function(){
+    $(".carinfo").click(function () {
         hideAlerts();
     });
+
+    //Nascondo il riquadro delle impostazioni
+    $(".settings-container").hide();
+
+    $(".settings-btn").click(function(){
+        $(".settings-container").show();
+        //aggiorno le impostazioni visualizzate
+        eel.GetSettings()(function(json) {
+            var responseObj = JSON.parse(json);
+            if(responseObj.valid){
+                //carico le impostazioni
+                document.getElementById("url-segnalazioni").value = responseObj.server_url;
+            }
+        });
+    });
+
+    $("#close-settings").click(function(){
+        $(".settings-container").hide();
+        var server_url = document.getElementById("url-segnalazioni").value;
+        eel.UpdateSettings(server_url);
+    });
+
 });
 
-async function waitAndDisplay(){
+async function waitAndDisplay() {
     await new Promise(r => setTimeout(r, 2500));
     $(".loading").hide();
 }
 
-function ShowRecalculation(){
+function ShowRecalculation() {
     $("#routeRecalculation").show();
 }
 
-function HideRecalculation(){
+function HideRecalculation() {
     $("#routeRecalculation").hide();
 }
 

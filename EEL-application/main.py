@@ -1,3 +1,4 @@
+from opcode import opname
 from turtle import position
 import eel
 from pygps import *
@@ -103,5 +104,35 @@ def GetDistances():
         response["connected"] = False
         jsonString = json.dumps(response)
         return jsonString
+
+@eel.expose
+def UpdateSettings(server_url):
+    settings_dict = dict()
+    settings_dict["server_url"] = server_url
+    #salvo la stringa json con le impostazioni nel file
+    settings_file = open('settings.json','w')
+    settings_file.write(json.dumps(settings_dict))
+    settings_file.close()
+
+@eel.expose
+def GetSettings():
+    try:
+        settings_json = ''
+        settings_file = open('settings.json','r')
+        settings_json = settings_file.read()
+        settings_file.close()
+        if not (settings_json == ''):
+            response = json.loads(settings_json)
+            response["valid"] = True
+            return json.dumps(response)
+        else:
+            response = dict()
+            response["valid"] = False
+            return json.dumps(response)
+    except:
+        response = dict()
+        response["valid"] = False
+        return json.dumps(response)
+
 
 eel.start('index.html')

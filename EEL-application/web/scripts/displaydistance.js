@@ -30,7 +30,7 @@ $(document).ready(function () {
 //aggiornamenti delle distanze visualizzate
 function UpdateDistance() {
     eel.GetDistances()(function (json) {
-        console.log(json);
+        //console.log(json);
         var obj = JSON.parse(json);
 
         if (obj.connected == true) {

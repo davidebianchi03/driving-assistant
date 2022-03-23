@@ -23,6 +23,7 @@
     <script src="scripts/displaymap.js" type="text/javascript"></script>
     <script src="scripts/searchplace.js" type="text/javascript"></script>
     <script src="scripts/navigate.js" type="text/javascript"></script>
+    <script src=""></script>
     <script src="scripts/animations.js" type="text/javascript"></script>
     <script src="scripts/displaydistance.js" type="text/javascript"></script>
 
@@ -41,6 +42,22 @@
 
             <!-- Div contenente gli avvertimenti -->
             <div id="alerts">
+
+            </div>
+
+            <div class="settings-btn">
+                <img src="images/settings.png" alt="settings">
+            </div>
+
+            <div class="settings-container">
+                <div class="settings">
+                    <img src="images/close.png" alt="" id = "close-settings">
+                    <h2>Impostazioni</h2>
+                    <div class = "settings-input">
+                        <label>URL Server segnalazioni</label>
+                        <input type="text" id="url-segnalazioni">
+                    </div>
+                </div>
 
             </div>
 
@@ -98,14 +115,14 @@
     <div id="gpsNotConnected" class="error-div-map">
         <img src="images/no_gps.png" alt="gps not connected">
         <p>GPS non disponibile...</p>
-        <p class = 'description'>Controllare il collegamento del modulo GPS</p>
+        <p class='description'>Controllare il collegamento del modulo GPS</p>
     </div>
 
     <!-- Div messaggio arduino non collegato -->
     <div id="arduinoNotConnected" class="error-div-car">
         <img src="images/arduino.png" alt="gps not connected">
         <p>Sensori distanza non disponibili...</p>
-        <p class = 'description'>Controllare il collegamento di Arduino</p>
+        <p class='description'>Controllare il collegamento di Arduino</p>
     </div>
 
 
@@ -122,7 +139,7 @@
         <p class="setdestination">
             <label id="destinationlbl">Destinazione</label>
             <input id="destination" oninput="searchPlace()" type="search" placeholder="Destination">
-            <div id="destinationlist"></div>
+        <div id="destinationlist"></div>
         </p>
 
         <table id="tablebuttons">
