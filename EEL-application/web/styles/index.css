@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@300&family=Source+Sans+Pro&display=swap');
+
 html,
 body {
     margin: 0;
@@ -252,9 +253,10 @@ body {
     right: 15px;
     background-color: white;
     width: 500px;
-    height: 250px;
     border-radius: 10px;
     border: none;
+    padding-bottom: 20px;
+    padding-top: 20px;
 }
 
 .close {
@@ -293,7 +295,7 @@ body {
     margin-top: 40%;
 }
 
-.error-div-map .description{
+.error-div-map .description {
     color: white;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 16px;
@@ -303,7 +305,7 @@ body {
 }
 
 /* Div visualizzazione errore sopra la macchina */
-.error-div-car{
+.error-div-car {
     background-color: rgba(0, 0, 0, 0.74);
     height: 100%;
     width: 40%;
@@ -329,7 +331,7 @@ body {
     margin-top: 61%;
 }
 
-.error-div-car .description{
+.error-div-car .description {
     color: white;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 16px;
@@ -345,7 +347,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    z-index:7;
+    z-index: 7;
     background-color: rgb(20, 72, 228);
 }
 
@@ -368,7 +370,7 @@ body {
     margin-top: 50px;
 }
 
-.settings-btn{
+.settings-btn {
     position: absolute;
     top: 5px;
     left: 5px;
@@ -378,7 +380,7 @@ body {
     border-radius: 7px;
 }
 
-.settings{
+.settings {
     background-color: white;
     position: absolute;
     top: 50px;
@@ -389,7 +391,7 @@ body {
     border-radius: 20px;
 }
 
-.settings-container{
+.settings-container {
     position: absolute;
     z-index: 4;
     top: 0px;
@@ -399,7 +401,7 @@ body {
     background-color: rgba(0, 0, 0, 0.74);
 }
 
-.settings h2{
+.settings h2 {
     font-family: 'Source Sans Pro', sans-serif;
     margin-left: 40px;
     margin-right: 40px;
@@ -407,7 +409,7 @@ body {
     border-bottom: solid gray 1px;
 }
 
-#close-settings{
+#close-settings {
     position: absolute;
     top: 10px;
     right: 30px;
@@ -415,13 +417,13 @@ body {
     padding: 10px;
 }
 
-.settings-input{
+.settings-input {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 16px;
     margin-left: 40px;
 }
 
-.settings-input input{
+.settings-input input {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 18px;
     border: solid gray 1px;
@@ -432,7 +434,38 @@ body {
     width: 70%;
 }
 
-.settings-input input:focus{
+.settings-input input:focus {
     padding: 6px 14px;
     border: solid rgb(20, 72, 228) 2px;
+}
+
+.alert {
+    font-size: 25px;
+    position: relative;
+    margin-left: 25px;
+    margin-right: 25px;
+    border-bottom: solid gray 1px;
+}
+
+.alert-container {
+    display: flex;
+    font-size: 25px;
+    font-family: 'Source Sans Pro', sans-serif;
+    align-items: center;
+    margin-top: -10px;
+    margin-bottom: -50px;
+    padding-top: 0;
+    padding-bottom: 0;
+    gap: 15px;
+    margin-left: 27%;
+}
+
+.alert span {
+    padding-left: 50px;
+    display: block;
+}
+.alert img {
+    width: 50px;
+    margin-right: 50px;
+    display: block;
 }

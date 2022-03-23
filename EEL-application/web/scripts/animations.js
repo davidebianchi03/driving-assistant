@@ -18,10 +18,10 @@ $(document).ready(function () {
     });
 
     //Nascondo il riquadro delle impostazioni
-    $(".settings-container").hide();
+    $(".settings-container").hide('slow');
 
     $(".settings-btn").click(function(){
-        $(".settings-container").show();
+        $(".settings-container").show('slow');
         //aggiorno le impostazioni visualizzate
         eel.GetSettings()(function(json) {
             var responseObj = JSON.parse(json);
