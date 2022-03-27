@@ -1,5 +1,5 @@
 var usernameValid = false;
-var basePath = "/website";
+var basePath = "";
 
 function CheckPassword() {
     var pass = document.getElementById("password").value;

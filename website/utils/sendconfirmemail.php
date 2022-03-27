@@ -2,7 +2,8 @@
 $basePath = "https://drivingassistant.altervista.org/";
 if (isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
 
-    require '../Email/send_confirm_email.php';
+    require_once('./email/emailConfig.php'); //file di configurazione per le email
+    require_once('./email/sendEmail.php'); //file con le funzioni per inviare le email
     require_once '../DBconfig.php';
 
     $sql = 'SELECT * FROM users WHERE UserID = ?';
@@ -12,10 +13,18 @@ if (isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
             $result = mysqli_stmt_get_result($stmt);
             if (mysqli_num_rows($result) == 1) {
                 $row = mysqli_fetch_array($result);
-                $emailText = "Conferma l'iscrizione al portale di Driving Assistant premendo sul seguente link:<br>" .
-                    "<a href = '" . $basePath . "waitmailconfirm.php?userid=" . $_POST["id"] . "'>" . $basePath . "waitmailconfirm.php?userid=" . $_POST["id"] . "</a>";
+                $emailText = "Conferma l'iscrizione al portale di Driving Assistant premendo sul seguente link:" .
+                    $basePath . "waitmailconfirm.php?userid=" . $row['UserID'];
 
-                SendConfirmEmail($row["Email"], $emailText);
+                SendEmail(
+                    SENDER_EMAIL,
+                    SENDER_NICKNAME,
+                    $row["Email"],
+                    $row['FirstName'] . " " . $row['LastName'],
+                    "Driving assistant - Conferma registrazione",
+                    $emailText,
+                    GetOath2Token(CLIENT_ID, CLIENT_SECRET, GRANT_TYPE, REFRESH_TOKEN)
+                );
                 // echo '{"responseCode":200}';
                 exit();
             } else {

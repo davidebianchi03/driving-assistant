@@ -83,7 +83,7 @@
             <li>Email: <a href="mailto:drivingassistant2022@gmail.com">drivingassistant2022@gmail.com</a></li>
         </ul>
         <br>
-        <form action="Email/send_email.php" method="POST" class = "contact-form">
+        <form action="utils/sendcontactemail.php" method="POST" class = "contact-form">
             <input type="hidden" value="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" name="location">
             <p class="input">
                 <label for="sender_email">La tua email</label>

@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
 
-    require_once('config.php');
+    require_once('../DBconfig.php');
     include('manage-db.php');
     if (isset($data["action"])) {
         switch ($data["action"]) {

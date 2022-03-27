@@ -1,7 +1,7 @@
 <?php
 function insertIntoDataBase($link, $sql, $types, ...$params)
 {
-    require_once('config.php');
+    require_once('../DBconfig.php');
     if (strlen($types) == count($params)) { //Controllo che il numero di parametri sia uguale al numero di valori da inserire nel db
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, $types, ...$params);
@@ -20,7 +20,7 @@ function insertIntoDataBase($link, $sql, $types, ...$params)
 
 function userExists($link, $userID)
 {
-    require_once('config.php');
+    require_once('../DBconfig.php');
     $find = false;
     $sql = 'SELECT * FROM  users';
     if ($result = mysqli_query($link, $sql)) {
@@ -38,6 +38,7 @@ function userExists($link, $userID)
 
 function getUserInfo($link, $userID)
 {
+    require_once('../DBconfig.php');
     $sql = 'SELECT * FROM  users WHERE UserID = ?';
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "i", $id);

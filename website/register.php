@@ -33,12 +33,21 @@ if (
                         $row = mysqli_fetch_array($result);
                         $_SESSION['session_id'] = $row['UserID'];
                         //invio la email
-                        require './Email/send_confirm_email.php';
+                        require_once('./email/emailConfig.php'); //file di configurazione per le email
+                        require_once('./email/sendEmail.php'); //file con le funzioni per inviare le email
 
-                        $emailText = "Conferma l'iscrizione al portale di Driving Assistant premendo sul seguente link:<br>" .
-                            "<a href = '" . $basePath . "waitmailconfirm.php?userid=" . $row['UserID'] . "'>" . $basePath . "waitmailconfirm.php?userid=" . $row['UserID'] . "</a>";
+                        $emailText = "Conferma l'iscrizione al portale di Driving Assistant premendo sul seguente link:" .
+                            $basePath . "waitmailconfirm.php?userid=" . $row['UserID'];
 
-                        SendConfirmEmail($_POST["email"], $emailText);
+                        SendEmail(
+                            SENDER_EMAIL,
+                            SENDER_NICKNAME,
+                            $row["Email"],
+                            $row['FirstName'] . " " . $row['LastName'],
+                            "Driving assistant - Conferma registrazione",
+                            $emailText,
+                            GetOath2Token(CLIENT_ID, CLIENT_SECRET, GRANT_TYPE, REFRESH_TOKEN)
+                        );
 
                         //reindirizzo l'utente
                         header('location:waitmailconfirm.php');

@@ -18,7 +18,7 @@ $(document).ready(function () {
     });
 
     //Nascondo il riquadro delle impostazioni
-    $(".settings-container").hide('slow');
+    $(".settings-container").hide();
 
     $(".settings-btn").click(function(){
         $(".settings-container").show('slow');
@@ -33,7 +33,7 @@ $(document).ready(function () {
     });
 
     $("#close-settings").click(function(){
-        $(".settings-container").hide();
+        $(".settings-container").hide('slow');
         var server_url = document.getElementById("url-segnalazioni").value;
         eel.UpdateSettings(server_url);
     });
