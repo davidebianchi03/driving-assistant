@@ -7,13 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driving assistant</title>
     <link rel="stylesheet" href="styles/general.css">
-    <link rel="stylesheet" href="styles/whoweare.css">
+    <link rel="stylesheet" href="styles/team.css">
     <link rel="shortcut icon" href="img/icon.png">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="js/animations.js"></script>
-    <script src="js/whoweareanimation.js"></script>
 </head>
 
 <body>
@@ -28,52 +27,24 @@
         <div class="dropdown-content">
             <ul class="page-list-dropdown">
                 <li><a href="index.php" class="list-item">Home</a></li>
-                <li><a href="whoweare.php" class="current-page">Chi siamo</a></li>
+                <li><a href="whoweare.php" class="list-item">Chi siamo</a></li>
                 <li><a href="servizi.php" class="list-item">Servizi</a></li>
-                <li><a href="team.php" class="list-item">Team</a></li>
+                <li><a href="team.php" class="current-page">Team</a></li>
                 <li><a href="login.php" class="link-button">Visualizza la mappa</a></li>
             </ul>
         </div>
 
         <ul class="page-list">
             <li><a href="index.php" class="list-item">Home</a></li>
-            <li><a href="whoweare.php" class="current-page">Chi siamo</a></li>
+            <li><a href="whoweare.php" class="list-item">Chi siamo</a></li>
             <li><a href="servizi.php" class="list-item">Servizi</a></li>
-            <li><a href="team.php" class="list-item">Team</a></li>
+            <li><a href="team.php" class="current-page">Team</a></li>
             <li><a href="login.php" class="link-button">Visualizza la mappa</a></li>
         </ul>
     </div>
 
     <div class="container">
-        <p class="title">Chi siamo</p>
-        <div class="mission">
-            <div class="text">
-
-                <p class="subtitle-mission">La nostra mission</p>
-                <p class="mission-description">Vogliamo migliorare la sicurezza sulle strade di tutto il mondo</p>
-            </div>
-            <img src="img/drive-safe.jpg" alt="drive safe">
-        </div>
-
-        <div class="whatwedo">
-            <div class="text padbottext">
-                <p class="subtitle-whatwedo">Cosa facciamo</p>
-                <p class="whatwedo-description">
-                    Realizziamo degli assistenti alla guida che aiutano i nostri clienti a restare più concentrati sulla
-                    strada e
-                    a migliorare la percezione dei pericoli durante la guida su strada. Inoltre, tramite i nostri
-                    prodotti, vogliamo
-                    cercare di ridurre i rischi dovuti alle condizioni delle infrastrutture stradali, per esempio rendendo
-                    possibile inviare
-                    segnalazioni circa lo stato delle strade le quali poi potranno essere visualizzate dagli altri
-                    utenti e
-                    dai gestori
-                    delle infrastrutture.
-                </p>
-            </div>
-            <img src="img/screenshot.JPG" alt="screenshot" id="imgwhatwedo" class="padbotimg">
-
-        </div>
+        <p class="description">Siamo tre studenti di 5B informatica dell’IIS Jean Monnet di Mariano Comense. Stiamo realizzando come progetto scolastico un assistente alla guida.  </p>
     </div>
 
     <div class="bottom">

@@ -1,0 +1,11 @@
+.container {
+    height: 100vh;
+}
+
+.description{
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 25vh;
+    height: 25vh;
+}

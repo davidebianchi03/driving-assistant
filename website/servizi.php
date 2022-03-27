@@ -26,19 +26,19 @@
 
         <div class="dropdown-content">
             <ul class="page-list-dropdown">
-                <li><a href="index.php" class="current-page">Home</a></li>
+                <li><a href="index.php" class="list-item">Home</a></li>
                 <li><a href="whoweare.php" class="list-item">Chi siamo</a></li>
-                <li><a href="servizi.php" class="list-item">Servizi</a></li>
-                <li><a href="" class="list-item">Team</a></li>
+                <li><a href="servizi.php" class="current-page">Servizi</a></li>
+                <li><a href="team.php" class="list-item">Team</a></li>
                 <li><a href="login.php" class="link-button">Visualizza la mappa</a></li>
             </ul>
         </div>
 
         <ul class="page-list">
-            <li><a href="index.php" class="current-page">Home</a></li>
+            <li><a href="index.php" class="list-item">Home</a></li>
             <li><a href="whoweare.php" class="list-item">Chi siamo</a></li>
-            <li><a href="servizi.php" class="list-item">Servizi</a></li>
-            <li><a href="" class="list-item">Team</a></li>
+            <li><a href="servizi.php" class="current-page">Servizi</a></li>
+            <li><a href="team.php" class="list-item">Team</a></li>
             <li><a href="login.php" class="link-button">Visualizza la mappa</a></li>
         </ul>
     </div>

@@ -1,4 +1,4 @@
-var basePath = "";
+var basePath = "/website";
 
 function sendAgainEmail(id, email) {
     fetch(basePath + "/utils/sendconfirmemail.php", {

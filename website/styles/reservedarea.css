@@ -70,3 +70,7 @@ html, body {
   color: blue;
   text-decoration: underline;
 }
+
+.container{
+  width: 100%;
+}

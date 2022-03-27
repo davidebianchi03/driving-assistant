@@ -31,7 +31,7 @@ function InviaSegnalazione(title, description) {
                 url: responseObj.server_url + "/utils/api.php",
                 data: JSON.stringify({
                     action: "insert-segnalazione",
-                    user_id: 20,///---->da cambiare
+                    user_id: 21,///---->da cambiare
                     title: title,
                     description: description,
                     lat: lastKnownPosition.latitude,

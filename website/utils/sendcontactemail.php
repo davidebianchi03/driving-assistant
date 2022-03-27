@@ -1,5 +1,5 @@
 <?php
-function SendContactEmail($sender, $text = '')
+function SendContactEmail($sender, $text)
 {
     require_once('../email/emailConfig.php'); //file di configurazione per le email
     require_once('../email/sendEmail.php'); //file con le funzioni per inviare le email
@@ -11,7 +11,7 @@ function SendContactEmail($sender, $text = '')
         "dadebianchi2003@gmail.com",
         "Davide Bianchi",
         "Assistenza - $sender",
-        $emailText,
+        $text,
         GetOath2Token(CLIENT_ID, CLIENT_SECRET, GRANT_TYPE, REFRESH_TOKEN)
     );
 }

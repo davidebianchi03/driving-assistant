@@ -53,13 +53,24 @@ if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
     <title>Driving assistant</title>
     <link rel="shortcut icon" href="img/icon.png">
     <link rel="stylesheet" href="styles/reservedarea.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    <link href='styles/map.css' rel='stylesheet' />
     <script src="js/verification-page.js"></script>
+    <script src="js/lib/jquery.min.js" type="text/javascript"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
+    <script src="js/reserved-area-animations.js"></script>
+    <script src="js/display-map.js"></script>
+
 </head>
 
 <body>
     <div class="nav">
         <img src="img/icon.png" alt="" id="icon">
         <a href="logout.php" id="logout">Logout</a>
+    </div>
+
+    <div class="container">
+        <div id="map"></div>
     </div>
 
 </body>
