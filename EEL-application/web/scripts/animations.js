@@ -38,6 +38,10 @@ $(document).ready(function () {
         eel.UpdateSettings(server_url);
     });
 
+    $("#reload-page").click(function(){
+        location.reload();
+    });
+
 });
 
 async function waitAndDisplay() {

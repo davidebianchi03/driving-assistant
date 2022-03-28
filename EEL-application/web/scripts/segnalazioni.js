@@ -37,7 +37,9 @@ function InviaSegnalazione(title, description) {
                     lat: lastKnownPosition.latitude,
                     lon: lastKnownPosition.longitude
                 })
-            });
+            }).done(function(){
+                hideAlerts();
+            })
         }
     });
 
