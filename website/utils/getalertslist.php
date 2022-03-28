@@ -15,7 +15,7 @@ if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
                 $row = mysqli_fetch_array($result);
 
                 //query per ottenere la lista delle segnalazioni
-                $sql = 'SELECT * FROM segnalazioni WHERE completed = 0';
+                $sql = 'SELECT * FROM segnalazioni INNER JOIN users ON segnalazioni.UserID = users.UserID WHERE completed = 0';
                 if ($result = mysqli_query($link, $sql)) {
 
                     $json_array = "[";
@@ -24,6 +24,7 @@ if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
                         $json_string = '{';
                         $json_string .= '"id":"' . $row["ID"] . '",';
                         $json_string .= '"user_id":"' . $row["UserID"] . '",';
+                        $json_string .= '"username":"' . $row["Username"] . '",';
                         $json_string .= '"title":"' . $row["Title"] . '",';
                         $json_string .= '"description":"' . $row["Description"] . '",';
                         $json_string .= '"latitude":"' . $row["Lat"] . '",';
