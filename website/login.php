@@ -19,11 +19,11 @@
                     <p class="title">Accedi alla mappa delle segnalazioni</p>
                     <p class="input">
                         <label for="username">Username</label>
-                        <input type="text" name="username">
+                        <input type="text" name="username" required autofocus>
                     </p>
                     <p class="input">
                         <label for="password">Password</label>
-                        <input type="password" name="password">
+                        <input type="password" name="password" required>
                     </p>
                     <input type="submit" value="Login" class="submit-btn">
                     <?php
