@@ -19,21 +19,17 @@ $(document).ready(function () {
         var marker;
         var popup;
 
-        //console.log(json);
+        console.log(json);
 
-        if (json.response_code == 200) {
+        if (json.responseCode == 200) {
             for (let i = 0; i < json.results.length; i++) {
                 var obj = json.results[i];
-
-                // popup = new mapboxgl.Popup()
-                //     .setText("Segnalazione fatta da " + obj.username + " alla data: " + obj.date_time+ ", tipo segnalazione: " + obj.title)
-                //     .addTo(map);
 
                 var container_div = document.createElement('div');
                 //visualizzo il testo all'interno del popup
                 var popup_text = document.createElement('div');
                 popup_text.className = "popup-text";
-                popup_text.innerHTML = "<b>Utente:</b> " + obj.username + "<br><b>Data:</b> " + obj.date_time + "<br><b>Tipo segnalazione:</b> " + obj.title;
+                popup_text.innerHTML = "<b>Utente:</b> " + obj.username + "<br><b>Data:</b> " + obj.dateTime + "<br><b>Tipo segnalazione:</b> " + obj.title;
                 container_div.appendChild(popup_text);
 
                 //visualizzo il pulsante per prendere in carico la segnalazione (solo admin)
@@ -67,7 +63,7 @@ $(document).ready(function () {
                 }
 
                 marker = new mapboxgl.Marker(div)
-                    .setLngLat([obj.longitude, obj.latitude])
+                    .setLngLat([obj.lon, obj.lat])
                     .addTo(map).setPopup(popup);
 
                 map.fire('closeAllPopups');
@@ -101,6 +97,7 @@ function AlertTakingCharge(alert_id) {
     });
 }
 
+//funzione per inviare la richiesta al server per chiudere una segnalazione
 function AlertCompleted(alert_id) {
     fetch(basePath + "/utils/closealert.php", {
         method: 'post',

@@ -2,6 +2,7 @@
 require_once '../DBconfig.php';
 //autenticazione dell'utente
 session_start();
+$responseObj = new stdClass();
 //controllo il login
 if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
     //controllo nel database se è stata verificata la email e se lo user id è valido
@@ -18,54 +19,50 @@ if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
                 $sql = 'SELECT * FROM segnalazioni INNER JOIN users ON segnalazioni.UserID = users.UserID WHERE completed = 0';
                 if ($result = mysqli_query($link, $sql)) {
 
-                    $json_array = "[";
+                    $jsonArray = array();
 
                     while ($row = mysqli_fetch_array($result)) {
-                        $json_string = '{';
-                        $json_string .= '"id":"' . $row["ID"] . '",';
-                        $json_string .= '"user_id":"' . $row["UserID"] . '",';
-                        $json_string .= '"username":"' . $row["Username"] . '",';
-                        $json_string .= '"title":"' . $row["Title"] . '",';
-                        $json_string .= '"description":"' . $row["Description"] . '",';
-                        $json_string .= '"latitude":"' . $row["Lat"] . '",';
-                        $json_string .= '"longitude":"' . $row["Lon"] . '",';
-                        $json_string .= '"date_time":"' . $row["Date Time"] . '",';
-                        $json_string .= '"accepted":' . $row["Accepted"] . ',';
-                        $json_string .= '"date_time_accepted":"' . $row["Date Time Accepted"] . '",';
-                        $json_string .= '"completed":"' . $row["Completed"] . '",';
-                        $json_string .= '"date_time_completed":"' . $row["Date Time Completed"].'"';
-                        $json_string .= '}';
+                        $jsonObj = new stdClass();
+                        $jsonObj->id = $row["ID"];
+                        $jsonObj->userID = $row["UserID"];
+                        $jsonObj->username = $row["Username"];
+                        $jsonObj->title = $row["Title"];
+                        $jsonObj->description = $row["Description"];
+                        $jsonObj->lat = $row["Lat"];
+                        $jsonObj->lon = $row["Lon"];
+                        $jsonObj->dateTime = $row["Date Time"];
+                        $jsonObj->accepted = $row["Accepted"];
+                        $jsonObj->dateTimeAccepted = $row["Date Time Accepted"];
+                        $jsonObj->completed = $row["Completed"];
+                        $jsonObj->dateTimeCompleted = $row["Date Time Completed"];
 
-                        if(strlen($json_array) > 1){
-                            $json_array.=','.$json_string;
-                        }
-                        else{
-                            $json_array.=$json_string;
-                        }
-                        
+                        array_push($jsonArray, $jsonObj);
                     }
+                    
+                    $responseObj->responseCode = 200;
+                    $responseObj->description = "ok";
+                    $responseObj->results = $jsonArray;
 
-                    $json_array.="]";
-
-                    echo '{"response_code":200, "results":'.$json_array.'}';
+                    echo json_encode($responseObj);
                 } else {
-                    echo '{"response_code":500, "description":"error executing query"}';
+                    $responseObj->response_code = "500";
+                    $responseObj->description = "internal server error - error executing query";
                 }
             } else {
                 session_destroy();
-                echo '{"response_code":403, "description":"user not logged in"}';
-                exit();
+                $responseObj->response_code = "403";
+                $responseObj->description = "unauthorized user";
             }
         } else {
-            echo '{"response_code":500, "description":"error executing query"}';
-            exit();
+            $responseObj->response_code = "500";
+            $responseObj->description = "internal server error - error executing query";
         }
     } else {
-        echo '{"response_code":500, "description":"error preparing statement"}';
-        exit();
+        $responseObj->response_code = "500";
+        $responseObj->description = "internal server error - error preparing statement";
     }
     mysqli_stmt_close($stmt);
 } else {
-    echo '{"response_code":403, "description":"user not logged in"}';
-    exit();
+    $responseObj->response_code = "403";
+    $responseObj->description = "unauthorized user";
 }
