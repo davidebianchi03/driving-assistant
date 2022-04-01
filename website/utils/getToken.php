@@ -1,12 +1,13 @@
 <?php
 require_once '../DBconfig.php';
 require_once 'utils.php';
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $username = "";
-    if (isset($_GET['username']) && isset($_GET['password'])) {
-        if (!empty($_GET['username']) && !empty($_GET['password'])) {
-            $username = mysqli_real_escape_string($link, $_GET['username']);
-            $password = mysqli_real_escape_string($link, $_GET['password']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $json = file_get_contents('php://input');
+    $data = json_decode($json, true);
+    if (isset($data['username']) && isset($data['password'])) {
+        if (!empty($data['username']) && !empty($data['password'])) {
+            $username = mysqli_real_escape_string($link, $data['username']);
+            $password = mysqli_real_escape_string($link, $data['password']);
 
             $sql = 'SELECT UserID, Username, Password FROM users WHERE username = ?';
             if ($stmt = mysqli_prepare($link, $sql)) {
@@ -35,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                                 sendJSONMessage(buildJSON_HTTPstatus(500, 'Internal server error - Error while preparing statement'));
                             }
                         } else {
-                           //Risposta con errore -> Credenziali sbagliate
-                           sendJSONMessage(buildJSON_HTTPstatus(403, 'Unauthorized user'));
+                            //Risposta con errore -> Credenziali sbagliate
+                            sendJSONMessage(buildJSON_HTTPstatus(403, 'Unauthorized user'));
                         }
                     }
                 }
@@ -46,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             sendJSONMessage(buildJSON_HTTPstatus(400, 'Bad request - Missing parameters'));
         }
     } else {
-        echo 'inserire campi';
         sendJSONMessage(buildJSON_HTTPstatus(400, 'Bad request - Missing parameters'));
     }
 }
