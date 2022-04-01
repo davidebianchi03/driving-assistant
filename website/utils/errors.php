@@ -1,7 +1,4 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    Forbidden_403();
-}
 
 function BadRequest_400()
 {
