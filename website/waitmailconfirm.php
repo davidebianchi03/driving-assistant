@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driving assistant</title>
+    <script src="js/env-settings.js"></script>
     <link rel="shortcut icon" href="img/icon.png">
     <link rel="stylesheet" href="styles/reservedarea.css">
     <script src="js/verification-page.js"></script>

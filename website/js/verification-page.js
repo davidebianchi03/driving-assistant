@@ -1,5 +1,3 @@
-var basePath = "";
-
 function sendAgainEmail(id, email) {
     fetch(basePath + "/utils/sendconfirmemail.php", {
         method: 'POST',

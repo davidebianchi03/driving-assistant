@@ -51,6 +51,7 @@ if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driving assistant</title>
+    <script src="js/env-settings.js"></script>
     <link rel="shortcut icon" href="img/icon.png">
     <link rel="stylesheet" href="styles/reservedarea.css">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">

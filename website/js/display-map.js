@@ -1,5 +1,3 @@
-var basePath = "";
-
 $(document).ready(function () {
 
     mapboxgl.accessToken = "pk.eyJ1IjoiZGFkZWJpYTAzIiwiYSI6ImNsMTk2eGlqMjBraTMzZHBtNjB6dzlscXgifQ.vu-PtXncRAUzN_b1Jypt8A";
@@ -21,14 +19,37 @@ $(document).ready(function () {
         var marker;
         var popup;
 
-        console.log(json);
+        //console.log(json);
 
         if (json.response_code == 200) {
             for (let i = 0; i < json.results.length; i++) {
                 var obj = json.results[i];
 
+                // popup = new mapboxgl.Popup()
+                //     .setText("Segnalazione fatta da " + obj.username + " alla data: " + obj.date_time+ ", tipo segnalazione: " + obj.title)
+                //     .addTo(map);
+
+                var container_div = document.createElement('div');
+                //visualizzo il testo all'interno del popup
+                var popup_text = document.createElement('div');
+                popup_text.className = "popup-text";
+                popup_text.innerHTML = "<b>Utente:</b> " + obj.username + "<br><b>Data:</b> " + obj.date_time + "<br><b>Tipo segnalazione:</b> " + obj.title;
+                container_div.appendChild(popup_text);
+
+                //visualizzo il pulsante per prendere in carico la segnalazione (solo admin)
+                var popup_btn = document.createElement('div');
+                popup_btn.className = "popup-btn-container";
+                if (obj.accepted == 0) {
+                    popup_btn.innerHTML = "<input type = 'button' onclick = 'AlertTakingCharge(" + obj.id + ")' class = 'alert-btn-taking-charge' value = 'Prendi in carico'>";
+                }
+                else {
+                    popup_btn.innerHTML = "<input type = 'button' onclick = 'AlertCompleted(" + obj.id + ")' class = 'alert-btn-completed' value = 'Chiudi segnalazione'>";
+                }
+                container_div.appendChild(popup_btn);
+
+
                 popup = new mapboxgl.Popup()
-                    .setText("Segnalazione fatta da " + obj.username + " alla data: " + obj.date_time+ ", tipo segnalazione: " + obj.title)
+                    .setDOMContent(container_div)
                     .addTo(map);
 
                 var div = document.createElement('div');
@@ -58,3 +79,45 @@ $(document).ready(function () {
         }
     });
 });
+
+//funzione per inviare la richiesta al server per prendere in carico una segnalazione
+function AlertTakingCharge(alert_id) {
+    fetch(basePath + "/utils/takeinchargealert.php", {
+        method: 'post',
+        credentials: 'include',
+        headers: new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+        body: "alert_id=" + alert_id
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        if (json.responseCode == "200") {
+            location.reload();
+        }
+        else {
+            alert("Errore durante la presa in carico della richiesta");
+        }
+    });
+}
+
+function AlertCompleted(alert_id) {
+    fetch(basePath + "/utils/closealert.php", {
+        method: 'post',
+        credentials: 'include',
+        headers: new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+        body: "alert_id=" + alert_id
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        if (json.responseCode == "200") {
+            location.reload();
+        }
+        else {
+            alert("Errore durante la chiusura della richiesta");
+            console.log(json);
+        }
+    });
+}
