@@ -9,6 +9,7 @@ function sendJSONMessage($obj)
 function buildJSON_AccessToken($token, $userID)
 {
     $myObj = new stdClass();
+    $myObj->response_code = 200;
     $myObj->accessToken = $token;
     $myObj->userID = $userID;
     return $myObj;

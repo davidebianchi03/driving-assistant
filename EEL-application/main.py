@@ -134,5 +134,35 @@ def GetSettings():
         response["valid"] = False
         return json.dumps(response)
 
+@eel.expose
+def UpdateCredentials(userId, username, accessToken):
+    credentials_dict = dict()
+    credentials_dict['user_id'] = userId
+    credentials_dict['username'] = username
+    credentials_dict['access_token'] = accessToken
+    credentials_file = open('credentials.json','w')
+    credentials_file.write(json.dumps(credentials_dict))
+    credentials_file.close()
 
-eel.start('index.html')
+@eel.expose
+def GetCredentials():
+    try:
+        credentials_json = ''
+        credentials_file = open('credentials.json','r')
+        credentials_json = credentials_file.read()
+        credentials_file.close()
+        if not (credentials_json == ''):
+            response = json.loads(credentials_json)
+            response["valid"] = True
+            return json.dumps(response)
+        else:
+            response = dict()
+            response["valid"] = False
+            return json.dumps(response)
+    except:
+        response = dict()
+        response["valid"] = False
+        return json.dumps(response)
+
+
+eel.start('index.html', allowed_prefixs=['start-with-me'])

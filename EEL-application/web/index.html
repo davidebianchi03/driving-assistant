@@ -23,10 +23,10 @@
     <script src="scripts/displaymap.js" type="text/javascript"></script>
     <script src="scripts/searchplace.js" type="text/javascript"></script>
     <script src="scripts/navigate.js" type="text/javascript"></script>
-    <script src=""></script>
     <script src="scripts/animations.js" type="text/javascript"></script>
     <script src="scripts/displaydistance.js" type="text/javascript"></script>
     <script src="scripts/segnalazioni.js"></script>
+    <script src="scripts/login.js"></script>
 </head>
 
 <body>
@@ -34,6 +34,22 @@
     <div class="loading">
         <img src="images/logo_white_large.png" alt="logo">
         <p>Loading...</p>
+    </div>
+
+    <div class="login-container">
+        <div class = "login">
+            <p class = "login-title">Effettua il login</p>
+            <p class = "login-subtitle">Potrebbe essere necessario cambiare l'URL del server nelle impostazioni</p>
+            <p class = "login-input">
+                <label>Username</label>
+                <input type="text" id="username">
+            </p>
+            <p class = "login-input">
+                <label>Password</label>
+                <input type="password" id="password">
+            </p>
+            <input type="button" value="Login" id = "login-btn" onclick="Login()">
+        </div>
     </div>
 
     <div class="container">
@@ -57,7 +73,7 @@
                         <label>URL Server segnalazioni</label>
                         <input type="text" id="url-segnalazioni">
                     </div>
-                    <input type="button" value="Ricarica l'assistente" id = "reload-page">
+                    <input type="button" value="Ricarica l'assistente" id="reload-page">
                 </div>
 
             </div>

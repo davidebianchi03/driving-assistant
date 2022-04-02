@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+
 require_once '../DBconfig.php';
 require_once 'utils.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -43,6 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             //Risposta con errore -> Credenziali sbagliate
                             sendJSONMessage(buildJSON_HTTPstatus(403, 'Unauthorized user'));
                         }
+                    }
+                    else {
+                        //Risposta con errore -> Credenziali sbagliate
+                        sendJSONMessage(buildJSON_HTTPstatus(403, 'Unauthorized user'));
                     }
                 }
             }
