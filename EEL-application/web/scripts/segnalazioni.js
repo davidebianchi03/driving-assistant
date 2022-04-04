@@ -23,24 +23,35 @@ $(document).ready(function () {
 });
 
 function InviaSegnalazione(title, description) {
-    eel.GetSettings()(function (json) {
-        var responseObj = JSON.parse(json);
-        if (responseObj.valid) {
-            $.ajax({
-                type: "POST",
-                url: responseObj.server_url + "/utils/api.php",
-                data: JSON.stringify({
-                    action: "insert-segnalazione",
-                    user_id: 21,///---->da cambiare
-                    title: title,
-                    description: description,
-                    lat: lastKnownPosition.latitude,
-                    lon: lastKnownPosition.longitude
-                })
-            }).done(function(){
-                hideAlerts();
-            })
+    eel.GetCredentials()(function (json) {
+        var jsonObj = JSON.parse(json);
+        if(jsonObj.valid == true){
+            //nascondo il riquadro di login
+            eel.GetSettings()(function (json) {
+                var responseObj = JSON.parse(json);
+                if (responseObj.valid) {
+                    $.ajax({
+                        type: "POST",
+                        url: responseObj.server_url + "/utils/api.php",
+                        data: JSON.stringify({
+                            action: "insert-segnalazione",
+                            user_id: jsonObj.user_id,///---->da cambiare
+                            title: title,
+                            description: description,
+                            lat: lastKnownPosition.latitude,
+                            lon: lastKnownPosition.longitude
+                        })
+                    }).done(function(){
+                        hideAlerts();
+                    })
+                }
+            });
+            
+        }
+        else{
+            $(".login-container").show();
         }
     });
+    
 
 }

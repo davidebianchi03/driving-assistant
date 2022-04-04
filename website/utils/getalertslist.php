@@ -43,10 +43,10 @@ if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
                     $responseObj->description = "ok";
                     $responseObj->results = $jsonArray;
 
-                    echo json_encode($responseObj);
+                    // echo json_encode($responseObj);
                 } else {
                     $responseObj->response_code = "500";
-                    $responseObj->description = "internal server error - error executing query";
+                    $responseObj->description = "internal server error - ".mysqli_error($link);
                 }
             } else {
                 session_destroy();
@@ -55,14 +55,16 @@ if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
             }
         } else {
             $responseObj->response_code = "500";
-            $responseObj->description = "internal server error - error executing query";
+            $responseObj->description = "internal server error - ".mysqli_stmt_error($stmt);
         }
     } else {
         $responseObj->response_code = "500";
-        $responseObj->description = "internal server error - error preparing statement";
+        $responseObj->description = "internal server error - ".mysqli_stmt_error($stmt);
     }
     mysqli_stmt_close($stmt);
 } else {
     $responseObj->response_code = "403";
     $responseObj->description = "unauthorized user";
 }
+
+echo json_encode($responseObj);

@@ -35,6 +35,17 @@ function Login() {
 
 }
 
+$(document).ready(function () {
+    //controllo se l'utente è già stato autenticato e qual'è stata la data dell'ultima autenticazione
+    eel.GetCredentials()(function (json) {
+        var jsonObj = JSON.parse(json);
+        if(jsonObj.valid == true){
+            //nascondo il riquadro di login
+            $(".login-container").hide();
+        }
+    });
+});
+
 function Logout() {
 
 }
