@@ -1,15 +1,24 @@
 var lastKnownPosition = null;
 var liveMarker = null; //marker che indica la posizione in tempo reale
+var lastKnowmBearing = null;
 
 function getLocation() {
-    eel.GetPosition()(function(json) {
+    eel.GetPosition()(function (json) {
         let position = JSON.parse(json);
         if (position.gps_connected == true) {
             //imposto la nuova posizione visualizzata
             liveMarker.setLngLat([position.longitude, position.latitude])
-                //visualizzo velocità con cui si sta muovendo la macchina
+            //visualizzo velocità con cui si sta muovendo la macchina
             document.getElementById("speedinkmh").innerHTML = parseInt(position.speed * 3.6) + " km/h";
 
+            //calcolo la direzione dello spostamento per ruotare la mappa nel verso corretto
+            if (lastKnownPosition != null) {
+                let deltaLon = lastKnownPosition.longitude - position.longitude;
+                let y = Math.sin(deltaLon) * Math.cos(lastKnownPosition.longitude);
+                let x = Math.cos(position.latitude) * Math.sin(lastKnownPosition.latitude) - Math.sin(position.latitude) * Math.cos(lastKnownPosition.latitude) * Math.cos(deltaLon);
+                lastKnowmBearing = Math.atan2(y, x) * 180 / Math.PI;
+                console.log("Bearing = " + bearing);
+            }
             //salvo la posizione
             lastKnownPosition = new GpsCoordinates(position.latitude, position.longitude);
             $("#gpsNotConnected").hide();
@@ -34,6 +43,7 @@ function updatePosition() {
         center: [0, 0],
         zoom: 18
     });
+    
     //inizio a richiamare la funzione ogni 250ms
     setInterval(getLocation, 250);
 }

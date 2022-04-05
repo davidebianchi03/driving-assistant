@@ -32,12 +32,19 @@ function FollowMe() {
     const { lng, lat } = map.getCenter();
 
     if (followMe && getDistanceFromLatLon(lastKnownPosition, new GpsCoordinates(lat, lng)) < 100) {
+        //imposto il bearing
+        if (lastKnowmBearing != null) {
+            const camera = map.getFreeCameraOptions();
+            camera.setPitchBearing(60, lastKnowmBearing);
+            map.setFreeCameraOptions(camera);
+        }
         //centro la mappa sull'ultima posizione visualizzata
         map.flyTo({
             center: [lastKnownPosition.longitude, lastKnownPosition.latitude]
         });
+        
     }
-    else if(getDistanceFromLatLon(lastKnownPosition, new GpsCoordinates(lat, lng)) > 100){
+    else if (getDistanceFromLatLon(lastKnownPosition, new GpsCoordinates(lat, lng)) > 100) {
         followMe = false;
     }
 }
