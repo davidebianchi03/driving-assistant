@@ -39,7 +39,7 @@ $(document).ready(function () {
     });
 
     $("#reload-page").click(function(){
-        location.reload();
+        eel.Restart();
     });
 
 });

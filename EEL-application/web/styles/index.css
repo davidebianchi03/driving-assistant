@@ -551,3 +551,15 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
     padding-bottom: 10px;
 }
+
+#logout-btn{
+    background-color: rgb(168, 3, 3);
+    border: none;
+    padding: 10px 25px;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: white;
+    font-size: 18px;
+    margin-left: 40px;
+    border-radius: 10px;
+    margin-top: 20px;
+}

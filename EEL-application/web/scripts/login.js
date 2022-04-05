@@ -47,5 +47,7 @@ $(document).ready(function () {
 });
 
 function Logout() {
-
+    $(".login-container").show();
+    $(".settings-container").hide();
+    eel.Logout();
 }

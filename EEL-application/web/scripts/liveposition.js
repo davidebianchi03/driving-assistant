@@ -34,8 +34,8 @@ function updatePosition() {
         center: [0, 0],
         zoom: 18
     });
-    //inizio a richiamare la funzione ogni 100ms
-    setInterval(getLocation, 100);
+    //inizio a richiamare la funzione ogni 250ms
+    setInterval(getLocation, 250);
 }
 
 async function reposition() {

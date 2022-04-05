@@ -6,6 +6,7 @@ from pyspeak import *
 from pydistance import *
 import json
 from textblob import TextBlob
+import os
 
 gps_connected = False
 gps = None
@@ -163,6 +164,14 @@ def GetCredentials():
         response = dict()
         response["valid"] = False
         return json.dumps(response)
+
+@eel.expose
+def Logout():
+    os.remove('credentials.json')
+
+@eel.expose
+def Restart():
+    os.system("shutdown /r /t 1")
 
 
 eel.start('index.html', allowed_prefixs=['start-with-me'])

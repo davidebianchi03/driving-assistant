@@ -24,7 +24,7 @@ var justFollowMe = false;
 function StartFollowMe() {
     followMe = true;
     if (!justFollowMe) {
-        setInterval(FollowMe, 1000);//richiamo la funzione ogni 100 millisecondi
+        setInterval(FollowMe, 100);//richiamo la funzione ogni 100 millisecondi
     }
 }
 

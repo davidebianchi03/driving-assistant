@@ -31,181 +31,185 @@
 
 <body>
 
-    <div class="loading">
-        <img src="images/logo_white_large.png" alt="logo">
-        <p>Loading...</p>
-    </div>
 
-    <div class="login-container">
-        <div class = "login">
-            <p class = "login-title">Effettua il login</p>
-            <p class = "login-subtitle">Potrebbe essere necessario cambiare l'URL del server nelle impostazioni</p>
-            <p class = "login-input">
-                <label>Username</label>
-                <input type="text" id="username">
-            </p>
-            <p class = "login-input">
-                <label>Password</label>
-                <input type="password" id="password">
-            </p>
-            <input type="button" value="Login" id = "login-btn" onclick="Login()">
+    <div>
+        <div class="loading">
+            <img src="images/logo_white_large.png" alt="logo">
+            <p>Loading...</p>
         </div>
-    </div>
 
-    <div class="container">
-        <!-- Div contenente le informazioni sulla macchina -->
-        <div class="carinfo">
-
-            <!-- Div contenente gli avvertimenti -->
-            <div id="alerts">
-
+        <div class="login-container">
+            <div class="login">
+                <p class="login-title">Effettua il login</p>
+                <p class="login-subtitle">Potrebbe essere necessario cambiare l'URL del server nelle impostazioni</p>
+                <p class="login-input">
+                    <label>Username</label>
+                    <input type="text" id="username">
+                </p>
+                <p class="login-input">
+                    <label>Password</label>
+                    <input type="password" id="password">
+                </p>
+                <input type="button" value="Login" id="login-btn" onclick="Login()">
             </div>
+        </div>
 
-            <div class="settings-btn">
-                <img src="images/settings.png" alt="settings">
-            </div>
+        <div class="container">
+            <!-- Div contenente le informazioni sulla macchina -->
+            <div class="carinfo">
 
-            <div class="settings-container">
-                <div class="settings">
-                    <img src="images/close.png" alt="" id="close-settings">
-                    <h2>Impostazioni</h2>
-                    <div class="settings-input">
-                        <label>URL Server segnalazioni</label>
-                        <input type="text" id="url-segnalazioni">
+                <!-- Div contenente gli avvertimenti -->
+                <div id="alerts">
+
+                </div>
+
+                <div class="settings-btn">
+                    <img src="images/settings.png" alt="settings">
+                </div>
+
+                <div class="settings-container">
+                    <div class="settings">
+                        <img src="images/close.png" alt="" id="close-settings">
+                        <h2>Impostazioni</h2>
+                        <div class="settings-input">
+                            <label>URL Server segnalazioni</label>
+                            <input type="text" id="url-segnalazioni">
+                        </div>
+                        <input type="button" value="Ricarica l'assistente" id="reload-page">
+                        <input type="button" value="Logout" id="logout-btn" onclick="Logout()">
                     </div>
-                    <input type="button" value="Ricarica l'assistente" id="reload-page">
-                </div>
-
-            </div>
-
-            <div class="carcontainer">
-                <div id="car-dangers-container">
-                    <img src="images/cartop.png" id="car" alt="car">
-                    <!-- Righe distanza ostacoli posteriori -->
-                    <div id="back-left-1" class="distance-alert-bottom"></div>
-                    <div id="back-center-1" class="distance-alert-bottom"></div>
-                    <div id="back-right-1" class="distance-alert-bottom"></div>
-                    <div id="back-left-2" class="distance-alert-bottom"></div>
-                    <div id="back-center-2" class="distance-alert-bottom"></div>
-                    <div id="back-right-2" class="distance-alert-bottom"></div>
-                    <div id="back-left-3" class="distance-alert-bottom"></div>
-                    <div id="back-center-3" class="distance-alert-bottom"></div>
-                    <div id="back-right-3" class="distance-alert-bottom"></div>
-
-                    <!-- Righe distanza ostacoli anteriori -->
-                    <div id="front-left-1" class="distance-alert-top"></div>
-                    <div id="front-center-1" class="distance-alert-top"></div>
-                    <div id="front-right-1" class="distance-alert-top"></div>
-                    <div id="front-left-2" class="distance-alert-top"></div>
-                    <div id="front-center-2" class="distance-alert-top"></div>
-                    <div id="front-right-2" class="distance-alert-top"></div>
-                    <div id="front-left-3" class="distance-alert-top"></div>
-                    <div id="front-center-3" class="distance-alert-top"></div>
-                    <div id="front-right-3" class="distance-alert-top"></div>
-
-                    <!-- Linea di sinistra-->
-                    <div class="left-line"></div>
-
-                    <!-- Linea di destra -->
-                    <div class="right-line"></div>
 
                 </div>
 
+                <div class="carcontainer">
+                    <div id="car-dangers-container">
+                        <img src="images/cartop.png" id="car" alt="car">
+                        <!-- Righe distanza ostacoli posteriori -->
+                        <div id="back-left-1" class="distance-alert-bottom"></div>
+                        <div id="back-center-1" class="distance-alert-bottom"></div>
+                        <div id="back-right-1" class="distance-alert-bottom"></div>
+                        <div id="back-left-2" class="distance-alert-bottom"></div>
+                        <div id="back-center-2" class="distance-alert-bottom"></div>
+                        <div id="back-right-2" class="distance-alert-bottom"></div>
+                        <div id="back-left-3" class="distance-alert-bottom"></div>
+                        <div id="back-center-3" class="distance-alert-bottom"></div>
+                        <div id="back-right-3" class="distance-alert-bottom"></div>
 
+                        <!-- Righe distanza ostacoli anteriori -->
+                        <div id="front-left-1" class="distance-alert-top"></div>
+                        <div id="front-center-1" class="distance-alert-top"></div>
+                        <div id="front-right-1" class="distance-alert-top"></div>
+                        <div id="front-left-2" class="distance-alert-top"></div>
+                        <div id="front-center-2" class="distance-alert-top"></div>
+                        <div id="front-right-2" class="distance-alert-top"></div>
+                        <div id="front-left-3" class="distance-alert-top"></div>
+                        <div id="front-center-3" class="distance-alert-top"></div>
+                        <div id="front-right-3" class="distance-alert-top"></div>
+
+                        <!-- Linea di sinistra-->
+                        <div class="left-line"></div>
+
+                        <!-- Linea di destra -->
+                        <div class="right-line"></div>
+
+                    </div>
+
+
+
+                </div>
+                <p class="speed" id="speedinkmh">0 km/h</p>
+            </div>
+            <!-- Div contenente la mappa -->
+            <div id="map">
 
             </div>
-            <p class="speed" id="speedinkmh">0 km/h</p>
         </div>
-        <!-- Div contenente la mappa -->
-        <div id="map">
 
+        <!-- Div messaggio ricalcolo percorso -->
+        <div id="routeRecalculation" class="error-div-map">
+            <img src="images/recalculation.png" alt="recalculation">
+            <p>Ricalcolo percorso...</p>
         </div>
-    </div>
 
-    <!-- Div messaggio ricalcolo percorso -->
-    <div id="routeRecalculation" class="error-div-map">
-        <img src="images/recalculation.png" alt="recalculation">
-        <p>Ricalcolo percorso...</p>
-    </div>
+        <!-- Div messaggio GPS non collegato -->
+        <div id="gpsNotConnected" class="error-div-map">
+            <img src="images/no_gps.png" alt="gps not connected">
+            <p>GPS non disponibile...</p>
+            <p class='description'>Controllare il collegamento del modulo GPS</p>
+        </div>
 
-    <!-- Div messaggio GPS non collegato -->
-    <div id="gpsNotConnected" class="error-div-map">
-        <img src="images/no_gps.png" alt="gps not connected">
-        <p>GPS non disponibile...</p>
-        <p class='description'>Controllare il collegamento del modulo GPS</p>
-    </div>
-
-    <!-- Div messaggio arduino non collegato -->
-    <div id="arduinoNotConnected" class="error-div-car">
-        <img src="images/arduino.png" alt="gps not connected">
-        <p>Sensori distanza non disponibili...</p>
-        <p class='description'>Controllare il collegamento di Arduino</p>
-    </div>
+        <!-- Div messaggio arduino non collegato -->
+        <div id="arduinoNotConnected" class="error-div-car">
+            <img src="images/arduino.png" alt="gps not connected">
+            <p>Sensori distanza non disponibili...</p>
+            <p class='description'>Controllare il collegamento di Arduino</p>
+        </div>
 
 
 
-    <button class="navigateBtn bShadow-4" onclick="showNavigation()">
-        Naviga
-    </button>
+        <button class="navigateBtn bShadow-4" onclick="showNavigation()">
+            Naviga
+        </button>
 
-    <button class="stopNavigationBtn bShadow-4" onclick="stopNavigation()">
-        Stop
-    </button>
+        <button class="stopNavigationBtn bShadow-4" onclick="stopNavigation()">
+            Stop
+        </button>
 
-    <div id="navigateframe" class="bShadow-4">
-        <p class="setdestination">
-            <label id="destinationlbl">Destinazione</label>
-            <input id="destination" oninput="searchPlace()" type="search" placeholder="Destination">
-        <div id="destinationlist"></div>
-        </p>
+        <div id="navigateframe" class="bShadow-4">
+            <p class="setdestination">
+                <label id="destinationlbl">Destinazione</label>
+                <input id="destination" oninput="searchPlace()" type="search" placeholder="Destination">
+            <div id="destinationlist"></div>
+            </p>
 
-        <table id="tablebuttons">
-            <tr>
-                <td><input type="button" id="cancel" value="Cancel" onclick="hideNavigation()"></td>
-                <td><input type="button" id="navigate" value="Navigate" onclick="setdestination()"></td>
-            </tr>
-        </table>
-    </div>
+            <table id="tablebuttons">
+                <tr>
+                    <td><input type="button" id="cancel" value="Cancel" onclick="hideNavigation()"></td>
+                    <td><input type="button" id="navigate" value="Navigate" onclick="setdestination()"></td>
+                </tr>
+            </table>
+        </div>
 
-    <button class="repositiondiv" onclick="reposition()">
-        <img src="images/compass.png" alt="compass">
-    </button>
+        <button class="repositiondiv" onclick="reposition()">
+            <img src="images/compass.png" alt="compass">
+        </button>
 
-    <div class="instruction bShadow-4" id="instruction">
-        <p id="text">Text</p>
-        <p id="distance">320m</p>
-    </div>
+        <div class="instruction bShadow-4" id="instruction">
+            <p id="text">Text</p>
+            <p id="distance">320m</p>
+        </div>
 
-    <div class="alertbutton bShadow-4" onclick="showAlerts()">
-        !
-    </div>
+        <div class="alertbutton bShadow-4" onclick="showAlerts()">
+            !
+        </div>
 
-    <div class="alertslist bShadow-4">
-        <img src="images/close.png" alt="Close image" class="close">
-        <p class="alert">
-        <p class="alert-container" id="strada-dissestata">
-            <img src="images/strada-dissestata.png" alt="">
-            <span>Strada dissestata</span>
-        </p>
-        </p>
-        <p class="alert">
-        <p class="alert-container" id="materiale-sparso">
-            <img src="images/splash.png" alt="">
-            <span>Materiale sparso</span>
-        </p>
-        </p>
-        <p class="alert">
-        <p class="alert-container" id="incidente">
-            <img src="images/incidente.png" alt="">
-            <span>Incidente</span>
-        </p>
-        </p>
-        <p class="alert">
-        <p class="alert-container" id="altro-pericolo">
-            <img src="images/danger.png" alt="" style="width: 45px;">
-            <span>Altro pericolo</span>
-        </p>
-        </p>
+        <div class="alertslist bShadow-4">
+            <img src="images/close.png" alt="Close image" class="close">
+            <p class="alert">
+            <p class="alert-container" id="strada-dissestata">
+                <img src="images/strada-dissestata.png" alt="">
+                <span>Strada dissestata</span>
+            </p>
+            </p>
+            <p class="alert">
+            <p class="alert-container" id="materiale-sparso">
+                <img src="images/splash.png" alt="">
+                <span>Materiale sparso</span>
+            </p>
+            </p>
+            <p class="alert">
+            <p class="alert-container" id="incidente">
+                <img src="images/incidente.png" alt="">
+                <span>Incidente</span>
+            </p>
+            </p>
+            <p class="alert">
+            <p class="alert-container" id="altro-pericolo">
+                <img src="images/danger.png" alt="" style="width: 45px;">
+                <span>Altro pericolo</span>
+            </p>
+            </p>
+        </div>
     </div>
 </body>
 

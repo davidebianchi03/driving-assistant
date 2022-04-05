@@ -1,5 +1,6 @@
 from concurrent.futures import thread
 import threading
+import time
 from unittest import result
 import serial.tools.list_ports
 import serial#pyserial module
@@ -109,6 +110,7 @@ class pygps:
                 self.sem.acquire()
                 self.last_known_position = result
                 self.sem.release()
+            time.sleep(0.25)
 
     #metodo per ottenere l'ultima posizione disponibile
     def GetLastKnownPosition(self):
