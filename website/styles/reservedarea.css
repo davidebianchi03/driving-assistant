@@ -69,6 +69,8 @@ html, body {
 #send-again-email{
   color: blue;
   text-decoration: underline;
+  cursor:pointer;
+  user-select: none;
 }
 
 .container{

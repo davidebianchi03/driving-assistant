@@ -19,5 +19,5 @@ function SendEmail($to, $subject, $messageText)
     curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($request_body));
     $response = curl_exec($curl);
     curl_close($curl);
-    echo $response.'<br>';
+    // echo $response;
 }

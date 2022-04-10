@@ -1,9 +1,9 @@
 <?php
 $basePath = "https://drivingassistant.altervista.org/";
+
 if (isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
 
-    require_once('./email/emailConfig.php'); //file di configurazione per le email
-    require_once('./email/sendEmail.php'); //file con le funzioni per inviare le email
+    require_once('../email/sendEmail.php'); //file con le funzioni per inviare le email
     require_once '../DBconfig.php';
 
     $sql = 'SELECT * FROM users WHERE UserID = ?';
@@ -21,17 +21,17 @@ if (isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
                     "Driving assistant - Conferma registrazione",
                     $emailText
                 );
-                // echo '{"responseCode":200}';
+                //  echo '{"responseCode":200}';
                 exit();
             } else {
-                // echo '{"responseCode":400}';
+                //  echo '{"responseCode":400}';
             }
         } else {
-            // echo '{"responseCode":500, "message":"errore esecuzione query"}';
+            //  echo '{"responseCode":500, "message":"errore esecuzione query"}';
         }
     } else {
-        // echo '{"responseCode":500, "message":"errore preparazione query"}';
+    //  echo '{"responseCode":500, "message":"errore preparazione query"}';
     }
 } else {
-    // echo '{"responseCode":404}';
+    //  echo '{"responseCode":404}';
 }
