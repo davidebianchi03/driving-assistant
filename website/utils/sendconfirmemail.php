@@ -17,13 +17,9 @@ if (isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
                     $basePath . "waitmailconfirm.php?userid=" . $row['UserID'];
 
                 SendEmail(
-                    SENDER_EMAIL,
-                    SENDER_NICKNAME,
                     $row["Email"],
-                    $row['FirstName'] . " " . $row['LastName'],
                     "Driving assistant - Conferma registrazione",
-                    $emailText,
-                    GetOath2Token(CLIENT_ID, CLIENT_SECRET, GRANT_TYPE, REFRESH_TOKEN)
+                    $emailText
                 );
                 // echo '{"responseCode":200}';
                 exit();

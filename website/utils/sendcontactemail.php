@@ -6,13 +6,9 @@ function SendContactEmail($sender, $text)
     require_once '../DBconfig.php';
 
     SendEmail(
-        SENDER_EMAIL,
-        SENDER_NICKNAME,
         "dadebianchi2003@gmail.com",
-        "Davide Bianchi",
         "Assistenza - $sender",
         $text,
-        GetOath2Token(CLIENT_ID, CLIENT_SECRET, GRANT_TYPE, REFRESH_TOKEN)
     );
 }
 ?>
@@ -22,11 +18,10 @@ if (isset($_POST["sender_email"]) && !empty(trim($_POST["sender_email"])) && iss
     SendContactEmail(trim($_POST["sender_email"]), trim($_POST["message"]));
 }
 
-if(isset($_POST["location"])){
-    header('location:'.$_POST["location"]);
+if (isset($_POST["location"])) {
+    header('location:' . $_POST["location"]);
     exit();
-}
-else{
+} else {
     header('location:/');
     exit();
 }

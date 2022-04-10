@@ -7,9 +7,6 @@ Reinserire il file utilizzando il seguente template:
 ```
 <?php
 //parametri per l'invio dell'email
-define('EMAIL', 'email@example.com');
-define('PASSWORD', 'password');
-define('SMTP_SERVER', 'smtp.email.com');
-define('SMTP_PORT', 587);
+define('EMAIL_TOKEN', 'token');
 ?>
 ```
