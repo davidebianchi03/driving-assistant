@@ -18,9 +18,9 @@ def sendEmail(receiver_email, subject, body):
         server = smtplib.SMTP_SSL(smtp_server, port)
         server.login(sender_email, password)
         server.sendmail(sender_email, to, email_text)
-        return True
+        return (True, '')
     except Exception as ex:
-        return False
+        return (False, ex)
 
 def thread_sendEmail(receiver_email, subject, body):
     to = [receiver_email]
