@@ -3,7 +3,7 @@ from imgTransformation import transform
 
 
 cascade_src = "cars.xml"
-video_src = "video2.mp4"
+video_src = 1
 
 cap = cv2.VideoCapture(video_src)
 car_cascade = cv2.CascadeClassifier(cascade_src)
