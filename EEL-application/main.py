@@ -1,12 +1,14 @@
 from opcode import opname
 from turtle import position
 import eel
+from matplotlib.font_manager import json_dump
 from pygps import *
 from pyspeak import *
 from pydistance import *
 import json
 from textblob import TextBlob
 import os
+from detect import Detect
 
 gps_connected = False
 gps = None
@@ -17,6 +19,8 @@ distance = None
 eel.init('web')
 
 speechsynthetizer = pySpeak(language='it')
+
+detector = Detect(1,0)
 
 #inizializzazione del modulo gps(se connesso)
 try:
@@ -172,6 +176,11 @@ def Logout():
 @eel.expose
 def Restart():
     os.system("shutdown /r /t 1")
+
+@eel.expose
+def GetCamerasImages():
+    return json.dumps(detector.GetBase64Images())
+
 
 
 eel.start('index.html', allowed_prefixs=['start-with-me'])

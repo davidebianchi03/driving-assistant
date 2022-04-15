@@ -20,25 +20,30 @@ $(document).ready(function () {
     //Nascondo il riquadro delle impostazioni
     $(".settings-container").hide();
 
-    $(".settings-btn").click(function(){
+    $(".settings-btn").click(function () {
         $(".settings-container").show('slow');
         //aggiorno le impostazioni visualizzate
-        eel.GetSettings()(function(json) {
+        eel.GetSettings()(function (json) {
             var responseObj = JSON.parse(json);
-            if(responseObj.valid){
+            if (responseObj.valid) {
                 //carico le impostazioni
                 document.getElementById("url-segnalazioni").value = responseObj.server_url;
             }
         });
+        eel.GetCamerasImages()(function (json) {
+            var responseObj = JSON.parse(json);
+            document.getElementById("frontImage").innerHTML = "<p>Front Camera</p><img src = 'data:image/jpg;base64, " + responseObj.frontCamera + "'>";
+            document.getElementById("backImage").innerHTML = "<p>Back Camera</p><img src = 'data:image/jpg;base64, " + responseObj.backCamera + "'>";
+        });
     });
 
-    $("#close-settings").click(function(){
+    $("#close-settings").click(function () {
         $(".settings-container").hide('slow');
         var server_url = document.getElementById("url-segnalazioni").value;
         eel.UpdateSettings(server_url);
     });
 
-    $("#reload-page").click(function(){
+    $("#reload-page").click(function () {
         eel.Restart();
     });
 

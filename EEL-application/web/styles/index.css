@@ -563,3 +563,40 @@ body {
     border-radius: 10px;
     margin-top: 20px;
 }
+
+.cameraContainer{
+    display: flex;
+    width: 100%;
+    margin-left: 40px;
+    margin-top: 40px;
+}
+
+#frontImage{
+    width: 50%;
+}
+
+#frontImage p{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#frontImage img{
+    width: 75%;
+    margin: auto;
+}
+
+#backImage{
+    width: 50%;
+}
+
+#backImage p{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#backImage img{
+    width: 75%;
+    margin: auto;
+}

@@ -1,4 +1,3 @@
-from ast import While
 import json
 from detect import Detect
 
