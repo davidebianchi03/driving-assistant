@@ -1,3 +1,5 @@
+var lastCameraUpdate = null;
+
 $(document).ready(function () {
     //nascondo tutte le indicazioni dei pericoli
     $("#back-left-1").hide();
@@ -24,6 +26,8 @@ $(document).ready(function () {
     $("#front-center-3").hide();
     $("#front-right-3").hide();
 
+    let now = new Date();
+    lastCameraUpdate = now.getMilliseconds();
     setInterval(UpdateDistance, 250);
 });
 
@@ -32,6 +36,12 @@ function UpdateDistance() {
     eel.GetDistances()(function (json) {
         //console.log(json);
         var obj = JSON.parse(json);
+        var fr = true;
+        var fm = true;
+        var fl = true;
+        var br = true;
+        var bm = true;
+        var bl = true;
 
         if (obj.connected == true) {
             $("#arduinoNotConnected").hide();
@@ -51,6 +61,7 @@ function UpdateDistance() {
                 SetFrontLeftLevel(3);
             } else if (obj.fl > s3) {
                 SetFrontLeftLevel(0);
+                fl = false;
             }
 
             if (obj.fm < s3 && obj.fm > s2) {
@@ -61,6 +72,7 @@ function UpdateDistance() {
                 SetFrontCenterLevel(3);
             } else if (obj.fm > s3) {
                 SetFrontCenterLevel(0);
+                fm = false;
             }
 
             if (obj.fr < s3 && obj.fr > s2) {
@@ -71,6 +83,7 @@ function UpdateDistance() {
                 SetFrontRightLevel(3);
             } else if (obj.fr > s3) {
                 SetFrontRightLevel(0);
+                fr = false;
             }
 
             //sensori posteriori
@@ -82,6 +95,7 @@ function UpdateDistance() {
                 SetBackLeftLevel(3);
             } else if (obj.bl > s3) {
                 SetBackLeftLevel(0);
+                bl = false;
             }
 
             if (obj.bm < s3 && obj.bm > s2) {
@@ -92,6 +106,7 @@ function UpdateDistance() {
                 SetBackCenterLevel(3);
             } else if (obj.bm > s3) {
                 SetBackCenterLevel(0);
+                bm = false;
             }
 
             if (obj.br < s3 && obj.br > s2) {
@@ -102,9 +117,21 @@ function UpdateDistance() {
                 SetBackRightLevel(3);
             } else if (obj.br > s3) {
                 SetBackRightLevel(0);
+                br = false;
             }
+
+            //controllo per la ricerca di eventuali ostacoli riconosciuti tramite webcam effettuo un nuovo aggiornamento ogni 2 secondi
+            let now = new Date();
+            if ((now.getMilliseconds() - lastCameraUpdate) > 2000/* && document.getElementById("useCameras").checked == true*/) {
+                lastCameraUpdate = now.getMilliseconds();
+                // eel.GetObstacles(bl, bm, br, fl, fm, fr)(function (json) {
+                //     console.log(json);
+                // });
+                console.log("hello")
+            }
+            console.log(now.getMilliseconds() - lastCameraUpdate);
         }
-        else{
+        else {
             $("#arduinoNotConnected").show();
         }
 

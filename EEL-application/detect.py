@@ -32,6 +32,7 @@ class Detect:
             height, width, channel = frontImage.shape
             fillColor = (0,0,0)
             if fl:#front-left
+                #detect delle persone
                 flImage = frontImage.copy()
                 points = np.array([[(int(width/3),0),(int(width/3),height),(width,height),(width,0)]])
                 cv2.fillPoly(flImage, np.int32(points), fillColor)
@@ -40,6 +41,7 @@ class Detect:
                     result["fl"] = "person"
                     break                    
             if fm:#front-middle
+                #detect delle persone
                 fmImage = frontImage.copy()
                 points = np.array([[(0,0),(width/3,0),(width/3,height),(0,height)]])
                 cv2.fillPoly(fmImage, np.int32(points), fillColor)
@@ -50,6 +52,7 @@ class Detect:
                     result["fm"] = "person"
                     break  
             if fr:#front-right
+                #detect delle persone
                 frImage = frontImage.copy()
                 points = np.array([[(0,0),(2*int(width/3),0), (2*int(width/3),height),(0,height)]])
                 cv2.fillPoly(frImage, np.int32(points), fillColor)
@@ -64,6 +67,7 @@ class Detect:
                 height, width, channel = backImage.shape
                 fillColor = (0,0,0)
                 if bl:#back-left
+                    #detect delle persone
                     blImage = backImage.copy()
                     points = np.array([[(0,0),(2*int(width/3),0), (2*int(width/3),height),(0,height)]])
                     cv2.fillPoly(blImage, np.int32(points), fillColor)
@@ -72,6 +76,7 @@ class Detect:
                         result["bl"] = "person"
                         break  
                     if bm:#back-middle
+                        #detect delle persone
                         bmImage = backImage.copy()
                         points = np.array([[(0,0),(width/3,0),(width/3,height),(0,height)]])
                         cv2.fillPoly(bmImage, np.int32(points), fillColor)
@@ -82,6 +87,7 @@ class Detect:
                             result["bm"] = "person"
                             break  
                     if br:#back-right
+                        #detect delle persone
                         brImage = backImage.copy()
                         points = np.array([[(int(width/3),0),(int(width/3),height),(width,height),(width,0)]])
                         cv2.fillPoly(brImage, np.int32(points), fillColor)
