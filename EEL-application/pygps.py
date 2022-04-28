@@ -45,6 +45,7 @@ class pygps:
             serialport_name = self.detectSerialPort()
             #inizializzo la porta seriale
             self.serial_port = serial.Serial()
+            print(serialport_name)
             self.serial_port.baudrate = self.BAUDRATE
             self.serial_port.port = serialport_name#!!!!devo riuscire a prendere la porta in automatico
             self.serial_port.timeout = 0.5

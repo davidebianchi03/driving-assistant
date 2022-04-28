@@ -1,6 +1,7 @@
 var alertsDisplayed = false;
 
 $(document).ready(function () {
+    document.getElementById("useCameras").checked = useCameras;
     $("#navigateframe").hide();
     $(".alertslist").hide();
     $("#routeRecalculation").hide();
@@ -82,4 +83,12 @@ function showAlerts() {
         $(".alertslist").show(250, "linear");
         alertsDisplayed = true;
     }
+}
+
+var useCameras = false;
+
+function ChangeUseCameraState(){
+    useCameras = !useCameras;
+    document.getElementById("useCameras").checked = useCameras;
+    console.log(document.getElementById("useCameras").checked);
 }

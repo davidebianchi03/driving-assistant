@@ -122,11 +122,11 @@ function UpdateDistance() {
 
             //controllo per la ricerca di eventuali ostacoli riconosciuti tramite webcam effettuo un nuovo aggiornamento ogni 2 secondi
             let now = new Date();
-            if ((now.getMilliseconds() - lastCameraUpdate) > 2000/* && document.getElementById("useCameras").checked == true*/) {
+            if ((now.getMilliseconds() - lastCameraUpdate) > 2000 && useCameras) {
                 lastCameraUpdate = now.getMilliseconds();
-                // eel.GetObstacles(bl, bm, br, fl, fm, fr)(function (json) {
-                //     console.log(json);
-                // });
+                eel.GetObstacles(bl, bm, br, fl, fm, fr)(function (json) {
+                    console.log(json);
+                });
                 console.log("hello")
             }
             console.log(now.getMilliseconds() - lastCameraUpdate);
