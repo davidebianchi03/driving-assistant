@@ -33,8 +33,8 @@ $(document).ready(function () {
         });
         eel.GetCamerasImages()(function (json) {
             var responseObj = JSON.parse(json);
-            document.getElementById("frontImage").innerHTML = "<p>Front Camera</p><img src = 'data:image/jpg;base64, " + responseObj.frontCamera + "'>";
-            document.getElementById("backImage").innerHTML = "<p>Back Camera</p><img src = 'data:image/jpg;base64, " + responseObj.backCamera + "'>";
+            document.getElementById("frontImage").innerHTML = "<p>Telecamera anteriore</p><img src = 'data:image/jpg;base64, " + responseObj.frontCamera + "'>";
+            document.getElementById("backImage").innerHTML = "<p>Telecamera posteriore</p><img src = 'data:image/jpg;base64, " + responseObj.backCamera + "'>";
         });
     });
 

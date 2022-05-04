@@ -1,5 +1,12 @@
 var lastCameraUpdate = null;
 
+//distanze soglie rilevate da sensori ad ultrasuoni
+const maxDistance = 200;
+const minDistance = 10;
+var s1 = 25;
+var s2 = 50;
+var s3 = 100;
+
 $(document).ready(function () {
     //nascondo tutte le indicazioni dei pericoli
     $("#back-left-1").hide();
@@ -31,6 +38,11 @@ $(document).ready(function () {
     setInterval(UpdateDistance, 250);
 });
 
+
+function SetDistances() {
+    
+}
+
 //aggiornamenti delle distanze visualizzate
 function UpdateDistance() {
     eel.GetDistances()(function (json) {
@@ -45,10 +57,6 @@ function UpdateDistance() {
 
         if (obj.connected == true) {
             $("#arduinoNotConnected").hide();
-            //distanze soglie rilevate da sensori ad ultrasuoni
-            var s1 = 25;
-            var s2 = 50;
-            var s3 = 100;
 
             //{"fl":13.06808,"fm":163.2825,"fr":165.7692,"bl":27.90259,"bm":68.30732,"br":35.82576}
 

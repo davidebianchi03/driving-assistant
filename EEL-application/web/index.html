@@ -30,8 +30,6 @@
 </head>
 
 <body>
-
-
     <div>
         <div class="loading">
             <img src="images/logo_white_large.png" alt="logo">
@@ -79,13 +77,39 @@
                         <input type="button" value="Logout" id="logout-btn" onclick="Logout()">
                         <div class="cameraContainer">
                             <div id="frontImage">
-                                <p>Front Camera</p>
+                                <p>Telecamera anteriore</p>
                             </div>
                             <div id="backImage">
-                                <p>Back Camera</p>
+                                <p>Telecamera posteriore</p>
                             </div>
                         </div>
-                        <p class = "useCamerasContainer"><input type="checkbox" id = "useCameras" checked onclick="ChangeUseCameraState()"><label>Utilizza telecamere per riconoscimento ostacoli</label></p>
+                        <p class="useCamerasContainer"><input type="checkbox" id="useCameras" checked
+                                onclick="ChangeUseCameraState()"><label>Utilizza telecamere per riconoscimento
+                                ostacoli</label></p>
+                        <div class="containerSoglie">
+                            <div class="containerInput">
+                                <p class="setSoglia">
+                                    <b>Anteriore</b>
+                                    <label>1 Livello (Più lontano)</label>
+                                    <input type="number" name="" id="sogliaAnteriore">
+                                    <label>2 Livello</label>
+                                    <input type="number" name="" id="sogliaAnteriore">
+                                    <label>3 Livello (Più vicino)</label>
+                                    <input type="number" name="" id="sogliaAnteriore">
+                                </p>
+                                <p class="setSoglia">
+                                    <b>Posteriore</b>
+                                    <label>1 Livello (Più lontano)</label>
+                                    <input type="number" name="" id="sogliaAnteriore">
+                                    <label>2 Livello</label>
+                                    <input type="number" name="" id="sogliaAnteriore">
+                                    <label>3 Livello (Più vicino)</label>
+                                    <input type="number" name="" id="sogliaAnteriore">
+                                </p>
+                            </div>
+                            <input type="button" value="Aggiorna distanze" id="updateDistanceSettings" onclick="SetDistances()">
+                        </div>
+
                     </div>
 
                 </div>
