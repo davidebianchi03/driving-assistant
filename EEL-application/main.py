@@ -111,10 +111,11 @@ def GetDistances():
         return jsonString
 
 @eel.expose
-def UpdateSettings(server_url, distances):
+def UpdateSettings(server_url, distances, useCameras):
     settings_dict = dict()
     settings_dict["server_url"] = server_url
     settings_dict["distances"] = json.loads(distances)
+    settings_dict["useCamera"] = useCameras
     #salvo la stringa json con le impostazioni nel file
     settings_file = open('settings.json','w')
     settings_file.write(json.dumps(settings_dict))

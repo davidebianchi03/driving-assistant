@@ -35,7 +35,9 @@ $(document).ready(function () {
     });
 
     $("#reload-page").click(function () {
-        eel.Restart();
+        if (confirm("Sei sicuro di voler riavviare il dispositivo?") == true) {
+            eel.Restart();
+        }
     });
 
 });
@@ -75,10 +77,3 @@ function showAlerts() {
     }
 }
 
-var useCameras = false;
-
-function ChangeUseCameraState() {
-    useCameras = !useCameras;
-    document.getElementById("useCameras").checked = useCameras;
-    console.log(document.getElementById("useCameras").checked);
-}

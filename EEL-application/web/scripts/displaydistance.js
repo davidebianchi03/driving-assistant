@@ -72,6 +72,10 @@ function Load() {
             document.getElementById("sogliaPosteriore1").value = s1b;
             document.getElementById("sogliaPosteriore2").value = s2b;
             document.getElementById("sogliaPosteriore3").value = s3b;
+
+            //aggiorno le impostazioni sull'utilizzo delle fotocamere
+            useCameras = responseObj.useCamera;
+            document.getElementById("useCameras").checked = useCameras;
         }
     });
 }
@@ -86,7 +90,7 @@ function UpdateSettings() {
         s2b: s2b,
         s3b: s3b,
     }
-    eel.UpdateSettings(server_url, JSON.stringify(distancesObj));
+    eel.UpdateSettings(server_url, JSON.stringify(distancesObj), useCameras);
 }
 
 function SetFrontFirstDistance() {
@@ -431,4 +435,12 @@ function SetBackRightLevel(level) { //0 -> niente, 1 -> lontano, 2 -> abbastanza
         $("#back-right-2").hide();
         $("#back-right-3").hide();
     }
+}
+
+var useCameras = false;
+function ChangeUseCameraState() {
+    useCameras = !useCameras;
+    document.getElementById("useCameras").checked = useCameras;
+    //salvo le impostazioni nel file dei settings
+    UpdateSettings();
 }
