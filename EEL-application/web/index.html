@@ -71,7 +71,7 @@
                         <h2>Impostazioni</h2>
                         <div class="settings-input">
                             <label>URL Server segnalazioni</label>
-                            <input type="text" id="url-segnalazioni">
+                            <input type="text" id="url-segnalazioni" onchange="UpdateSettings()">
                         </div>
                         <input type="button" value="Ricarica l'assistente" id="reload-page">
                         <input type="button" value="Logout" id="logout-btn" onclick="Logout()">
@@ -86,29 +86,48 @@
                         <p class="useCamerasContainer"><input type="checkbox" id="useCameras" checked
                                 onclick="ChangeUseCameraState()"><label>Utilizza telecamere per riconoscimento
                                 ostacoli</label></p>
-                        <div class="containerSoglie">
-                            <div class="containerInput">
-                                <p class="setSoglia">
-                                    <b>Anteriore</b>
-                                    <label>1 Livello (Più lontano)</label>
-                                    <input type="number" name="" id="sogliaAnteriore">
+
+                        <table class="containerSoglie">
+                            <tr>
+                                <td><b>Anteriore</b></td>
+                                <td>
+                                    <label>1 Livello (Più vicino)</label>
+                                    <input type="number" name="" id="sogliaAnteriore1"
+                                        onchange="SetFrontFirstDistance()" class="distanceInput">
+                                </td>
+                                <td>
                                     <label>2 Livello</label>
-                                    <input type="number" name="" id="sogliaAnteriore">
-                                    <label>3 Livello (Più vicino)</label>
-                                    <input type="number" name="" id="sogliaAnteriore">
-                                </p>
-                                <p class="setSoglia">
+                                    <input type="number" name="" id="sogliaAnteriore2"
+                                        onchange="SetFrontSecondDistance()" class="distanceInput">
+                                </td>
+                                <td>
+                                    <label>3 Livello (Più lontano)</label>
+                                    <input type="number" name="" id="sogliaAnteriore3"
+                                        onchange="SetFrontThirdDistance()" class="distanceInput">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <b>Posteriore</b>
-                                    <label>1 Livello (Più lontano)</label>
-                                    <input type="number" name="" id="sogliaAnteriore">
+                                </td>
+                                <td><label>1 Livello (Più vicino)</label>
+                                    <input type="number" name="" id="sogliaPosteriore1"
+                                        onchange="SetBackFirstDistance()" class="distanceInput">
+                                </td>
+                                <td>
                                     <label>2 Livello</label>
-                                    <input type="number" name="" id="sogliaAnteriore">
-                                    <label>3 Livello (Più vicino)</label>
-                                    <input type="number" name="" id="sogliaAnteriore">
-                                </p>
-                            </div>
-                            <input type="button" value="Aggiorna distanze" id="updateDistanceSettings" onclick="SetDistances()">
-                        </div>
+                                    <input type="number" name="" id="sogliaPosteriore2"
+                                        onchange="SetBackSecondDistance()" class="distanceInput">
+                                </td>
+                                <td>
+                                    <label>3 Livello (Più lontano)</label>
+                                    <input type="number" name="" id="sogliaPosteriore3"
+                                        onchange="SetBackThirdDistance()" class="distanceInput">
+                                </td>
+                            </tr>
+                        </table>
+                        <p class = "info">L'unità della misura è in centimetri, il range è 10 - 150</p>
+
 
                     </div>
 

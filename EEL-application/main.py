@@ -111,9 +111,10 @@ def GetDistances():
         return jsonString
 
 @eel.expose
-def UpdateSettings(server_url):
+def UpdateSettings(server_url, distances):
     settings_dict = dict()
     settings_dict["server_url"] = server_url
+    settings_dict["distances"] = json.loads(distances)
     #salvo la stringa json con le impostazioni nel file
     settings_file = open('settings.json','w')
     settings_file.write(json.dumps(settings_dict))

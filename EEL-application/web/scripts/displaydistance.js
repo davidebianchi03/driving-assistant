@@ -1,11 +1,14 @@
 var lastCameraUpdate = null;
 
 //distanze soglie rilevate da sensori ad ultrasuoni
-const maxDistance = 200;
+const maxDistance = 150;
 const minDistance = 10;
-var s1 = 25;
-var s2 = 50;
-var s3 = 100;
+var s1f = 25;
+var s2f = 50;
+var s3f = 100;
+var s1b = 25;
+var s2b = 50;
+var s3b = 100;
 
 $(document).ready(function () {
     //nascondo tutte le indicazioni dei pericoli
@@ -36,12 +39,176 @@ $(document).ready(function () {
     let now = new Date();
     lastCameraUpdate = now.getMilliseconds();
     setInterval(UpdateDistance, 250);
+
+    document.getElementById("sogliaAnteriore1").value = s1f;
+    document.getElementById("sogliaAnteriore2").value = s2f;
+    document.getElementById("sogliaAnteriore3").value = s3f;
+
+    document.getElementById("sogliaPosteriore1").value = s1b;
+    document.getElementById("sogliaPosteriore2").value = s2b;
+    document.getElementById("sogliaPosteriore3").value = s3b;
+
+    $(".settings-btn").click(Load());
 });
 
+function Load() {
+    //aggiorno le impostazioni visualizzate
+    eel.GetSettings()(function (json) {
+        var responseObj = JSON.parse(json);
+        if (responseObj.valid) {
+            //carico le impostazioni
+            document.getElementById("url-segnalazioni").value = responseObj.server_url;
+            s1f = responseObj.distances.s1f;
+            s2f = responseObj.distances.s2f;
+            s3f = responseObj.distances.s3f;
+            s1b = responseObj.distances.s1b;
+            s2b = responseObj.distances.s2b;
+            s3b = responseObj.distances.s3b;
+            //aggiorno le soglie visualizzate
+            document.getElementById("sogliaAnteriore1").value = s1f;
+            document.getElementById("sogliaAnteriore2").value = s2f;
+            document.getElementById("sogliaAnteriore3").value = s3f;
 
-function SetDistances() {
-    
+            document.getElementById("sogliaPosteriore1").value = s1b;
+            document.getElementById("sogliaPosteriore2").value = s2b;
+            document.getElementById("sogliaPosteriore3").value = s3b;
+        }
+    });
 }
+
+function UpdateSettings() {
+    var server_url = document.getElementById("url-segnalazioni").value;
+    var distancesObj = {
+        s1f: s1f,
+        s2f: s2f,
+        s3f: s3f,
+        s1b: s1b,
+        s2b: s2b,
+        s3b: s3b,
+    }
+    eel.UpdateSettings(server_url, JSON.stringify(distancesObj));
+}
+
+function SetFrontFirstDistance() {
+    let value = document.getElementById("sogliaAnteriore1").value;
+    if (value < s2f && value >= minDistance) {
+        //valore valido
+        s1f = value;
+    }
+    else {
+        //errore
+        if (value > s2f) {
+            alert("Il valore inserito è maggiore di quello della seconda soglia per cui non è valido, inserire un valore inferiore");
+            document.getElementById("sogliaAnteriore1").value = s1f;
+        }
+        else {
+            alert("Il valore inserito è inferiore al valore minimo, inserire un valore maggiore");
+            document.getElementById("sogliaAnteriore1").value = s1f;
+        }
+    }
+    UpdateSettings();
+}
+
+function SetFrontSecondDistance() {
+    let value = document.getElementById("sogliaAnteriore2").value;
+    if (value < s3f && value > s1f) {
+        //valore valido
+        s2f = value;
+    }
+    else {
+        //errore
+        if (value > s3f) {
+            alert("Il valore inserito è maggiore di quello della terza soglia per cui non è valido, inserire un valore inferiore");
+            document.getElementById("sogliaAnteriore2").value = s2f;
+        }
+        else {
+            alert("Il valore inserito è inferiore alla soglia inferiore, inserire un valore maggiore");
+            document.getElementById("sogliaAnteriore2").value = s2f;
+        }
+    }
+    UpdateSettings();
+}
+
+function SetFrontThirdDistance() {
+    let value = document.getElementById("sogliaAnteriore3").value;
+    if (value <= maxDistance && value > s2f) {
+        //valore valido
+        s3f = value;
+    }
+    else {
+        //errore
+        if (value > maxDistance) {
+            alert("Il valore inserito è maggiore di quello massimo per cui non è valido, inserire un valore inferiore");
+            document.getElementById("sogliaAnteriore3").value = s3f;
+        }
+        else {
+            alert("Il valore inserito è inferiore alla soglia inferiore, inserire un valore maggiore");
+            document.getElementById("sogliaAnteriore3").value = s3f;
+        }
+    }
+    UpdateSettings();
+}
+
+function SetBackFirstDistance() {
+    let value = document.getElementById("sogliaPosteriore1").value;
+    if (value < s2b && value >= minDistance) {
+        //valore valido
+        s1b = value;
+    }
+    else {
+        //errore
+        if (value > s2b) {
+            alert("Il valore inserito è maggiore di quello della seconda soglia per cui non è valido, inserire un valore inferiore");
+            document.getElementById("sogliaPosteriore1").value = s1b;
+        }
+        else {
+            alert("Il valore inserito è inferiore al valore minimo, inserire un valore maggiore");
+            document.getElementById("sogliaPosteriore1").value = s1b;
+        }
+    }
+    UpdateSettings();
+}
+
+function SetBackSecondDistance() {
+    let value = document.getElementById("sogliaPosteriore2").value;
+    if (value < s3b && value > s1b) {
+        //valore valido
+        s2b = value;
+    }
+    else {
+        //errore
+        if (value > s3b) {
+            alert("Il valore inserito è maggiore di quello della terza soglia per cui non è valido, inserire un valore inferiore");
+            document.getElementById("sogliaPosteriore2").value = s2b;
+        }
+        else {
+            alert("Il valore inserito è inferiore alla soglia inferiore, inserire un valore maggiore");
+            document.getElementById("sogliaPosteriore2").value = s2b;
+        }
+    }
+    UpdateSettings();
+}
+
+function SetBackThirdDistance() {
+    let value = document.getElementById("sogliaPosteriore3").value;
+    if (value <= maxDistance && value > s2b) {
+        //valore valido
+        s3b = value;
+    }
+    else {
+        //errore
+        if (value > maxDistance) {
+            alert("Il valore inserito è maggiore di quello massimo per cui non è valido, inserire un valore inferiore");
+            document.getElementById("sogliaPosteriore3").value = s3b;
+        }
+        else {
+            alert("Il valore inserito è inferiore alla soglia inferiore, inserire un valore maggiore");
+            document.getElementById("sogliaPosteriore3").value = s3b;
+        }
+    }
+    UpdateSettings();
+}
+
 
 //aggiornamenti delle distanze visualizzate
 function UpdateDistance() {
@@ -61,69 +228,69 @@ function UpdateDistance() {
             //{"fl":13.06808,"fm":163.2825,"fr":165.7692,"bl":27.90259,"bm":68.30732,"br":35.82576}
 
             //sensori anteriori
-            if (obj.fl < s3 && obj.fl > s2) {
+            if (obj.fl < s3f && obj.fl > s2f) {
                 SetFrontLeftLevel(1);
-            } else if (obj.fl < s2 && obj.fl > s1) {
+            } else if (obj.fl < s2f && obj.fl > s1f) {
                 SetFrontLeftLevel(2);
-            } else if (obj.fl < s1) {
+            } else if (obj.fl < s1f) {
                 SetFrontLeftLevel(3);
-            } else if (obj.fl > s3) {
+            } else if (obj.fl > s3f) {
                 SetFrontLeftLevel(0);
                 fl = false;
             }
 
-            if (obj.fm < s3 && obj.fm > s2) {
+            if (obj.fm < s3f && obj.fm > s2f) {
                 SetFrontCenterLevel(1);
-            } else if (obj.fm < s2 && obj.fm > s1) {
+            } else if (obj.fm < s2f && obj.fm > s1f) {
                 SetFrontCenterLevel(2);
-            } else if (obj.fm < s1) {
+            } else if (obj.fm < s1f) {
                 SetFrontCenterLevel(3);
-            } else if (obj.fm > s3) {
+            } else if (obj.fm > s3f) {
                 SetFrontCenterLevel(0);
                 fm = false;
             }
 
-            if (obj.fr < s3 && obj.fr > s2) {
+            if (obj.fr < s3f && obj.fr > s2f) {
                 SetFrontRightLevel(1);
-            } else if (obj.fr < s2 && obj.fr > s1) {
+            } else if (obj.fr < s2f && obj.fr > s1f) {
                 SetFrontRightLevel(2);
-            } else if (obj.fr < s1) {
+            } else if (obj.fr < s1f) {
                 SetFrontRightLevel(3);
-            } else if (obj.fr > s3) {
+            } else if (obj.fr > s3f) {
                 SetFrontRightLevel(0);
                 fr = false;
             }
 
             //sensori posteriori
-            if (obj.bl < s3 && obj.bl > s2) {
+            if (obj.bl < s3b && obj.bl > s2b) {
                 SetBackLeftLevel(1);
-            } else if (obj.bl < s2 && obj.bl > s1) {
+            } else if (obj.bl < s2b && obj.bl > s1b) {
                 SetBackLeftLevel(2);
-            } else if (obj.bl < s1) {
+            } else if (obj.bl < s1b) {
                 SetBackLeftLevel(3);
-            } else if (obj.bl > s3) {
+            } else if (obj.bl > s3b) {
                 SetBackLeftLevel(0);
                 bl = false;
             }
 
-            if (obj.bm < s3 && obj.bm > s2) {
+            if (obj.bm < s3b && obj.bm > s2b) {
                 SetBackCenterLevel(1);
-            } else if (obj.bm < s2 && obj.bm > s1) {
+            } else if (obj.bm < s2b && obj.bm > s1b) {
                 SetBackCenterLevel(2);
-            } else if (obj.bm < s1) {
+            } else if (obj.bm < s1b) {
                 SetBackCenterLevel(3);
-            } else if (obj.bm > s3) {
+            } else if (obj.bm > s3b) {
                 SetBackCenterLevel(0);
                 bm = false;
             }
 
-            if (obj.br < s3 && obj.br > s2) {
+            if (obj.br < s3b && obj.br > s2b) {
                 SetBackRightLevel(1);
-            } else if (obj.br < s2 && obj.br > s1) {
+            } else if (obj.br < s2b && obj.br > s1b) {
                 SetBackRightLevel(2);
-            } else if (obj.br < s1) {
+            } else if (obj.br < s1b) {
                 SetBackRightLevel(3);
-            } else if (obj.br > s3) {
+            } else if (obj.br > s3b) {
                 SetBackRightLevel(0);
                 br = false;
             }

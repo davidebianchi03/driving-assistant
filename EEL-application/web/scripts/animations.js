@@ -23,14 +23,6 @@ $(document).ready(function () {
 
     $(".settings-btn").click(function () {
         $(".settings-container").show('slow');
-        //aggiorno le impostazioni visualizzate
-        eel.GetSettings()(function (json) {
-            var responseObj = JSON.parse(json);
-            if (responseObj.valid) {
-                //carico le impostazioni
-                document.getElementById("url-segnalazioni").value = responseObj.server_url;
-            }
-        });
         eel.GetCamerasImages()(function (json) {
             var responseObj = JSON.parse(json);
             document.getElementById("frontImage").innerHTML = "<p>Telecamera anteriore</p><img src = 'data:image/jpg;base64, " + responseObj.frontCamera + "'>";
@@ -40,8 +32,6 @@ $(document).ready(function () {
 
     $("#close-settings").click(function () {
         $(".settings-container").hide('slow');
-        var server_url = document.getElementById("url-segnalazioni").value;
-        eel.UpdateSettings(server_url);
     });
 
     $("#reload-page").click(function () {
@@ -87,7 +77,7 @@ function showAlerts() {
 
 var useCameras = false;
 
-function ChangeUseCameraState(){
+function ChangeUseCameraState() {
     useCameras = !useCameras;
     document.getElementById("useCameras").checked = useCameras;
     console.log(document.getElementById("useCameras").checked);
