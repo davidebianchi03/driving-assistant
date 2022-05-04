@@ -45,7 +45,21 @@
     </div>
 
     <div class="container">
-        <p class="coming-soon">Coming soon...</p>
+        <p class="title"><b>Guido</b></p>
+        <div class="guidoContainer">
+            <img src="img/screenshot.JPG" alt="screenshot">
+            <div>
+                <p class="description">
+                    Guido è un assistente alla guida rivolto agli utilizzatori di macchine non dotate di serie di questo optional.<br>
+                    Guido è rivolto principalmente agli utilizzatori di automobili non di ultima generazione.<br>
+                    Guido è facilmente installabile dall'utente, consigliamo comunque l'installazione da parte di un tecnico specializzato.
+                    L'assistente è facilmente personalizzabile, potendosi, quindi, adattare a chiunque.<br>
+                    L'assistente si chiama Guido perchè pensiamo che sia importante avere un dispositivo che si interfacci con il guidatore come se si trattasse di un'altra persona; inoltre
+                    questo nome contiene al suo interno una delle funzioni che esso dovrà fare cioè guidare, o meglio, aiutare l'utente a guidare.
+                </p>
+                <br><br><br><br><br><br><br><br>
+            </div>
+        </div>
     </div>
 
     <div class="bottom">

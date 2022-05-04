@@ -1,5 +1,6 @@
 <?php
 require_once 'DBconfig.php';
+$userLevel = 0;
 //autenticazione dell'utente
 session_start();
 //controllo il login
@@ -18,6 +19,7 @@ if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
                     header('location:waitmailconfirm.php');
                     exit();
                 }
+                $userLevel = $row['UserLevel'];
             } else {
                 echo "Utente non autenticato";
                 session_destroy();
@@ -60,8 +62,13 @@ if (isset($_SESSION['session_id']) && !empty(trim($_SESSION['session_id']))) {
     <script src="js/lib/jquery.min.js" type="text/javascript"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
     <script src="js/reserved-area-animations.js"></script>
-    <script src="js/display-map.js"></script>
-
+    <?php
+    if ($userLevel == 1) {
+        echo '<script src="js/display-map-admin.js"></script>';
+    } else {
+        echo '<script src="js/display-map-user.js"></script>';
+    }
+    ?>
 </head>
 
 <body>

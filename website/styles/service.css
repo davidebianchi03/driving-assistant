@@ -8,3 +8,43 @@
     text-align: center;
     margin-top: 25vh;
 }
+
+.title{
+    font-family: 'Fredoka', sans-serif;
+    font-size: 30px;
+    margin: 15px;
+}
+
+.description{
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+    margin: 15px;
+    text-align: justify;
+}
+
+.guidoContainer{
+    display: flex;
+}
+
+.guidoContainer img{
+    width: 50%;
+    min-width: 50%;
+    margin: 10px 20px;
+    height: 500px;
+}
+
+.guidoContainer div{
+    height: 1100px;
+}
+
+@media screen and (max-width:850px) {
+    .guidoContainer{
+        display: inline;
+    }
+    
+    .guidoContainer img{
+        width: 100%;
+        height: auto;
+        margin: 10px;
+    }
+}
