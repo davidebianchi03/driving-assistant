@@ -13,8 +13,22 @@ if (isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
             $result = mysqli_stmt_get_result($stmt);
             if (mysqli_num_rows($result) == 1) {
                 $row = mysqli_fetch_array($result);
-                $emailText = "Conferma l'iscrizione al portale di Driving Assistant premendo sul seguente link:" .
-                    $basePath . "waitmailconfirm.php?userid=" . $row['UserID'];
+                $url = $basePath . "waitmailconfirm.php?userid=" . $row['UserID'];
+                $emailText = "Conferma l'iscrizione al portale di Driving Assistant cliccando qui:<br>".
+                "<br><a href = '".$url."' style = \"font: inherit;
+                background-color: #FF7A59;
+                border: none;
+                padding: 10px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-weight: 900; 
+                color: white;
+                border-radius: 5px; 
+                box-shadow: 3px 3px #d94c53;
+                text-decoration:none;\">Verifica Email</a><br><br><br><br>" .
+                "<p style = \"font-size:12px;font-style: italic;\">Se il pulsante non dovesse funzionare clicca su questo link <br>".
+                "<a href = '".$url."'>$url</a></p>";
+                    
 
                 SendEmail(
                     $row["Email"],
