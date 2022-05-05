@@ -17,9 +17,10 @@
                             //vado a cambiare lo stato della segnalazione nel database da in attesa a presa in carico
                             require_once '../DBconfig.php';
 
-                            $sql = 'UPDATE segnalazioni SET Completed = 1 WHERE UserID = ?';
+                            $sql = 'UPDATE segnalazioni SET completed = 1 WHERE ? = id';
+
                             if ($stmt = mysqli_prepare($link, $sql)) {
-                                mysqli_stmt_bind_param($stmt, 'i', $_SESSION['session_id']);
+                                mysqli_stmt_bind_param($stmt, 'i', $_POST['alert_id']);
 
                                 if (mysqli_stmt_execute($stmt)) {
                                     $responseObj->responseCode = "200";
