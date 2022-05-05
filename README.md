@@ -1,3 +1,5 @@
+![Awesome](https://img.shields.io/website?url=https%3A%2F%2Fdrivingassistant.altervista.org%2F) 
+![Awesome](https://img.shields.io/github/repo-size/davidebianchi03/driving-assistant) 
 # Driving-assistant
 Ci proponiamo lo scopo di ridurre gli incidenti stradali dovuti alle disattenzioni di alcuni guidatori. Allo stesso tempo, ci siamo accorti che le nostre strade sono sempre più rovinate e nessuno fa nulla per cercare di migliorarle, abbiamo, quindi, pensato ad un sistema che integri anche la possibilità di effettuare segnalazioni riguardanti lo stato delle strade.
 Abbiamo concentrato le soluzioni di questi problemi all'interno di Guido. 
