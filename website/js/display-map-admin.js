@@ -1,9 +1,10 @@
 $(document).ready(function () {
 
     mapboxgl.accessToken = "pk.eyJ1IjoiZGFkZWJpYTAzIiwiYSI6ImNsMTk2eGlqMjBraTMzZHBtNjB6dzlscXgifQ.vu-PtXncRAUzN_b1Jypt8A";
+    console.log(basePath + "/utils/getalertslist.php");
     map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        style: 'mapbox://styles/mapbox/streets-v11?optimize=true',
         center: [9, 45],
         zoom: 7,
         minZoom: 2

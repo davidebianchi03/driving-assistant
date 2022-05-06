@@ -187,4 +187,11 @@ def GetCamerasImages():
 def GetObstacles( bl, bm, br, fl, fm, fr):
     return json.dumps(detector.DetectAll( bl, bm, br, fl, fm, fr))
 
-eel.start('index.html', allowed_prefixs=['start-with-me'])
+def CloseCallback():
+    try:
+        global gps
+        gps.CloseSerial()
+    except:
+        pass
+
+eel.start('index.html', allowed_prefixs=['start-with-me'],close_callback=CloseCallback)

@@ -35,9 +35,9 @@ class pygps:
         serial_list = list(serial.tools.list_ports.comports())
         gps_port_name = None
         for port in serial_list:
-            if port.manufacturer in 'FTDI':#da cambiare con il produttore dell'interfaccia seriale del gps
+            if not (port.manufacturer.find('FTDI') == -1):#da cambiare con il produttore dell'interfaccia seriale del gps
                 gps_port_name = port.name
-            #print(port.manufacturer, port.name)
+            print(port.manufacturer, port.name)
         return gps_port_name
 
     def __init__(self):
@@ -60,7 +60,12 @@ class pygps:
             self.sem = threading.Semaphore(1)
             #inizializzo il semaforo per il controllo dell'accesso alla lettura della seriale
             self.sem_serial = threading.Semaphore(1)
-        except:
+        except Exception as e:
+            print(e)
+            try:
+                self.serial_port.close()
+            except:
+                pass
             assert(False,'GPS non connesso')
 
     #Metodo per ottenere le coordinate

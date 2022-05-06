@@ -1,2 +1,2 @@
 //file contenente variabili globali con impostazioni di sistema
-var basePath = "";
+const basePath = "/website/";
