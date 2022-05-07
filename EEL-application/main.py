@@ -25,7 +25,6 @@ detector = Detect(1,0)
 #inizializzazione del modulo gps(se connesso)
 try:
     gps = pygps()
-    gps.Start()
     gps_connected = True
 except:
     gps_connected = False
@@ -44,7 +43,7 @@ def GetPosition():
     global gps
     if  gps_connected:
         try:
-            survey = gps.GetLastKnownPosition()
+            survey = gps.GetPosition()
             survey["gps_connected"] = True
             jsonString = json.dumps(survey)
             return jsonString
