@@ -59,8 +59,8 @@
                 <!-- Div contenente gli avvertimenti -->
                 <div id="alerts">
                     <!-- Pericoli -->
-                    <div class = "personAlert">
-                        <img src = "images/man.png" alt = "person" class = "person">
+                    <div class="personAlert">
+                        <img src="images/man.png" alt="person" class="person">
                     </div>
                 </div>
 
@@ -86,9 +86,15 @@
                                 <p>Telecamera posteriore</p>
                             </div>
                         </div>
-                        <p class="useCamerasContainer"><input type="checkbox" id="useCameras" checked
-                                onclick="ChangeUseCameraState()"><label>Utilizza telecamere per riconoscimento
-                                ostacoli</label></p>
+                        <p class="useCamerasContainer">
+                            <input type="checkbox" id="useCameras" checked onclick="ChangeUseCameraState()">
+                            <label>Utilizza telecamere per riconoscimento ostacoli</label>
+                        </p>
+
+                        <p class="useCamerasContainer">
+                            <input type="checkbox" id="useSound" checked onclick="ChangeUseSoundState()">
+                            <label>Utilizza indicatore sonoro</label>
+                        </p>
 
                         <table class="containerSoglie">
                             <tr>
@@ -129,7 +135,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <p class = "info">L'unità della misura è in centimetri, il range è 10 - 150</p>
+                        <p class="info">L'unità della misura è in centimetri, il range è 10 - 150</p>
 
 
                     </div>

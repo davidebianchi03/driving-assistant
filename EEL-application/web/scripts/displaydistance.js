@@ -1,4 +1,4 @@
-var lastCameraUpdate = null;
+var lastCameraUpdate = Date.now();
 
 //distanze soglie rilevate da sensori ad ultrasuoni
 const maxDistance = 150;
@@ -38,7 +38,7 @@ $(document).ready(function () {
 
     let now = new Date();
     lastCameraUpdate = now.getMilliseconds();
-    setInterval(UpdateDistance, 250);
+    setInterval(UpdateDistance, 350);
 
     document.getElementById("sogliaAnteriore1").value = s1f;
     document.getElementById("sogliaAnteriore2").value = s2f;
@@ -76,6 +76,10 @@ function Load() {
             //aggiorno le impostazioni sull'utilizzo delle fotocamere
             useCameras = responseObj.useCamera;
             document.getElementById("useCameras").checked = useCameras;
+
+            //aggiorno le impostazioni sull'utilizzo dei segnali acustici
+            useSound = responseObj.beep;
+            document.getElementById("useSound").checked = useSound;
         }
     });
 }
@@ -90,7 +94,7 @@ function UpdateSettings() {
         s2b: s2b,
         s3b: s3b,
     }
-    eel.UpdateSettings(server_url, JSON.stringify(distancesObj), useCameras);
+    eel.UpdateSettings(server_url, JSON.stringify(distancesObj), useCameras, useSound);
 }
 
 function SetFrontFirstDistance() {
@@ -213,9 +217,12 @@ function SetBackThirdDistance() {
     UpdateSettings();
 }
 
+var lastBeep = Date.now();
 
 //aggiornamenti delle distanze visualizzate
 function UpdateDistance() {
+    var beepCount = 0;
+
     eel.GetDistances()(function (json) {
         //console.log(json);
         var obj = JSON.parse(json);
@@ -234,10 +241,19 @@ function UpdateDistance() {
             //sensori anteriori
             if (obj.fl < s3f && obj.fl > s2f) {
                 SetFrontLeftLevel(1);
+                if (beepCount <= 1) {
+                    beepCount = 1;
+                }
             } else if (obj.fl < s2f && obj.fl > s1f) {
                 SetFrontLeftLevel(2);
+                if (beepCount <= 2) {
+                    beepCount = 2;
+                }
             } else if (obj.fl < s1f) {
                 SetFrontLeftLevel(3);
+                if (beepCount <= 3) {
+                    beepCount = 3;
+                }
             } else if (obj.fl > s3f) {
                 SetFrontLeftLevel(0);
                 fl = false;
@@ -245,10 +261,19 @@ function UpdateDistance() {
 
             if (obj.fm < s3f && obj.fm > s2f) {
                 SetFrontCenterLevel(1);
+                if (beepCount <= 1) {
+                    beepCount = 1;
+                }
             } else if (obj.fm < s2f && obj.fm > s1f) {
                 SetFrontCenterLevel(2);
+                if (beepCount <= 2) {
+                    beepCount = 2;
+                }
             } else if (obj.fm < s1f) {
                 SetFrontCenterLevel(3);
+                if (beepCount <= 3) {
+                    beepCount = 3;
+                }
             } else if (obj.fm > s3f) {
                 SetFrontCenterLevel(0);
                 fm = false;
@@ -256,10 +281,19 @@ function UpdateDistance() {
 
             if (obj.fr < s3f && obj.fr > s2f) {
                 SetFrontRightLevel(1);
+                if (beepCount <= 1) {
+                    beepCount = 1;
+                }
             } else if (obj.fr < s2f && obj.fr > s1f) {
                 SetFrontRightLevel(2);
+                if (beepCount <= 2) {
+                    beepCount = 2;
+                }
             } else if (obj.fr < s1f) {
                 SetFrontRightLevel(3);
+                if (beepCount <= 3) {
+                    beepCount = 3;
+                }
             } else if (obj.fr > s3f) {
                 SetFrontRightLevel(0);
                 fr = false;
@@ -268,10 +302,19 @@ function UpdateDistance() {
             //sensori posteriori
             if (obj.bl < s3b && obj.bl > s2b) {
                 SetBackLeftLevel(1);
+                if (beepCount <= 1) {
+                    beepCount = 1;
+                }
             } else if (obj.bl < s2b && obj.bl > s1b) {
                 SetBackLeftLevel(2);
+                if (beepCount <= 2) {
+                    beepCount = 2;
+                }
             } else if (obj.bl < s1b) {
                 SetBackLeftLevel(3);
+                if (beepCount <= 3) {
+                    beepCount = 3;
+                }
             } else if (obj.bl > s3b) {
                 SetBackLeftLevel(0);
                 bl = false;
@@ -279,10 +322,19 @@ function UpdateDistance() {
 
             if (obj.bm < s3b && obj.bm > s2b) {
                 SetBackCenterLevel(1);
+                if (beepCount <= 1) {
+                    beepCount = 1;
+                }
             } else if (obj.bm < s2b && obj.bm > s1b) {
                 SetBackCenterLevel(2);
+                if (beepCount <= 2) {
+                    beepCount = 2;
+                }
             } else if (obj.bm < s1b) {
                 SetBackCenterLevel(3);
+                if (beepCount <= 3) {
+                    beepCount = 3;
+                }
             } else if (obj.bm > s3b) {
                 SetBackCenterLevel(0);
                 bm = false;
@@ -290,25 +342,41 @@ function UpdateDistance() {
 
             if (obj.br < s3b && obj.br > s2b) {
                 SetBackRightLevel(1);
+                if (beepCount <= 1) {
+                    beepCount = 1;
+                }
             } else if (obj.br < s2b && obj.br > s1b) {
                 SetBackRightLevel(2);
+                if (beepCount <= 2) {
+                    beepCount = 2;
+                }
             } else if (obj.br < s1b) {
                 SetBackRightLevel(3);
+                if (beepCount <= 3) {
+                    beepCount = 3;
+                }
             } else if (obj.br > s3b) {
                 SetBackRightLevel(0);
                 br = false;
             }
 
+            let now = Date.now();
+            var beep = false;
+
+            if (now - lastBeep > 1050) {
+                beep = true;
+                lastBeep = now;
+                if (beepCount != 0 && useSound)
+                    eel.Beep(beepCount);
+            }
+
             //controllo per la ricerca di eventuali ostacoli riconosciuti tramite webcam effettuo un nuovo aggiornamento ogni 2 secondi
-            let now = new Date();
-            if ((now.getMilliseconds() - lastCameraUpdate) > 2000 && useCameras) {
+            if ((now - lastCameraUpdate) > 2000 && useCameras) {
                 lastCameraUpdate = now.getMilliseconds();
-                eel.GetObstacles(bl, bm, br, fl, fm, fr)(function (json) {
+                eel.GetObstacles()(function (json) {
                     console.log(json);
                 });
-                console.log("hello")
             }
-            console.log(now.getMilliseconds() - lastCameraUpdate);
         }
         else {
             $("#arduinoNotConnected").show();
@@ -441,6 +509,14 @@ var useCameras = false;
 function ChangeUseCameraState() {
     useCameras = !useCameras;
     document.getElementById("useCameras").checked = useCameras;
+    //salvo le impostazioni nel file dei settings
+    UpdateSettings();
+}
+
+var useSound = false;
+function ChangeUseSoundState() {
+    useSound = !useSound;
+    document.getElementById("useSound").checked = useSound;
     //salvo le impostazioni nel file dei settings
     UpdateSettings();
 }

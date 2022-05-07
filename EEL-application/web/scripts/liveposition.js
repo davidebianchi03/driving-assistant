@@ -4,7 +4,7 @@ var lastKnownBearing = null;
 var firstPosition = true;
 
 function StartToUpdatePosition() {
-    setInterval(getLocation, 150);
+    setInterval(getLocation, 250);
     FollowMe();
     // se l'utente cerca di spostare la mappa disabilito il follow me
     $( "#map" ).mousedown(function(){
