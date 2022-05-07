@@ -642,3 +642,23 @@ body {
     font-style: italic;
     margin-left: 40px;
 }
+
+
+/* Pericolo persona */
+.person {
+    width: 50px;
+    margin: auto;
+    margin-left: -25px;
+    margin-top: 20px;
+}
+
+.personAlert {
+    margin-left: 75px;
+    margin-top: 10px;
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 75px solid;
+    border-bottom-color: orange;
+}
