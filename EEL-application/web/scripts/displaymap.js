@@ -11,41 +11,38 @@ $(document).ready(function () {
         style: 'mapbox://styles/mapbox/streets-v11',
         center: [0, 0],
         zoom: 0.6,
-        minZoom: 15,
+        // minZoom: 15,
         pitch: 60, // pitch in degrees
     });
-    updatePosition();//inizio ad aggiornare la posizione in tempo reale dell'utente sulla mappa
-    new Promise(r => setTimeout(r, 2500));
+
+    map.on('load', function () {
+        StartToUpdatePosition();
+    });
+
+    //creo il pin che visualizza la mia posizione attuale
+    var div = document.createElement('div');
+    div.className = 'livemarker';
+    liveMarker = new mapboxgl.Marker(div)
+        .setLngLat([0, 0])
+        .addTo(map);
+    
 });
 
-var followMe = false;//variabile che indica se il follow me è attivo
-var justFollowMe = false;
-//Funzione utilizzata per seguire l'utente sulla mappa
-function StartFollowMe() {
-    followMe = true;
-    if (!justFollowMe) {
-        setInterval(FollowMe, 100);//richiamo la funzione ogni 100 millisecondi
-    }
+function SetMarkerAt(position) {
+    //inizializzo il pin
+    liveMarker.setLngLat([position.longitude, position.latitude])
 }
 
-function FollowMe() {
-    const { lng, lat } = map.getCenter();
-
-    if (followMe && getDistanceFromLatLon(lastKnownPosition, new GpsCoordinates(lat, lng)) < 100) {
-        //imposto il bearing
-        if (lastKnowmBearing != null) {
-            const camera = map.getFreeCameraOptions();
-            camera.setPitchBearing(60, lastKnowmBearing);
-            map.setFreeCameraOptions(camera);
-        }
-        //centro la mappa sull'ultima posizione visualizzata
-        map.flyTo({
-            center: [lastKnownPosition.longitude, lastKnownPosition.latitude]
-        });
-        
-    }
-    else if (getDistanceFromLatLon(lastKnownPosition, new GpsCoordinates(lat, lng)) > 100) {
-        followMe = false;
-    }
+function GoTo(position) {
+    // map.zoomTo(20, { duration: 100 });
+    map.flyTo({
+        center: [position.longitude, position.latitude],
+        zoom: 18
+    });
 }
 
+function SetBearing(bearing) {
+    const camera = map.getFreeCameraOptions();
+    camera.setPitchBearing(60, bearing);
+    map.setFreeCameraOptions(camera);
+}
