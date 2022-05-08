@@ -185,8 +185,8 @@ def GetCamerasImages():
     return json.dumps(detector.GetBase64Images())
 
 @eel.expose
-def GetObstacles( bl, bm, br, fl, fm, fr):
-    return json.dumps(detector.DetectAll( bl, bm, br, fl, fm, fr))
+def GetObstacles():
+    return json.dumps(detector.DetectAll())
 
 @eel.expose
 def Beep(count):

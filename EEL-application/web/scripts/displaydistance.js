@@ -36,8 +36,9 @@ $(document).ready(function () {
     $("#front-center-3").hide();
     $("#front-right-3").hide();
 
-    let now = new Date();
-    lastCameraUpdate = now.getMilliseconds();
+    $(".personAlert").hide();
+
+    lastCameraUpdate = Date.now();
     setInterval(UpdateDistance, 350);
 
     document.getElementById("sogliaAnteriore1").value = s1f;
@@ -371,11 +372,22 @@ function UpdateDistance() {
             }
 
             //controllo per la ricerca di eventuali ostacoli riconosciuti tramite webcam effettuo un nuovo aggiornamento ogni 2 secondi
-            if ((now - lastCameraUpdate) > 2000 && useCameras) {
-                lastCameraUpdate = now.getMilliseconds();
-                eel.GetObstacles()(function (json) {
-                    console.log(json);
-                });
+            if ((Date.now() - lastCameraUpdate) > 1500 && useCameras) {
+                //se è stato rilevato un ostacolo dai sensori di distanza
+                if (beepCount != 0) {
+                    eel.GetObstacles()(function (json) {
+                        var obstaclesObj = JSON.parse(json);
+                        if(obstaclesObj.frontPerson || obstaclesObj.backPerson){
+                            //rilevata una persona vicino alla macchina
+                            $(".personAlert").show();
+                            eel.Speak("Persona vicino alla macchina");
+                        }
+                        else{
+                            $(".personAlert").hide();
+                        }
+                    });
+                }
+                lastCameraUpdate = Date.now();
             }
         }
         else {
