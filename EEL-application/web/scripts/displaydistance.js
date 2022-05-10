@@ -380,7 +380,7 @@ function UpdateDistance() {
                         if(obstaclesObj.frontPerson || obstaclesObj.backPerson){
                             //rilevata una persona vicino alla macchina
                             $(".personAlert").show();
-                            eel.Speak("Persona vicino alla macchina");
+                            eel.Speak("Persona vicino all'auto");
                         }
                         else{
                             $(".personAlert").hide();

@@ -1,6 +1,7 @@
 from gtts import gTTS
 import os
-from pygame import mixer
+# from pygame import mixer
+import playsound
 
 """
     Classe che serve per fare parlare python in modo da dare le indicazioni stradali
@@ -20,12 +21,13 @@ class pySpeak:
         obj = gTTS(text=text, lang=self.language, slow=False)
         obj.save('output.mp3')
         #riproduco il file mp3
-        mixer.init()
-        mixer.music.load('output.mp3')
-        mixer.music.play() 
-        while mixer.music.get_busy():
-            continue
-        #una volta finista la riproduzione carico un file vuoto ed elimino il file con l'istruzione
-        mixer.music.load("empty.mp3")#c
+        # mixer.init()
+        # mixer.music.load('output.mp3')
+        # mixer.music.play() 
+        # while mixer.music.get_busy():
+        #     continue
+        # #una volta finista la riproduzione carico un file vuoto ed elimino il file con l'istruzione
+        # mixer.music.load("empty.mp3")#c
+        playsound.playsound('output.mp3')
         os.remove('output.mp3')
 
